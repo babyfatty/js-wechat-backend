@@ -27,7 +27,7 @@ app.use(function*(next){
            {
              "type":"view",
              "name":"竞赛报名",
-             "url":"http://baidu"
+             "url":"http://baidu.com"
            },
            {
              "type":"click",

@@ -80,7 +80,7 @@ app.use(function*(){
         }
     ]
   }
-  var result = yield* agetpi.createMenu(menu);
+  var result = yield* api.createMenu(menu);
   console.log(result)
   console.log('222')
 })

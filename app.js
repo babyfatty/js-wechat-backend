@@ -10,35 +10,6 @@ app.use(
     wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
 
-var menu = {
- "button":[
-   {
-     "type":"click",
-     "name":"今日歌曲",
-     "key":"V1001_TODAY_MUSIC"
-   },
-   {
-     "name":"菜单",
-     "sub_button":[
-       {
-         "type":"view",
-         "name":"搜索",
-         "url":"http://www.soso.com/"
-       },
-       {
-         "type":"click",
-         "name":"赞一下我们",
-         "key":"V1001_GOOD"
-       }]
-    }
-  ]
- }
-
-
-var result = yield* api.createMenu(menu);
-
-console.log(result)
-
   var message = this.weixin;
   if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)
@@ -72,8 +43,8 @@ console.log(result)
       {
         title: '你来我家接我吧',
         description: '这是女神与高富帅之间的对话',
-        picurl: '//gw.alicdn.com/tps/TB1tFrCLFXXXXaBaXXXXXXXXXXX-517-502.png',
-        url: '//taobao.com/'
+        picurl: '//img.blog.csdn.net/20151030004840663',
+        url: '//baidu.com/'
       }
     ];
   }

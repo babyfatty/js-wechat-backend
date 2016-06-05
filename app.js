@@ -7,12 +7,12 @@ var wechat = require('co-wechat');
 //   this.body = 'Hello World';
 // });
 
-router.get('/',function*(){
-	this.body= 'Hello World';
-})
-
 router.get('/wechat', 
-    wechat('mytoken').middleware(function *() {
+    wechat({
+        token: 'mytoken',
+        appid: 'wx0b4f6ee3da84307c',
+        appsecret: '2e6e21ead4da99a6f565b9fc07f138f5'
+    }).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   if (message.FromUserName === 'diaosi') {

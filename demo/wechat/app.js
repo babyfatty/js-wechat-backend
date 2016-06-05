@@ -5,8 +5,8 @@ var errorhandler    = require("errorhandler");
 var bodyParser      = require("body-parser");
 var fs              = require("fs");
 var path            = require("path");
-var routes          = require("./../wechat-demo/routes");
-var config          = require("./../wechat-demo/config");
+var routes          = require("./../wechat/routes");
+var config          = require("./../wechat/config");
 
 var app = express();
 
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // route
 
-    app.use('/weixin', routes.weixin);
+app.use('/wechat', routes.weixin);
 
 
 // error handler

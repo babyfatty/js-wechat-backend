@@ -2,7 +2,7 @@ var koa = require('koa');
 var router = require('koa-router')();
 var app = koa();
 var wechat = require('co-wechat');
-var config = require('./config.js')；
+var config = require('./config.js');
 var fs = require('fs')
 var API = require('wechat-api');
 var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
@@ -83,7 +83,7 @@ app.use(function*(){
         }
     ]
   }
-  var result = yield* api.createMenu(menu);
+  var result = yield* agetpi.createMenu(menu);
   console.log(result)
 })  
 

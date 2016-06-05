@@ -11,7 +11,8 @@ router.get('/',function*(){
 	this.body= 'Hello World';
 })
 
-router.get('/wechat', wechat('mytoken').middleware(function *() {
+router.get('/wechat', 
+    wechat('mytoken').middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   if (message.FromUserName === 'diaosi') {
@@ -51,8 +52,8 @@ router.get('/wechat', wechat('mytoken').middleware(function *() {
       }
     ];
   }
-});
-
+})
+);
 
 
 app

@@ -20,8 +20,6 @@ app.use(function*(){
   var result = yield* api.getMenu();
   console.log('321')
   console.log(result)
-})
-.use(function*(){
   console.log('123')
   var menu = {
    "button":[
@@ -85,7 +83,7 @@ app.use(function*(){
   var result = yield* agetpi.createMenu(menu);
   console.log(result)
   console.log('222')
-})  
+})
 
 app.use( 
     wechat(config.wechat).middleware(function *() {

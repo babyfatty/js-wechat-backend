@@ -1,10 +1,14 @@
 var koa = require('koa');
-var router = require('koa-router')();
+var router = require('koa-router');
 var app = koa();
 var wechat = require('co-wechat');
 // app.use(function *(){
 //   this.body = 'Hello World';
 // });
+
+app.use(router(app));
+
+
 
 app.use(wechat({
         token: 'mytoken',
@@ -13,16 +17,16 @@ app.use(wechat({
     }).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
-  if (message.FromUserName === 'diaosi') {
+  if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)
     this.body = 'hehe';
-  } else if (message.FromUserName === 'text') {
+  } else if (message.Content === 'text') {
     //你也可以这样回复text类型的信息
     this.body = {
       content: 'text object',
       type: 'text'
     };
-  } else if (message.FromUserName === 'hehe') {
+  } else if (message.Content === 'hehe') {
     // 回复一段音乐
     this.body = {
       type: "music",
@@ -33,7 +37,7 @@ app.use(wechat({
         hqMusicUrl: "http://mp3.com/xx.mp3"
       }
     };
-  } else if (message.FromUserName === 'kf') {
+  } else if (message.Content === 'kf') {
     // 转发到客服接口
     this.body = {
       type: "customerService",
@@ -53,7 +57,7 @@ app.use(wechat({
 }))
 
 
-router.get('/wechat', 
+app.get('/wechat', 
     wechat({
         token: 'mytoken',
         appid: 'wx0b4f6ee3da84307c',
@@ -61,16 +65,16 @@ router.get('/wechat',
     }).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
-  if (message.FromUserName === 'diaosi') {
+  if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)
     this.body = 'hehe';
-  } else if (message.FromUserName === 'text') {
+  } else if (message.Content === 'text') {
     //你也可以这样回复text类型的信息
     this.body = {
       content: 'text object',
       type: 'text'
     };
-  } else if (message.FromUserName === 'hehe') {
+  } else if (message.Content === 'hehe') {
     // 回复一段音乐
     this.body = {
       type: "music",
@@ -81,7 +85,7 @@ router.get('/wechat',
         hqMusicUrl: "http://mp3.com/xx.mp3"
       }
     };
-  } else if (message.FromUserName === 'kf') {
+  } else if (message.Content === 'kf') {
     // 转发到客服接口
     this.body = {
       type: "customerService",
@@ -101,10 +105,53 @@ router.get('/wechat',
 })
 );
 
-
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
+app.post('/wechat', 
+    wechat({
+        token: 'mytoken',
+        appid: 'wx0b4f6ee3da84307c',
+        appsecret: '2e6e21ead4da99a6f565b9fc07f138f5'
+    }).middleware(function *() {
+  // 微信输入信息都在this.weixin上
+  var message = this.weixin;
+  if (message.Content === 'diaosi') {
+    // 回复屌丝(普通回复)
+    this.body = 'hehe';
+  } else if (message.Content === 'text') {
+    //你也可以这样回复text类型的信息
+    this.body = {
+      content: 'text object',
+      type: 'text'
+    };
+  } else if (message.Content === 'hehe') {
+    // 回复一段音乐
+    this.body = {
+      type: "music",
+      content: {
+        title: "来段音乐吧",
+        description: "一无所有",
+        musicUrl: "http://mp3.com/xx.mp3",
+        hqMusicUrl: "http://mp3.com/xx.mp3"
+      }
+    };
+  } else if (message.Content === 'kf') {
+    // 转发到客服接口
+    this.body = {
+      type: "customerService",
+      kfAccount: "test1@test"
+    };
+  } else {
+    // 回复高富帅(图文回复)
+    this.body = [
+      {
+        title: '你来我家接我吧',
+        description: '这是女神与高富帅之间的对话',
+        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+        url: 'http://nodeapi.cloudfoundry.com/'
+      }
+    ];
+  }
+})
+);
 
 app.listen(80);
 

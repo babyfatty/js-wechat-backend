@@ -3,8 +3,8 @@ var router = require('koa-router')();
 var app = koa();
 var wechat = require('co-wechat');
 var config = require('./config.js');
-var fs = require('fs')
-var API = require('wechat-api');
+var fs = require('co-fs')
+var API = require('co-wechat-api');
 var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   // 传入一个获取全局token的方法
   var txt = yield fs.readFile('access_token.txt', 'utf8');
@@ -18,12 +18,11 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 // 查询是否有菜单
 app.use(function*(){
   var result = yield* api.getMenu();
+  console.log('321')
   console.log(result)
 })
-
-
-// 创建菜单
-app.use(function*(){
+.use(function*(){
+  console.log('123')
   var menu = {
    "button":[
        {
@@ -85,6 +84,7 @@ app.use(function*(){
   }
   var result = yield* agetpi.createMenu(menu);
   console.log(result)
+  console.log('222')
 })  
 
 app.use( 

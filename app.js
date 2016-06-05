@@ -2,7 +2,7 @@ var koa = require('koa');
 var router = require('koa-router')();
 var app = koa();
 var crypto = require('crypto');
-
+var wechat = require('co-wechat');
 // app.use(function *(){
 //   this.body = 'Hello World';
 // });
@@ -11,35 +11,49 @@ router.get('/',function*(){
 	this.body= 'Hello World';
 })
 
-router.get('/wechat', function *() {
-	 var signature = this.query.signature;
-        var echostr = this.query.echostr;
-        var timestamp = this.query.timestamp;
-        var nonce = this.query.nonce;
-        
-        // 这里的token 要和你表单上面的token一致
-        var token = 'mytoken';
-        
-        // 根文档上面的,我们需要对这三个参数进行字典序排序
-        var arr = [token, timestamp, nonce];
-        arr.sort();
-        var tmpStr = arr.join('');
-        
-        // 排序完成之后,需要进行sha1加密, 这里我们使用node.js 自带的crypto模块
-        var sha1 = crypto.createHash('sha1');
-        sha1.update(tmpStr);
-        var resStr = sha1.digest('hex');
-        console.log(signature, 'resStr: ', resStr);
-        console.log('hahaha')
-        // 开发者获得加密后的字符串可与signature对比，标识该请求来源于微信,
-        // 如果匹配,返回echoster , 不匹配则返回error
-        if (resStr === signature) {
-            this.body = echostr;
-        } else {
-        	this.body = 'false'
-          // return false;
-        }
+router.get('/wechat', wechat('mytoken').middleware(function *() {
+  // 微信输入信息都在this.weixin上
+  var message = this.weixin;
+  if (message.FromUserName === 'diaosi') {
+    // 回复屌丝(普通回复)
+    this.body = 'hehe';
+  } else if (message.FromUserName === 'text') {
+    //你也可以这样回复text类型的信息
+    this.body = {
+      content: 'text object',
+      type: 'text'
+    };
+  } else if (message.FromUserName === 'hehe') {
+    // 回复一段音乐
+    this.body = {
+      type: "music",
+      content: {
+        title: "来段音乐吧",
+        description: "一无所有",
+        musicUrl: "http://mp3.com/xx.mp3",
+        hqMusicUrl: "http://mp3.com/xx.mp3"
+      }
+    };
+  } else if (message.FromUserName === 'kf') {
+    // 转发到客服接口
+    this.body = {
+      type: "customerService",
+      kfAccount: "test1@test"
+    };
+  } else {
+    // 回复高富帅(图文回复)
+    this.body = [
+      {
+        title: '你来我家接我吧',
+        description: '这是女神与高富帅之间的对话',
+        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+        url: 'http://nodeapi.cloudfoundry.com/'
+      }
+    ];
+  }
 });
+
+
 
 app
   .use(router.routes())
@@ -47,4 +61,4 @@ app
 
 app.listen(80);
 
-console.log('server is running on port:3000')
+console.log('server is running on port:80')

@@ -1,13 +1,7 @@
 var koa = require('koa');
-var router = require('koa-router');
+var router = require('koa-router')();
 var app = koa();
 var wechat = require('co-wechat');
-// app.use(function *(){
-//   this.body = 'Hello World';
-// });
-
-app.use(router(app));
-
 
 
 app.use(wechat({
@@ -57,7 +51,7 @@ app.use(wechat({
 }))
 
 
-app.get('/wechat', 
+router.get('/wechat', 
     wechat({
         token: 'mytoken',
         appid: 'wx0b4f6ee3da84307c',
@@ -105,7 +99,7 @@ app.get('/wechat',
 })
 );
 
-app.post('/wechat', 
+router.post('/wechat', 
     wechat({
         token: 'mytoken',
         appid: 'wx0b4f6ee3da84307c',
@@ -152,6 +146,10 @@ app.post('/wechat',
   }
 })
 );
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 app.listen(80);
 

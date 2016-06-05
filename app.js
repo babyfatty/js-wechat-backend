@@ -27,9 +27,9 @@ app.use(function*(){
          "name":"考试报名",
          "sub_button":[
            {
-             "type":"view",
-             "name":"竞赛报名",
-             "url":"http://www.soso.com/"
+             "type":"click",
+             "name":"考场查询",
+             "key":"V1001_GOOD"
            },
            {
              "type":"click",
@@ -45,9 +45,9 @@ app.use(function*(){
          "name":"相关政策",
          "sub_button":[
            {
-             "type":"view",
-             "name":"考试须知",
-             "url":"http://www.soso.com/"
+             "type":"click",
+             "name":"考场查询",
+             "key":"V1001_GOOD"
            },
            {
              "type":"view",
@@ -58,9 +58,9 @@ app.use(function*(){
          "name":"个人信息",
          "sub_button":[
            {
-             "type":"view",
-             "name":"基本信息绑定",
-             "url":"http://www.soso.com/"
+             "type":"click",
+             "name":"考场查询",
+             "key":"V1001_GOOD"
            },
            {
              "type":"click",

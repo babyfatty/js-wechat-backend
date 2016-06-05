@@ -30,10 +30,10 @@ var menu = {
          "name":"赞一下我们",
          "key":"V1001_GOOD"
        }]
-     }]
-   }
- ]
-}
+    }
+  ]
+ }
+
 
 var result = yield* api.createMenu(menu);
 

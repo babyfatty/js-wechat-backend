@@ -15,8 +15,7 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   yield fs.writeFile('access_token.txt', JSON.stringify(token));
 });
 
-// 查询是否有菜单
-
+// 新增菜单
 
 app.use(function*(next){
 
@@ -26,9 +25,9 @@ app.use(function*(next){
          "name":"考试报名",
          "sub_button":[
            {
-             "type":"click",
-             "name":"考场查询",
-             "key":"V1001_GOOD"
+             "type":"view",
+             "name":"竞赛报名",
+             "url":"http://baidu"
            },
            {
              "type":"click",
@@ -84,17 +83,31 @@ app.use(function*(next){
   console.log(result)
   console.log('222')
 })
+
+// 查询菜单
 app.use(function*(next){
   var result = yield* api.getMenu();
   console.log(result)
   yield next;
 })
+
+// 处理消息
 app.use( 
     wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   console.log(message)
-  if (message.Content === 'diaosi') {
+  if(message.Event === 'CLICK'){
+    switch(message.EventKey){
+      case 'V1001_GOOD':
+        this.body = {
+          content: '测试信息',
+          type:'text'
+        }
+        break;
+    }
+  }
+  else if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)
     this.body = 'hehe'+api.getIp();
   } else if (message.Content === 'text') {
@@ -133,51 +146,6 @@ app.use(
   }
 })
 );
-
-router.post('/wechat', 
-    wechat(config.wechat).middleware(function *() {
-  // 微信输入信息都在this.weixin上
-  var message = this.weixin;
-  if (message.Content === 'diaosi') {
-    // 回复屌丝(普通回复)
-    this.body = 'hehe'+api.getIp();
-  } else if (message.Content === 'text') {
-    //你也可以这样回复text类型的信息
-    this.body = {
-      content: 'text object',
-      type: 'text'
-    };
-  } else if (message.Content === 'hehe') {
-    // 回复一段音乐
-    this.body = {
-      type: "music",
-      content: {
-        title: "来段音乐吧",
-        description: "一无所有",
-        musicUrl: "http://mp3.com/xx.mp3",
-        hqMusicUrl: "http://mp3.com/xx.mp3"
-      }
-    };
-  } else if (message.Content === 'kf') {
-    // 转发到客服接口
-    this.body = {
-      type: "customerService",
-      kfAccount: "test1@test"
-    };
-  } else {
-    // 回复高富帅(图文回复)
-    this.body = [
-      {
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
-        picurl: '//gw.alicdn.com/tps/TB1tFrCLFXXXXaBaXXXXXXXXXXX-517-502.png',
-        url: '//taobao.com/'
-      }
-    ];
-  }
-})
-);
-
 
 app
   .use(router.routes())

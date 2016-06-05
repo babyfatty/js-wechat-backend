@@ -9,10 +9,40 @@ var api = new API(config.wechat.appid, config.wechat.appsecret);
 app.use( 
     wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
+
+var menu = {
+ "button":[
+   {
+     "type":"click",
+     "name":"今日歌曲",
+     "key":"V1001_TODAY_MUSIC"
+   },
+   {
+     "name":"菜单",
+     "sub_button":[
+       {
+         "type":"view",
+         "name":"搜索",
+         "url":"http://www.soso.com/"
+       },
+       {
+         "type":"click",
+         "name":"赞一下我们",
+         "key":"V1001_GOOD"
+       }]
+     }]
+   }
+ ]
+}
+
+var result = yield* api.createMenu(menu);
+
+console.log(result)
+
   var message = this.weixin;
   if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)
-    this.body = 'hehe'+api.getIp().ip_list;
+    this.body = 'hehe'+api.getIp();
   } else if (message.Content === 'text') {
     //你也可以这样回复text类型的信息
     this.body = {
@@ -50,13 +80,13 @@ app.use(
 })
 );
 
-router.get('/wechat', 
+router.post('/wechat', 
     wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)
-    this.body = 'hehe'+api.getIp().ip_list;
+    this.body = 'hehe'+api.getIp();
   } else if (message.Content === 'text') {
     //你也可以这样回复text类型的信息
     this.body = {

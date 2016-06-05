@@ -12,7 +12,13 @@ router.get('/',function*(){
 })
 
 router.get('/wechat', function *() {
-        // 获取微信的请求,注意是 get
+	console.log('query',this.query)
+	checkSign()
+
+});
+
+function checkSign(){
+	// 获取微信的请求,注意是 get
         var signature = this.query.signature;
         var echostr = this.query.echostr;
         var timestamp = this.query.timestamp;
@@ -31,7 +37,7 @@ router.get('/wechat', function *() {
         sha1.update(tmpStr);
         var resStr = sha1.digest('hex');
         console.log(signature, 'resStr: ', resStr);
-        
+        console.log('hahaha')
         // 开发者获得加密后的字符串可与signature对比，标识该请求来源于微信,
         // 如果匹配,返回echoster , 不匹配则返回error
         if (resStr === signature) {
@@ -40,7 +46,7 @@ router.get('/wechat', function *() {
         	this.body = 'false'
           // return false;
         }
-    });
+}
 
 app
   .use(router.routes())

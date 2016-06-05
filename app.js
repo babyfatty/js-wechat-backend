@@ -50,7 +50,7 @@ app.use(function*(){
              "key":"V1001_GOOD"
            },
            {
-             "type":"view",
+             "type":"click",
              "name":"培训信息",
              "key":"V1001_GOOD"
            }]

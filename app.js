@@ -12,14 +12,7 @@ router.get('/',function*(){
 })
 
 router.get('/wechat', function *() {
-	checkSign()
-});
-
-function checkSign(){
-	// 获取微信的请求,注意是 get
-	console.log('query',this.query)
-	
-        var signature = this.query.signature;
+	 var signature = this.query.signature;
         var echostr = this.query.echostr;
         var timestamp = this.query.timestamp;
         var nonce = this.query.nonce;
@@ -46,7 +39,7 @@ function checkSign(){
         	this.body = 'false'
           // return false;
         }
-}
+});
 
 app
   .use(router.routes())

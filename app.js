@@ -16,11 +16,10 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 });
 
 // 查询是否有菜单
-app.use(function*(){
-  var result = yield* api.getMenu();
-  console.log('321')
-  console.log(result)
-  console.log('123')
+
+
+app.use(function*(next){
+
   var menu = {
    "button":[
        {
@@ -80,11 +79,16 @@ app.use(function*(){
         }
     ]
   }
+  yield next
   var result = yield* api.createMenu(menu);
   console.log(result)
   console.log('222')
 })
-
+app.use(function*(next){
+  var result = yield* api.getMenu();
+  console.log(result)
+  yield next;
+})
 app.use( 
     wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上

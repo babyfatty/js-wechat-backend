@@ -12,13 +12,13 @@ router.get('/',function*(){
 })
 
 router.get('/wechat', function *() {
-	console.log('query',this.query)
 	checkSign()
-
 });
 
 function checkSign(){
 	// 获取微信的请求,注意是 get
+	console.log('query',this.query)
+	
         var signature = this.query.signature;
         var echostr = this.query.echostr;
         var timestamp = this.query.timestamp;

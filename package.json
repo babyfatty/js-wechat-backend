@@ -1,0 +1,22 @@
+{
+  "name": "js-wechat-backend",
+  "description": "",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babyfatty/js-wechat-backend.git"
+  },
+  "author": "sxc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/babyfatty/js-wechat-backend/issues"
+  },
+  "homepage": "https://github.com/babyfatty/js-wechat-backend#readme",
+  "dependencies": {
+    "koa": "^1.2.0"
+  }
+}

@@ -2,13 +2,9 @@ var koa = require('koa');
 var router = require('koa-router')();
 var app = koa();
 var wechat = require('co-wechat');
+var config = require('./config.js')
 
-
-app.use(wechat({
-        token: 'mytoken',
-        appid: 'wx0b4f6ee3da84307c',
-        appsecret: '2e6e21ead4da99a6f565b9fc07f138f5'
-    }).middleware(function *() {
+app.use(wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   if (message.Content === 'diaosi') {
@@ -151,6 +147,6 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-app.listen(80);
-
-console.log('server is running on port:80')
+app.listen(config.host.port);
+console.log(process.env.PORT)
+console.log('server is running on port'+config.host.port)

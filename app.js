@@ -167,7 +167,7 @@ function* (next) {
       }
     ];
   }
-})
+}
       // 业务逻辑处理
       yield* handle.call(this);
 

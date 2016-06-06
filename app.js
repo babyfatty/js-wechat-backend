@@ -15,89 +15,13 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   yield fs.writeFile('access_token.txt', JSON.stringify(token));
 });
 wechat(config.wechat)
-// // 新增菜单
-
-// app.use(function*(next){
-
-//   var menu = {
-//    "button":[
-//        {
-//          "name":"考试报名",
-//          "sub_button":[
-//            {
-//              "type":"view",
-//              "name":"竞赛报名",
-//              "url":"http://baidu.com"
-//            },
-//            {
-//              "type":"click",
-//              "name":"考场查询",
-//              "key":"V1001_GOOD"
-//            },{
-//              "type":"click",
-//              "name":"成绩查询",
-//              "key":"V1001_GOOD"
-//            }]
-//         },
-//        {
-//          "name":"相关政策",
-//          "sub_button":[
-//            {
-//              "type":"click",
-//              "name":"考场查询",
-//              "key":"V1001_GOOD"
-//            },
-//            {
-//              "type":"click",
-//              "name":"培训信息",
-//              "key":"V1001_GOOD"
-//            }]
-//         },{
-//          "name":"个人信息",
-//          "sub_button":[
-//            {
-//              "type":"click",
-//              "name":"考场查询",
-//              "key":"V1001_GOOD"
-//            },
-//            {
-//              "type":"click",
-//              "name":"手机绑定",
-//              "key":"V1001_GOOD"
-//            },
-//            {
-//              "type":"click",
-//              "name":"个人信息完善",
-//              "key":"V1001_GOOD"
-//            },
-//            {
-//              "type":"click",
-//              "name":"个人荣誉殿堂",
-//              "key":"V1001_GOOD"
-//            }]
-//         }
-//     ]
-//   }
-//   yield next
-//   var result = yield* api.createMenu(menu);
-//   console.log(result)
-//   console.log('222')
-// })
-
-// // 查询菜单
-// app.use(function*(next){
-//   var result = yield* api.getMenu();
-//   console.log(result)
-//   yield next;
-// })
-
-
+// // 新增菜
 
 router.get('/register',function* (){
   this.body="hello"
 })
-
-router.get('/wechat',function* (){wechat(config.wechat).middleware(function *() {
+console.log(wechat(config.wechat).middleware())
+router.use('/wechat',wechat(config.wechat).middleware(function *(next) {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   console.log(message)
@@ -163,7 +87,7 @@ router.get('/wechat',function* (){wechat(config.wechat).middleware(function *() 
       }
     ];
   }
-})}
+})
 )
 
 app

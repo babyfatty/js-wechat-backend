@@ -93,6 +93,7 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 router.get('/register',function* (){
   this.body="hello"
 })
+console.log(this)
 if(this.query==="wechat"){
 app.use(wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上

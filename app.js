@@ -21,7 +21,87 @@ router.get('/register',function* (){
   this.body="hello"
 })
 console.log(wechat(config.wechat).middleware())
-router.use('/wechat',wechat(config.wechat).middleware(function *(next) {
+function* (next) {
+    var query = this.query;
+    // 加密模式
+    var encrypted = !!(query.encrypt_type && query.encrypt_type === 'aes' && query.msg_signature);
+    var timestamp = query.timestamp;
+    var nonce = query.nonce;
+    var echostr = query.echostr;
+    var method = this.method;
+
+    if (method === 'GET') {
+      var valid = false;
+      if (encrypted) {
+        var signature = query.msg_signature;
+        valid = signature === that.cryptor.getSignature(timestamp, nonce, echostr);
+      } else {
+        // 校验
+        valid = query.signature === getSignature(timestamp, nonce, that.token);
+      }
+      if (!valid) {
+        this.status = 401;
+        this.body = 'Invalid signature';
+      } else {
+        if (encrypted) {
+          var decrypted = that.cryptor.decrypt(echostr);
+          // TODO 检查appId的正确性
+          this.body = decrypted.message;
+        } else {
+          this.body = echostr;
+        }
+      }
+    } else if (method === 'POST') {
+      if (!encrypted) {
+        // 校验
+        if (query.signature !== getSignature(timestamp, nonce, that.token)) {
+          this.status = 401;
+          this.body = 'Invalid signature';
+          return;
+        }
+      }
+      // 取原始数据
+      var xml = yield getRawBody(this.req, {
+        length: this.length,
+        limit: '1mb',
+        encoding: this.charset
+      });
+
+      this.weixin_xml = xml;
+      // 解析xml
+      var result = yield parseXML(xml);
+      var formated = formatMessage(result.xml);
+      if (encrypted) {
+        var encryptMessage = formated.Encrypt;
+        if (query.msg_signature !== that.cryptor.getSignature(timestamp, nonce, encryptMessage)) {
+          this.status = 401;
+          this.body = 'Invalid signature';
+          return;
+        }
+        var decryptedXML = that.cryptor.decrypt(encryptMessage);
+        var messageWrapXml = decryptedXML.message;
+        if (messageWrapXml === '') {
+          this.status = 401;
+          this.body = 'Invalid signature';
+          return;
+        }
+        var decodedXML = yield parseXML(messageWrapXml);
+        formated = formatMessage(decodedXML.xml);
+      }
+
+      // 挂载处理后的微信消息
+      this.weixin = formated;
+
+      // 取session数据
+      if (this.sessionStore) {
+        this.wxSessionId = formated.FromUserName;
+        this.wxsession = yield this.sessionStore.get(this.wxSessionId);
+        if (!this.wxsession) {
+          this.wxsession = {};
+          this.wxsession.cookie = this.session.cookie;
+        }
+      }
+      var handle = function *(next) {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   console.log(message)
@@ -88,6 +168,49 @@ router.use('/wechat',wechat(config.wechat).middleware(function *(next) {
     ];
   }
 })
+      // 业务逻辑处理
+      yield* handle.call(this);
+
+      // 更新session
+      if (this.sessionStore) {
+        if (!this.wxsession) {
+          if (this.wxSessionId) {
+            yield this.sessionStore.destroy(this.wxSessionId);
+          }
+        } else {
+          yield this.sessionStore.set(this.wxSessionId, this.wxsession);
+        }
+      }
+
+      /*
+       * 假如服务器无法保证在五秒内处理并回复，可以直接回复空串。
+       * 微信服务器不会对此作任何处理，并且不会发起重试。
+       */
+      if (this.body === '') {
+        return;
+      }
+
+      var replyMessageXml = reply(this.body, formated.ToUserName, formated.FromUserName);
+
+      if (!query.encrypt_type || query.encrypt_type === 'raw') {
+        this.body = replyMessageXml;
+      } else {
+        var wrap = {};
+        wrap.encrypt = that.cryptor.encrypt(replyMessageXml);
+        wrap.nonce = parseInt((Math.random() * 100000000000), 10);
+        wrap.timestamp = new Date().getTime();
+        wrap.signature = that.cryptor.getSignature(wrap.timestamp, wrap.nonce, wrap.encrypt);
+        this.body = encryptWrap(wrap);
+      }
+
+      this.type = 'application/xml';
+
+    } else {
+      this.status = 501;
+      this.body = 'Not Implemented';
+    }
+  }
+router.use('/wechat',wechat(config.wechat).middleware(
 )
 
 app

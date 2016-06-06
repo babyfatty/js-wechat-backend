@@ -20,8 +20,8 @@ wechat(config.wechat)
 router.get('/register',function* (){
   this.body="hello"
 })
-console.log(wechat(config.wechat).middleware())
-function* (next) {
+
+router.use('/wechat',function* (next) {
     var query = this.query;
     // 加密模式
     var encrypted = !!(query.encrypt_type && query.encrypt_type === 'aes' && query.msg_signature);
@@ -210,7 +210,6 @@ function* (next) {
       this.body = 'Not Implemented';
     }
   }
-router.use('/wechat',wechat(config.wechat).middleware(
 )
 
 app

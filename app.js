@@ -90,12 +90,16 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 //   console.log(result)
 //   yield next;
 // })
+app.use(function*(next){
+  console.log(this)
+  yield next
+})
+
 router.get('/register',function* (){
   this.body="hello"
 })
-console.log(this)
-if(this.query==="wechat"){
-app.use(wechat(config.wechat).middleware(function *() {
+
+router.get('wechat',wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   console.log(message)
@@ -162,7 +166,7 @@ app.use(wechat(config.wechat).middleware(function *() {
     ];
   }
 })
-)}
+)
 app
   .use(router.routes())
   .use(router.allowedMethods());

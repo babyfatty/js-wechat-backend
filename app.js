@@ -99,7 +99,7 @@ router.get('/register',function* (){
   this.body="hello"
 })
 
-router.get('wechat',wechat(config.wechat).middleware(function *() {
+router.get('/wechat',wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   console.log(message)

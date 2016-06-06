@@ -96,6 +96,7 @@ app.use(function*(next){
 })
 
 router.get('/register',function* (){
+  console.log(api)
   this.body="hello"
 })
 

@@ -90,10 +90,9 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 //   console.log(result)
 //   yield next;
 // })
-router.get('/register',wechat(config.wechat).middleware(
+router.get('/register',function* (){
   this.body="hello"
-
-))
+})
 router.get('/wechat',wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;

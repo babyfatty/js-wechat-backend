@@ -1,6 +1,6 @@
 var request = require('koa-request')
 var config = require('../../config')
-var render = require('co-views')('./app/views', { ext: 'ejs' });
+var render = require('co-views')('./app/views');
 
 module.exports = function* (){
 	console.log(this)

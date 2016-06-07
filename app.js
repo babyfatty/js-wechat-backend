@@ -6,6 +6,9 @@ var config = require('./config.js');
 var fs = require('co-fs')
 var API = require('co-wechat-api');
 var request = require('koa-request');
+var onerror = require('koa-onerror');
+var logger = require('mini-logger');
+
 
 var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   // 传入一个获取全局token的方法
@@ -17,25 +20,22 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   yield fs.writeFile('access_token.txt', JSON.stringify(token));
 });
 
-
-app.use(function*(next){
-  yield next
-})
+onerror(app);
 
 function checkVaild(actoken,openid){
   var option = {
     url :"https://api.weixin.qq.com/sns/auth?access_token="+actoken+"&openid="+openid 
   }
-  var resVaild = yield request(option)
-  return resVaild.body.errcode === 0?true:false
+//  var resVaild = yield request(option)
+  //return resVaild.body.errcode === 0?true:false
 }
 
 function updataActoken(rftoken){
   var option = {
     url :"https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+ config.app.appid +"&grant_type=refresh_token&refresh_token="+rftoken
   }
-  var newActoken = yield request(option)
-  return newActoken.body.access_token
+  //var newActoken = yield request(option)
+  //return newActoken.body.access_token
 }
 
 router.get('/update',function* (){

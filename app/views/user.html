@@ -1,3 +1,6 @@
-.register 
-	hello #{name.first} is #{name.last} and #{species} or #{age}
+.register
+	| hello 
+	each val,index in name 
+		#{index} is #{val} 
+	| and #{species} or #{age}
 	

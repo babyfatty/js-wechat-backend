@@ -61,14 +61,9 @@ app.use(function*(next){
              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
            },
            {
-             "type":"click",
-             "name":"手机绑定",
-             "key":"V1001_GOOD"
-           },
-           {
-             "type":"click",
+             "type":"view",
              "name":"个人信息完善",
-             "key":"V1001_GOOD"
+             "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fupdate&response_type=code&scope=snsapi_userbase&state=123#wechat_redirect"
            },
            {
              "type":"click",

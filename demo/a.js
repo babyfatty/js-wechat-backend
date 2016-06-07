@@ -1,3 +1,5 @@
+// // 新增菜单
+
 // app.use(function*(next){
 
 //   var menu = {
@@ -37,19 +39,14 @@
 //          "name":"个人信息",
 //          "sub_button":[
 //            {
-//              "type":"click",
-//              "name":"考场查询",
-//              "key":"V1001_GOOD"
+//              "type":"view",
+//              "name":"基本信息绑定",
+//              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
 //            },
 //            {
-//              "type":"click",
-//              "name":"手机绑定",
-//              "key":"V1001_GOOD"
-//            },
-//            {
-//              "type":"click",
+//              "type":"view",
 //              "name":"个人信息完善",
-//              "key":"V1001_GOOD"
+//              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fupdate&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
 //            },
 //            {
 //              "type":"click",

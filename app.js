@@ -42,8 +42,9 @@ router.get('/register',function* (next){
   this.param = info.body
   yield next
 },function* (next){
+  var param = JSON.parse(this.param)
   var option = {
-    url:"https://api.weixin.qq.com/sns/userinfo?access_token="+this.param.access_token+"&openid="+this.param.openid+"&lang=zh_CN"
+    url:"https://api.weixin.qq.com/sns/userinfo?access_token="+param.access_token+"&openid="+param.openid+"&lang=zh_CN"
   }
   var info = yield request(option)
   console.log(info.body)

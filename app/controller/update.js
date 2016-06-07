@@ -14,12 +14,13 @@ module.exports = function* (){
   console.log(info.body)
   // this.body=info.body
   var user = {
-	  name: {
-	    first: 'Tobi',
-	    last: 'Holowaychuk'
-	  },
-	  species: 'ferret',
-	  age: 3
+    schools:config.school.names,
+    classroom:config.school.classroom,
+    grades:config.school.grades,
+    areas:config.areas,
+    prizeAreas:config.prizes.areas,
+    prizeCats:config.prizes.category
   };
-  this.body= yield render('user', user);
+
+  this.body= yield render('udetail', user);
 }

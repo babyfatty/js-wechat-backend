@@ -18,14 +18,12 @@ var getInfo = function* (next){
   var inf = yield request(option)
   console.log(inf.body)
   var user = {
-	  name: {
-	    first: 'Tobi',
-	    last: 'Holowaychuk'
-	  },
-	  species: 'ferret',
-	  age: 3
+    schools:config.school.names,
+    classroom:config.school.classroom,
+    grades:config.school.grades,
+    areas:config.areas
   };
-  this.body= yield render('user', user);
+  this.body= yield render('register', user);
 }
 
 module.exports = getInfo

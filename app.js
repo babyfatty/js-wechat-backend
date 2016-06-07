@@ -31,7 +31,7 @@ router.get('/update',function* (){
   }
   var info = yield request(option)
   console.log(info.body)
-  this.body="update"
+  this.body=info.body
 })
 
 router.get('/register',function* (){

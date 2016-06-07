@@ -22,6 +22,22 @@ app.use(function*(next){
   yield next
 })
 
+function checkVaild(actoken,openid){
+  var option = {
+    url :"https://api.weixin.qq.com/sns/auth?access_token="+actoken+"&openid="+openid 
+  }
+  var resVaild = yield request(option)
+  return resVaild.body.errcode === 0?true:false
+}
+
+function updataActoken(rftoken){
+  var option = {
+    url :"https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+ config.app.appid +"&grant_type=refresh_token&refresh_token="+rftoken
+  }
+  var newActoken = yield request(option)
+  return newActoken.body.access_token
+}
+
 router.get('/update',function* (){
   console.log('code',this.query.code)
   console.log('state',this.query.state)
@@ -118,6 +134,7 @@ router.post('/wechat',wechat(config.wechat).middleware(function *() {
   }
 })
 )
+
 app
   .use(router.routes())
   .use(router.allowedMethods());

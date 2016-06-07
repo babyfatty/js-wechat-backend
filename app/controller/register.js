@@ -25,7 +25,7 @@ var getInfo = function* (next){
 	  species: 'ferret',
 	  age: 3
   };
-  this.body= yield render('user', { user: user });
+  this.body= yield render('user', user);
 }
 
 module.exports = getInfo

@@ -5,7 +5,7 @@ module.exports = {
         appsecret: '2e6e21ead4da99a6f565b9fc07f138f5'
     },
     host: {
-        port: 80,
+        port: 3000,
         env: 'development'
     },
     app: {

@@ -1,7 +1,8 @@
 var request = require('koa-request')
 var config = require('../../config')
-var render = require('co-views')('./app/views');
-
+var render = require('co-views')('./app/views',{
+  map: { html: 'jade' }
+});
 module.exports = function* (){
 	console.log(this)
   console.log('code',this.query.code)

@@ -34,9 +34,21 @@ router.get('/update',function* (){
   this.body=info.body
 })
 
-router.get('/register',function* (){
+router.get('/register',function* (next){
   console.log(this)
-  this.body="hello"
+  var option = {
+    url:"https://api.weixin.qq.com/sns/oauth2/access_token?appid="+config.app.appid+"&secret="+config.app.appsecret+"&code="+this.query.code+"&grant_type=authorization_code"
+  }
+  var info = yield request(option)
+  this.param = info.body
+  yield next
+},function* (next){
+  var option = {
+    url:"https://api.weixin.qq.com/sns/userinfo?access_token="+this.param.access_token+"&openid="+this.param.openid+"&lang=zh_CN"
+  }
+  var info = yield request(option)
+  console.log(info.body)
+  this.body=info.body
 })
 
 router.post('/wechat',wechat(config.wechat).middleware(function *() {

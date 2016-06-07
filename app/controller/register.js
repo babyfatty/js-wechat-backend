@@ -3,6 +3,7 @@ var config = require('../../config')
 var render = require('co-views')('./app/views', { ext: 'ejs' });
 
 var getInfo = function* (next){
+	console.log(this)
   var option = {
     url:"https://api.weixin.qq.com/sns/oauth2/access_token?appid="+config.app.appid+"&secret="+config.app.appsecret+"&code="+this.query.code+"&grant_type=authorization_code"
   }

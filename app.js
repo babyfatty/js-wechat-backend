@@ -21,11 +21,8 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   yield fs.writeFile('access_token.txt', JSON.stringify(token));
 });
 
-onerror(app);
 
 app.use(require('koa-static')(path.join(__dirname, 'public')))
-
-
 
 function checkVaild(actoken,openid){
   var option = {
@@ -46,6 +43,9 @@ function updataActoken(rftoken){
 app
   .use(router.routes())
   .use(router.allowedMethods());
+
+onerror(app);
+  
 
 app.listen(config.host.port);
 

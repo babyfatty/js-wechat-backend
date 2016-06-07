@@ -3,6 +3,7 @@ var config = require('../../config')
 var render = require('co-views')('./app/views', { ext: 'ejs' });
 
 module.exports = function* (){
+	console.log(this)
   console.log('code',this.query.code)
   console.log('state',this.query.state)
   var option = {

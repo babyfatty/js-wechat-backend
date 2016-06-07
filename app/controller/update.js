@@ -21,5 +21,5 @@ module.exports = function* (){
 	  species: 'ferret',
 	  age: 3
   };
-  this.body= yield render('user', { user: user });
+  this.body= yield render('user', user);
 }

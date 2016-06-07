@@ -5,6 +5,8 @@ var wechat = require('co-wechat');
 var config = require('./config.js');
 var fs = require('co-fs')
 var API = require('co-wechat-api');
+var request = require('koa-request');
+
 var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   // 传入一个获取全局token的方法
   var txt = yield fs.readFile('access_token.txt', 'utf8');
@@ -24,6 +26,11 @@ app.use(function*(next){
 router.get('/update',function* (){
   console.log('code',this.query.code)
   console.log('state',this.query.state)
+  var option = {
+    url:"https://api.weixin.qq.com/sns/oauth2/access_token?appid="config.app.appid"&secret="+config.app.appsecret+"&code="+this.query.code+"&grant_type=authorization_code"
+  }
+  var info = yield request(option)
+  console.log(info.body)
   this.body="update"
 })
 

@@ -19,7 +19,6 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 
 
 app.use(function*(next){
-  console.log(this)
   yield next
 })
 
@@ -54,7 +53,6 @@ router.get('/register',function* (next){
 router.post('/wechat',wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
-  console.log(message)
   if(message.Event === 'CLICK'){
     switch(message.EventKey){
       case 'V1001_GOOD':

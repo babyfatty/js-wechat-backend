@@ -50,7 +50,10 @@ module.exports = wechat(config.wechat).middleware(function *() {
   }
   else if (message.Event === 'subscribe'){
     this.body = {
-      content:'感谢关注'+'<a href="http://baidu.com">baidu</a>',
+      content:'感谢关注/:rose,您可以\n\n'+
+
+      '<a href="http://baidu.com">注册账号</a>\n'+
+      '来获取更多奥赛咨询！',
       type:'text'
     }
   }

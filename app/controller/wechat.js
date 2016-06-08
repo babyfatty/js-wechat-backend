@@ -2,7 +2,6 @@ var wechat = require('co-wechat')
 var path = require('path')
 var config = require(path.join('../../', 'config'))
 module.exports = wechat(config.wechat).middleware(function *() {
-  console.log(this)
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
   if(message.Event === 'CLICK'){

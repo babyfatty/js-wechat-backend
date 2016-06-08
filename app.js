@@ -45,11 +45,6 @@ app.use(function*(next){
        }]
      }]
    }
-}
-
-
-
-
   console.log('222')
   console.log('menu',menu)
   var result = yield* api.createMenu(menu); 

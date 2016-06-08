@@ -50,9 +50,8 @@ module.exports = wechat(config.wechat).middleware(function *() {
   }
   else if (message.Event === 'subscribe'){
     this.body = {
-      content:'感谢关注/:rose,您可以\n\n'+
-
-      '<a href="http://baidu.com">注册账号</a>\n'+
+      content:'感谢关注/:rose,您可以\n'+
+      '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n'+
       '来获取更多奥赛咨询！',
       type:'text'
     }

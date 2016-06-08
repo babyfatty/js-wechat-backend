@@ -50,7 +50,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
   }
   else if (message.Event === 'subscribe'){
     this.body = {
-      constent : '欢迎关注奥赛新城，您可以通过<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">绑定个人账号</a>来体验更多服务',
+      content:'hello',
       type:'text'
     }
   }

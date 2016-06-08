@@ -22,60 +22,35 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 });
 
 app.use(function*(next){
-  var menu = {
-       "button":[
-           {
-             "name":"考试报名",
-             "sub_button":[
-               {
-                 "type":"click",
-                 "name":"竞赛报名",
-                 "url":"V101"
-               },
-               {
-                 "type":"click",
-                 "name":"考场查询",
-                 "key":"V102"
-               },{
-                 "type":"click",
-                 "name":"成绩查询",
-                 "key":"V103"
-               }]
-            },
-           {
-             "name":"相关政策",
-             "sub_button":[
-               {
-                 "type":"click",
-                 "name":"考试须知",
-                 "key":"V201"
-               },
-               {
-                 "type":"click",
-                 "name":"培训信息",
-                 "key":"V201"
-               }]
-            },{
-             "name":"个人信息",
-             "sub_button":[
-               {
-                 "type":"view",
-                 "name":"基本信息绑定",
-                 "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
-               },
-               {
-                 "type":"view",
-                 "name":"个人信息完善",
-                 "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fupdate&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
-               },
-               {
-                 "type":"click",
-                 "name":"个人荣誉殿堂",
-                 "key":"V301"
-               }]
-            }
-        ]
-  }
+  var menu = 
+  {
+ "button":[
+   {
+     "type":"click",
+     "name":"今日歌曲",
+     "key":"V1001_TODAY_MUSIC"
+   },
+   {
+     "name":"菜单",
+     "sub_button":[
+       {
+         "type":"view",
+         "name":"搜索",
+         "url":"http://www.soso.com/"
+       },
+       {
+         "type":"click",
+         "name":"赞一下我们",
+         "key":"V1001_GOOD"
+       }]
+     }]
+   }
+ ]
+}
+
+
+  
+
   console.log('222')
   console.log('menu',menu)
   var result = yield* api.createMenu(menu); 

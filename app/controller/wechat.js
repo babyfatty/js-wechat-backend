@@ -7,24 +7,52 @@ module.exports = wechat(config.wechat).middleware(function *() {
   var message = this.weixin;
   if(message.Event === 'CLICK'){
     switch(message.EventKey){
-      case 'V1001_GOOD':
+      case 'V101':
         this.body = {
           content: '测试信息',
           type:'text'
         }
         break;
+      case 'V102':
+        this.body = {
+          content: '测试信息',
+          type:'text'
+        }
+        break;
+      case 'V103':
+        this.body = {
+          content: '测试信息',
+          type:'text'
+        }
+        break;
+      case 'V201':
+        this.body = {
+          content: '测试信息',
+          type:'text'
+        }
+        break;
+      case 'V202':
+        this.body = {
+          content: '测试信息',
+          type:'text'
+        }
+        break;
+      case 'V301':
+        this.body = {
+          content: '测试信息',
+          type:'text'
+        }
+        break;          
     }
   }
   else if (message.Event === 'unsubscribe'){
 
   }
   else if (message.Event === 'subscribe'){
-    this.body = [{
-                    title: '欢迎加入!!',
-                    description: ' 高富帅请输入: 1 \r\n 白富美请输入: 2 \r\n 屌丝请直接输入: diaosi',
-                    picurl: 'http://lxcdn.dl.files.xiaomi.net/mfsv2/download/s008/p01Z4fiL6J5k/QDICPcIYfmwoUL.jpg?thumb=320x320',
-                    url: 'http://weibo.com/fengjieluoyufeng?c=spr_qdhz_bd_baidusmt_weibo_s&nick=%E7%BD%97%E7%8E%89%E5%87%A4'
-                }]
+    this.body = {
+      constent : '欢迎关注奥赛新城，您可以通过<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">绑定个人账号</a>来体验更多服务',
+      type:'text'
+    }
   }
   else if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)

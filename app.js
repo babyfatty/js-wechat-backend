@@ -22,13 +22,13 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 });
 
 
-app.use(function*(next){
-  var menu = config.menu
-  yield next
-  var result = yield* api.createMenu(menu);
-  console.log(result)
-  console.log('222')
-})
+// app.use(function*(next){
+//   var menu = config.menu
+//   yield next
+//   var result = yield* api.createMenu(menu);
+//   console.log(result)
+//   console.log('222')
+// })
 app.use(require('koa-static')(path.join(__dirname, 'public')))
 
 function checkVaild(actoken,openid){

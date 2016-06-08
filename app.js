@@ -45,11 +45,10 @@ app.use(function*(next){
        }]
      }]
    }
- ]
 }
 
 
-  
+
 
   console.log('222')
   console.log('menu',menu)

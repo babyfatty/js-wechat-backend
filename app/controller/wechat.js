@@ -50,7 +50,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
   }
   else if (message.Event === 'subscribe'){
     this.body = {
-      content:'hello',
+      content:'感谢关注'+'<a href="http://baidu.com">baidu</a>',
       type:'text'
     }
   }

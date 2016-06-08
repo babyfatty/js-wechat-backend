@@ -4,6 +4,7 @@ var config = require(path.join('../../', 'config'))
 module.exports = wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   var message = this.weixin;
+  console.log(message)
   if(message.Event === 'CLICK'){
     switch(message.EventKey){
       case 'V101':

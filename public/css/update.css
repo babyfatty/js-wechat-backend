@@ -1,0 +1,17 @@
+.deletePrize{
+	/*width: 100%;
+	display: inline-block;
+	background: #fbf9fe;*/
+}
+.deletePrize .weui_icon_cancel{
+	/*float: right;*/
+}
+
+.prizeList .weui_cells{
+	margin-top: 0
+}
+
+.weui_btn_plain_primary{
+	width: 40%;
+    margin-top: 20px;
+}

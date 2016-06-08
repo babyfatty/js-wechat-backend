@@ -1,0 +1,41 @@
+<div class="weui_cells">
+{% for prize in prizes %}
+<div class="weui_cell weui_cell_select weui_select_after">
+    <div class="weui_cell_hd">
+        <label for="" class="weui_label">类别：</label>
+    </div>
+    <div class="weui_cell_bd weui_cell_primary">
+        <select class="weui_select" name="select2">
+            {% for prizeCat in prizeCats %}
+                <option value="{{loop.index}}">{{prizeCat}}</option>
+            {%- endfor %}
+        </select>
+    </div>
+</div>   
+<div class="weui_cell">
+    <div class="weui_cell_hd"><label for="" class="weui_label">日期</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+        <input class="weui_input" type="month" value="">
+    </div>
+</div>
+<div class="weui_cell weui_cell_select weui_select_after">
+    <div class="weui_cell_hd">
+        <label for="" class="weui_label">区域：</label>
+    </div>
+    <div class="weui_cell_bd weui_cell_primary">
+        <select class="weui_select" name="select2">
+            {% for prizeArea in prizeAreas %}
+                <option value="{{loop.index}}">{{prizeArea}}</option>
+            {%- endfor %}
+        </select>
+    </div>
+</div>
+<div class="weui_cell">
+    <div class="weui_cell_bd weui_cell_primary">
+        <input class="weui_input" type="text" placeholder="奖项名称">
+    </div>
+</div>
+</div>
+{%- endfor %}
+</div>
+<a href="javascript:;">添加一项</a>

@@ -1,25 +1,90 @@
 var wechat = require('co-wechat')
+var api = require('co-wechat-api')
 var path = require('path')
 var config = require(path.join('../../', 'config'))
+
+function *checkRegister(){
+  return false
+}
+
+function *checkSignup(){
+  return {
+    isSignup:false,
+    signUpInfo:signUpInfo
+  }
+}
+
+function *signUp(ctx){
+  if(checkRegister()){
+
+    return
+  }
+  if(checkSignup().isSignup){
+
+    return
+  }
+  return {
+    success:true,
+    errorCode:''
+  }
+}
+
+function *checkSeat(ctx){
+  if(checkRegister()){
+
+    return
+  }
+  if(checkSignup().isSignup){
+
+    return
+  }
+  return {
+    seatInfo :'',
+    success : false
+  }
+}
+
+function *checkScore(){
+  if(checkRegister()){
+
+    return
+  }
+  if(checkSignup().isSignup){
+
+    return
+  }
+  return {
+
+  }
+}
+
+function *showHonor(ctx){
+  return{
+
+  }
+}
+
 module.exports = wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
-  var message = this.weixin;
-  console.log(message)
+  var message = this.weixin; 
   if(message.Event === 'CLICK'){
     switch(message.EventKey){
       case 'V101':
+        var signUpInfo = yield signUp()
         this.body = {
           content: '测试信息',
           type:'text'
         }
         break;
       case 'V102':
+        var seatInfo = yield checkSeat()
         this.body = {
           content: '测试信息',
           type:'text'
         }
         break;
       case 'V103':
+        var scoreInfo = yield checkScore()
         this.body = {
           content: '测试信息',
           type:'text'
@@ -38,6 +103,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         break;
       case 'V301':
+        var honorInfo = yield showHonor()
         this.body = {
           content: '测试信息',
           type:'text'
@@ -45,13 +111,10 @@ module.exports = wechat(config.wechat).middleware(function *() {
         break;          
     }
   }
-  else if (message.Event === 'unsubscribe'){
-
-  }
   else if (message.Event === 'subscribe'){
     this.body = {
-      content:'感谢关注/:rose,您可以\n'+
-      '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n'+
+      content:'感谢关注/:rose/:rose,您可以\n\n'+
+      '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
       '来获取更多奥赛咨询！',
       type:'text'
     }
@@ -65,36 +128,5 @@ module.exports = wechat(config.wechat).middleware(function *() {
       content: 'text object',
       type: 'text'
     };
-  } else if (message.Content === '2') {
-    // 回复一段音乐
-    this.body = {
-      type: "music",
-      content: {
-        title: "来段音乐吧",
-        description: "一无所有",
-        musicUrl: "http://mp3.com/xx.mp3",
-        hqMusicUrl: "http://mp3.com/xx.mp3"
-      }
-    };
-  } else if (message.Content === '3') {
-    // 转发到客服接口
-    this.body = [
-      {
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
-        picurl: '//img.blog.csdn.net/20151030004840663',
-        url: '//baidu.com/'
-      }
-    ];
-  } else {
-    // 回复高富帅(图文回复)
-    this.body = [
-      {
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
-        picurl: '//img.blog.csdn.net/20151030004840663',
-        url: '//baidu.com/'
-      }
-    ];
-  }
+  } 
 })

@@ -34,9 +34,7 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 app.use(require('koa-static')(path.join(__dirname, 'public')))
 app.use(bodyParser())
 app.keys = ['keys', 'keykeys'];
-app.use(session({
-  store: redisStore()
-}));
+app.use(session());
 
 function checkVaild(actoken,openid){
   var option = {

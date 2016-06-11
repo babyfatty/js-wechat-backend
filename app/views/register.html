@@ -8,12 +8,12 @@
 {% endblock %}
 
 {% block content %}
-<form>
+<form action="/userRegister" method="post">
 <div class="weui_cells_title">姓名</div>
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="tel" placeholder="请输入真实姓名">
+            <input class="weui_input" type="tel" name="username" placeholder="请输入真实姓名">
         </div>
     </div>
 </div>
@@ -24,17 +24,16 @@
             <p>男</p>
         </div>
         <div class="weui_cell_ft">
-            <input type="radio" class="weui_check" name="radio1" id="x11">
+            <input type="radio" class="weui_check" name="gender" value="male" id="x11">
             <span class="weui_icon_checked"></span>
         </div>
     </label>
     <label class="weui_cell weui_check_label" for="x12">
-
         <div class="weui_cell_bd weui_cell_primary">
             <p>女</p>
         </div>
         <div class="weui_cell_ft">
-            <input type="radio" name="radio1" class="weui_check" id="x12" checked="checked">
+            <input type="radio" name="gender" value="female" class="weui_check" id="x12" checked="checked">
             <span class="weui_icon_checked"></span>
         </div>
     </label>
@@ -44,7 +43,7 @@
 <div class="weui_cell">
     <div class="weui_cell_hd"><label for="" class="weui_label">日期</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" type="date" value="">
+        <input class="weui_input" type="date" name="birthdate" value="">
     </div>
 </div>
 </div>
@@ -53,7 +52,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="select1">
+            <select class="weui_select" name="area">
                 {% for area in areas %}
                 {% if loop.first %}
                 <option value="{{ loop.index }}" selected>{{ area }}</option>
@@ -72,7 +71,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="select1">
+            <select class="weui_select" name="grade">
                 {% for grade in grades %}
                 {% if loop.first %}
                 <option value="{{ loop.index }}" selected>{{ grade }}</option>
@@ -86,7 +85,7 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="tel" placeholder="如已上高中，请填写高中学校">
+            <input class="weui_input" type="tel" name="highschool" placeholder="如已上高中，请填写高中学校">
         </div>
     </div>
 </div>
@@ -96,7 +95,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="select1">
+            <select class="weui_select" name="midschool">
                 {% for school in schools %}
                 {% if loop.first %}
                 <option value="{{ loop.index }}" selected>{{ school }}</option>
@@ -110,7 +109,7 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="tel" placeholder="如选择其他，请填写初中学校">
+            <input class="weui_input" name="midschoolname" type="tel" placeholder="如选择其他，请填写初中学校">
         </div>
     </div>
 </div>
@@ -120,7 +119,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select weui_select_after">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="select2">
+            <select class="weui_select" name="classroom">
                {% for room in classroom %}
                 <option value="{{ room }}">{{ room }}班</option>
 			   {%- endfor %}
@@ -134,7 +133,7 @@
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" placeholder="请输入家长真实姓名">
+            <input class="weui_input" type="text" name="parentname" placeholder="请输入家长真实姓名">
         </div>
     </div>
 </div>
@@ -143,12 +142,12 @@
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="tel" placeholder="请输入家长手机号">
+            <input class="weui_input" type="tel" name="parenttel" placeholder="请输入家长手机号">
         </div>
     </div>
 </div>
 <div class="weui_btn_area">
-        <a class="weui_btn weui_btn_primary" href="javascript:" id="showTooltips">确定</a>
+        <button class="weui_btn weui_btn_primary" href="javascript:" id="showTooltips">确定</button>
 </div>
 
 </form>

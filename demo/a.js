@@ -7,7 +7,7 @@
 //   console.log(result)
 //   console.log('222')
 // })
-
+    
 // // 查询菜单
 // app.use(function*(next){
 //   var result = yield* api.getMenu();

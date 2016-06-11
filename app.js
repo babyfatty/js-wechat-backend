@@ -9,7 +9,7 @@ var request = require('koa-request');
 var onerror = require('koa-onerror');
 var logger = require('mini-logger');
 var path = require('path');
-
+var bodyParser = require('koa-body-parser');
 
 var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   // 传入一个获取全局token的方法
@@ -30,7 +30,7 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 //   console.log('222')
 // })
 app.use(require('koa-static')(path.join(__dirname, 'public')))
-
+app.use(bodyParser())
 function checkVaild(actoken,openid){
   var option = {
     url :"https://api.weixin.qq.com/sns/auth?access_token="+actoken+"&openid="+openid 

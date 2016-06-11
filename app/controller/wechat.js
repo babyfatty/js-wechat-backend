@@ -2,8 +2,13 @@ var wechat = require('co-wechat')
 var api = require('co-wechat-api')
 var path = require('path')
 var config = require(path.join('../../', 'config'))
+var User = require('../model/user.js')
 
-function *checkRegister(){
+function *checkRegister(openid){
+  user = yield User.findOne({
+    'where': {'openid': openid}
+  });
+  console.log("user",user)
   return false
 }
 
@@ -16,8 +21,8 @@ function *checkSignup(){
 
 function *signUp(ctx){
   if(checkRegister()){
-
-    return
+    
+    return false
   }
   if(checkSignup().isSignup){
 

@@ -20,8 +20,8 @@ function *checkSignup(){
 }
 
 function *signUp(ctx){
-  if(checkRegister()){
-    
+  if(yield checkRegister()){
+
     return false
   }
   if(checkSignup().isSignup){

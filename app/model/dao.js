@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize')
 var mysql = require('mysql')
 
-var sequelize = new Sequelize('asxc_env', 'username', 'password', {
+var sequelize = new Sequelize('asxc', 'username', 'password', {
   host: '139.129.27.196',
   port:3306,
   dialect: 'mysql',

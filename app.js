@@ -11,7 +11,8 @@ var logger = require('mini-logger');
 var path = require('path');
 var bodyParser = require('koa-body-parser');
 var session = require('koa-generic-session');
-
+var redisStore = require('koa-redis');
+  
 var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   // 传入一个获取全局token的方法
   var txt = yield fs.readFile('access_token.txt', 'utf8');
@@ -32,7 +33,10 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 // })
 app.use(require('koa-static')(path.join(__dirname, 'public')))
 app.use(bodyParser())
-app.use(session())
+app.keys = ['keys', 'keykeys'];
+app.use(session({
+  store: redisStore()
+}));
 
 function checkVaild(actoken,openid){
   var option = {

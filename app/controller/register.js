@@ -25,19 +25,19 @@ register.getInfo = function* (next){
   }
   var inf = yield request(option)
 
-  console.log('quwey',query)
+  console.log('quwey',this.query)
   console.log('param',param)
 
-  this.wxsession.openid = param.openid
+  this.session.openid = param.openid
 
   this.body= yield render('register', user);
 }
 
 register.saveInfo = function* (next){
 
-  console.log('openid',this.wxsession.openid)
+  console.log('openid',this.session.openid)
   var formParam = this.request.body
-  var openid = this.wxsession.openid
+  var openid = this.session.openid
 
   var saveResult = yield user.create({
       username: formParam.username,

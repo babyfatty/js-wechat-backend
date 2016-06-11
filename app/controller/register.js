@@ -15,11 +15,7 @@ register.getInfo = function* (next){
     grades:config.school.grades,
     areas:config.areas
   };
-  this.body= yield render('register', user);
-}
-
-register.saveInfo = function* (next){
-  var option = {
+    var option = {
     url:"https://api.weixin.qq.com/sns/oauth2/access_token?appid="+config.app.appid+"&secret="+config.app.appsecret+"&code="+this.query.code+"&grant_type=authorization_code"
   }
   var info = yield request(option)
@@ -29,11 +25,23 @@ register.saveInfo = function* (next){
   }
   var inf = yield request(option)
 
+  console.log('quwey',query)
+  console.log('param',param)
+
+  this.wxsession.openid = param.openid
+
+  this.body= yield render('register', user);
+}
+
+register.saveInfo = function* (next){
+
+  console.log('openid',this.wxsession.openid)
   var formParam = this.request.body
+  var openid = this.wxsession.openid
 
   var saveResult = yield user.create({
       username: formParam.username,
-      openid: param.openid||"1234321",
+      openid: openid,
       gender: formParam.gender,
       birthdate: formParam.birthdate,
       area: formParam.area,

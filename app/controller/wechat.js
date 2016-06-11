@@ -19,8 +19,8 @@ function *checkSignup(){
   }
 }
 
-function *signUp(ctx){
-  if(yield checkRegister()){
+function *signUp(openid){
+  if(yield checkRegister(openid)){
 
     return false
   }
@@ -75,7 +75,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
   if(message.Event === 'CLICK'){
     switch(message.EventKey){
       case 'V101':
-        var signUpInfo = yield signUp()
+        var signUpInfo = yield signUp(message.FromUserName)
         this.body = {
           content: '测试信息',
           type:'text'

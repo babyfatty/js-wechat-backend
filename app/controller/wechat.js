@@ -3,6 +3,7 @@ var api = require('co-wechat-api')
 var path = require('path')
 var config = require(path.join('../../', 'config'))
 var User = require('../model/user.js')
+var examInfo = require('../model/examInfo.js')
 
 function *checkRegister(openid){
   user = yield User.findOne({
@@ -12,10 +13,13 @@ function *checkRegister(openid){
   return false
 }
 
-function *checkSignup(){
+function *checkSignup(openid){
+  user = yield examInfo.findOne({
+    'where': {'openid': openid}
+  });
   return {
     isSignup:false,
-    signUpInfo:signUpInfo
+    signUpInfo:user
   }
 }
 
@@ -24,10 +28,16 @@ function *signUp(openid){
 
     return false
   }
-  if(checkSignup().isSignup){
+  if(yield checkSignup(openid)){
 
-    return
+    return false
   }
+
+  var result = yield examInfo.create({
+    openid : openid,
+    isSignup : true
+  })
+
   return {
     success:true,
     errorCode:''

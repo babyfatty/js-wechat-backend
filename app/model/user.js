@@ -1,6 +1,5 @@
 var sequelize = require('./dao')
 var Sequelize = require('sequelize')
-var thunkify = require('thunkify')
 
 
 var User = sequelize.define('user', {

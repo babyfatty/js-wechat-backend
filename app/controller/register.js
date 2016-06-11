@@ -27,7 +27,7 @@ register.getInfo = function* (next){
 
   console.log('quwey',this.query)
   console.log('param',param)
-
+    
   this.session.openid = param.openid
 
   this.body= yield render('register', user);

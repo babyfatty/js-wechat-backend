@@ -26,16 +26,14 @@ function *checkSignup(openid){
 function *signUp(openid){
   if(yield checkRegister(openid)){
 
-    return false
   }
   if(yield checkSignup(openid)){
 
-    return false
   }
 
   var result = yield examInfo.create({
     openid : openid,
-    isSignup : true
+    isSign : true
   })
 
   return {

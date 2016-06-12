@@ -2,7 +2,7 @@ var router = require('koa-router')();
 
 var controller = require('../controller')
 
-router.get('/update',controller.update)
+router.get('/update',controller.update.getInfo)
 
 router.get('/register',controller.register.getInfo)
 
@@ -11,5 +11,13 @@ router.get('/admin',controller.admin)
 router.post('/wechat',controller.wechat)
 
 router.post('/userRegister',controller.register.saveInfo)
+
+router.post('/userUpdate',controller.update.updateInfo)
+
+router.post('/fileupload',controller.fileupload.upload)
+
+router.get('/downloadFile',controller.fileupload.download)
+
+router.get('/admin',controller.admin)
 
 module.exports = router

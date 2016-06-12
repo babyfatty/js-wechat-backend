@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="/userRegister" method="post">
+<form action="/userUpdate" method="post">
 <div class="weui_cells_title">姓名</div>
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
@@ -44,7 +44,7 @@
 <div class="weui_cell">
     <div class="weui_cell_hd"><label for="" class="weui_label">日期</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" type="date" name="birthdate" value="">
+        <input class="weui_input" type="date" name="birthdate" value="2016-01-01">
     </div>
 </div>
 </div>
@@ -147,8 +147,11 @@
         </div>
     </div>
 </div>
-<div id="prizeContainer"></div>
-<div class="weui_btn_area">ƒ
+
+<div id="prizeContainer">
+
+</div>
+<div class="weui_btn_area">
         <button class="weui_btn weui_btn_primary" href="javascript:" id="showTooltips">确定</button>
 </div>
 
@@ -157,51 +160,89 @@
 {% block script %}
 {% parent %}
 <script type="text/template" id="prizeTmpl">
+{% raw %}
+<div class="weui_cells_title selfHonour">
+    <span>个人荣誉</span> 
+    <a href="javascript:;" v-on:click="addPrize" class="addHonourBtn">
+        <svg style="height: 100%; width: 100%;"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon"><g class="large-icon" style="fill: currentColor">
+                <g>
+                  <path d="M21,13h-8v8h-2v-8H3v-2h8V3h2v8h8V13z"></path>
+                </g>
+              </g></svg>
+        </svg>
+    </a>
+</div>
 <ul class="prizeList">
-    <li v-for="(index,prize) in prizeList">
+    <li v-for="prize in prizeList">
         <div class="weui_cells">
-            <a href="#" class="weui_btn weui_btn_default deletePrize" v-on:click="removePrize($index)">
-                <i class="weui_icon_cancel"></i>
-            </a>
-            <div class="weui_cell weui_cell_select weui_select_after">
-                <div class="weui_cell_hd">
-                    <label for="" class="weui_label">类别：</label>
-                </div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="prizecat">
-                        {% for prizeCat in prizeCats %}
-                            <option value="{{loop.index}}">{{prizeCat}}</option>
-                        {%- endfor %}
-                    </select>
-                </div>
-            </div>   
-            <div class="weui_cell">
-                <div class="weui_cell_hd"><label for="" class="weui_label">日期</label></div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="month" name="prizedate" value="">
-                </div>
+            <div class="editHonourForm" v-bind:class="{ 'show': prize.show, 'hide': !prize.show }">
+                <form>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd"><label for="" class="weui_label">奖项名称：</label></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" type="text" name="prizename" placeholder="奖项名称" value="{{prize.prizename}}" v-model="prize.prizename">
+                        </div>
+                    </div>
+                    <div class="weui_cell weui_cell_select weui_select_after">
+                        <div class="weui_cell_hd">
+                            <label for="" class="weui_label">类别：</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <select class="weui_select" name="prizecat" v-model="prize.catSelected">
+                                   <option v-for="prizeCat in prizeCats" value="{{prizeCat.text}}">{{prizeCat.text}}</option>
+                            </select>
+                        </div>
+                    </div>   
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd"><label for="" class="weui_label">日期：</label></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" type="month" name="prizedate" v-model= "prize.prizedate" value="{{prize.prizedate}}">
+                        </div>
+                    </div>
+                    <div class="weui_cell weui_cell_select weui_select_after">
+                        <div class="weui_cell_hd">
+                            <label for="" class="weui_label">区域：</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <select class="weui_select" name="prizearea" v-model="prize.areaSelected">
+                                    <option  v-for="prizeArea in prizeAreas" value="{{prizeArea.text}}">{{prizeArea.text}}级</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="operBtns">
+                        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" v-on:click="savePrize($index,prize)">save</a>
+                        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default" v-on:click="cancelEdit($index,prize)">cancel</a>
+                        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_warn" v-on:click="removePrize($index,prize)">delete</a>
+                    </div>
+                </form>
             </div>
-            <div class="weui_cell weui_cell_select weui_select_after">
-                <div class="weui_cell_hd">
-                    <label for="" class="weui_label">区域：</label>
+            <div class="honourItem" v-bind:class="{ 'show': !prize.show , 'hide': prize.show}">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">{{ prize.prizename }}</h4>
+                    <div class="weui_media_desc">
+                        类别: {{prize.catSelected}}
+                    </div>
+                    <div class="weui_media_desc">
+                        区域: {{prize.areaSelected}} 级
+                    </div>
+                    <div class="weui_media_desc">
+                        年份: {{prize.prizedate}}
+                    </div>
                 </div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="prizearea">
-                        {% for prizeArea in prizeAreas %}
-                            <option value="{{loop.index}}">{{prizeArea}}</option>
-                        {%- endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="weui_cell">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="text" name="prizename" placeholder="奖项名称">
+                <div class="editBtns">
+                    <div class="editBtn" v-on:click="editPrize($index,prize)">
+                        <li-icon aria-hidden="true" type="pencil-icon"><svg style="height: 100%; width: 100%;"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon"><g class="large-icon" style="fill: currentColor">
+                            <g>
+                              <path d="M21.7,5l-2.7-2.7C18.8,2.1,18.5,2,18.3,2s-0.5,0.1-0.7,0.3L5,14.8L3,21l6.2-2L21.7,6.4c0.2-0.2,0.3-0.5,0.3-0.7C22,5.5,21.9,5.2,21.7,5zM7.8,17.8l-1.6-1.6L18.3,4.1l1.6,1.6L7.8,17.8z"></path>
+                            </g>
+                          </g></svg></svg></li-icon>
+                    </div>
                 </div>
             </div>
         </div>
     </li>
 </ul>
-<a href="javascript:;" v-on:click="addPrize" class="weui_btn weui_btn_plain_primary">添加一项</a>
+{% endraw %}
 </script>
 <script src="/js/update.js"></script>
 {% endblock %}

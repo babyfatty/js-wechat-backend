@@ -7,3 +7,4 @@ exports.register=register
 exports.update= update
 exports.wechat=wechat
 exports.userRegister = require('./userRegister')
+exports.fileupload = require('./fileupload')

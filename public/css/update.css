@@ -1,12 +1,25 @@
-.deletePrize{
-	/*width: 100%;
-	display: inline-block;
-	background: #fbf9fe;*/
+body{
+	background: #fbf9fe
 }
-.deletePrize .weui_icon_cancel{
-	/*float: right;*/
+.weui_cells_title {
+    padding-top: .77em;
+    padding-bottom: .3em;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #888;
+    font-size: 14px;
+    margin:0;
 }
-
+.operBtns{
+	overflow: hidden;
+	padding: 0 15px;
+}
+.operBtns .weui_btn_warn{
+	float: right;
+}
+.prizeList li{
+	display: block;
+}
 .prizeList .weui_cells{
 	margin-top: 0
 }
@@ -14,4 +27,60 @@
 .weui_btn_plain_primary{
 	width: 40%;
     margin-top: 20px;
+}
+
+.honourItem{
+	display: -webkit-flex;
+}
+
+.honourItem .weui_media_box {
+	flex:3;
+}
+
+.honourItem .editBtns{
+	padding: 15px;
+	flex:1;
+}
+
+.editBtn{
+	width: 24px;
+	height: 24px;
+}
+
+.deleteBtn{
+	width: 24px;
+	height: 24px;
+}
+
+.prizeList .honourItem.show{
+	display: -webkit-flex;
+}
+
+.prizeList .editHonourForm .show{
+	display: block;
+}
+
+.prizeList .hide{
+	display: none;
+}
+
+.addHonourBtn{
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	color: #04be02;
+}
+
+.selfHonour{
+	display: -webkit-flex;
+}
+
+.selfHonour span{
+	flex:3;
+	padding-right: 15px;
+	line-height: 24px;
+}
+
+.selfHonour .addHonourBtn{
+	flex:1;
 }

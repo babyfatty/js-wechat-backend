@@ -20,10 +20,6 @@ register.getInfo = function* (next){
   }
   var info = yield request(option)
   var param = JSON.parse(info.body)
-  var option = {
-    url:"https://api.weixin.qq.com/sns/userinfo?access_token="+param.access_token+"&openid="+param.openid+"&lang=zh_CN"
-  }
-  var inf = yield request(option)
 
   console.log('quwey',this.query)
   console.log('param',param)
@@ -34,7 +30,6 @@ register.getInfo = function* (next){
 }
 
 register.saveInfo = function* (next){
-
   console.log('openid',this.session.openid)
   var formParam = this.request.body
   var openid = this.session.openid

@@ -43,13 +43,12 @@ function *signUp(openid){
 }
 
 function *checkSeat(ctx){
-  if(checkRegister()){
+  if(yield checkRegister()){
 
-    return
   }
-  if(checkSignup().isSignup){
+  if(yield checkSignup()){
 
-    return
+    
   }
   return {
     seatInfo :'',
@@ -58,13 +57,11 @@ function *checkSeat(ctx){
 }
 
 function *checkScore(){
-  if(checkRegister()){
+  if(yield checkRegister()){
 
-    return
   }
-  if(checkSignup().isSignup){
+  if(yield checkSignup()){
 
-    return
   }
   return {
 

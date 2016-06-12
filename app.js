@@ -12,7 +12,6 @@ var path = require('path');
 var bodyParser = require('koa-body-parser');
 var session = require('koa-generic-session');
 var redisStore = require('koa-redis');
-  
 var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   // 传入一个获取全局token的方法
   var txt = yield fs.readFile('access_token.txt', 'utf8');
@@ -23,7 +22,6 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   yield fs.writeFile('access_token.txt', JSON.stringify(token));
 });
 
-
 // app.use(function*(next){
 //   var menu = config.menu
 //   yield next
@@ -31,6 +29,13 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 //   console.log(result)
 //   console.log('222')
 // })
+
+// app.use(route.post('/profile', upload.single('avatar')))
+var koaBody = require('koa-body')
+app.use(koaBody({
+  formidable:{uploadDir: 'upload'},
+  multipart:true
+}));
 app.use(require('koa-static')(path.join(__dirname, 'public')))
 app.use(bodyParser())
 app.keys = ['keys', 'keykeys'];

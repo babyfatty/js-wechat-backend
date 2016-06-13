@@ -94,7 +94,9 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         if(!!compeInfo.student){
             this.body = {
-            content: '您已经报过名啦！',
+            content: '您已经报过名啦！\n\n'+"姓名："+userInfo.name+'\n\n'
+            +"赛事："+competition.name+'\n\n'
+            +"报名时间："+competition['create_time'],,
             type:'text'
           }
           return false

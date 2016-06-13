@@ -92,6 +92,13 @@ module.exports = wechat(config.wechat).middleware(function *() {
           }
           return false;
         }
+        if(compeInfo.student){
+            this.body = {
+            content: '您已经报过名啦！',
+            type:'text'
+          }
+          return false
+        }
         var signUpResult = yield signUp(competition.id,openid)
         if(!signUpResult){
           this.body = {

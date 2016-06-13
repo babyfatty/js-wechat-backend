@@ -9,12 +9,7 @@ var user = require('../model/user')
 var register = {}
 
 register.getInfo = function* (next){
-  var user = {
-    schools:config.school.names,
-    classroom:config.school.classroom,
-    grades:config.school.grades,
-    areas:config.areas
-  };
+
     var option = {
     url:"https://api.weixin.qq.com/sns/oauth2/access_token?appid="+config.app.appid+"&secret="+config.app.appsecret+"&code="+this.query.code+"&grant_type=authorization_code"
   }
@@ -25,7 +20,13 @@ register.getInfo = function* (next){
   console.log('param',param)
     
   this.session.openid = param.openid
-
+  var user = {
+    schools:config.school.names,
+    classroom:config.school.classroom,
+    grades:config.school.grades,
+    areas:config.areas,
+    openid:param.openid||123
+  };
   this.body= yield render('register', user);
 }
 

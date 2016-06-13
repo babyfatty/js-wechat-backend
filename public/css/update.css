@@ -47,11 +47,6 @@ body{
 	height: 24px;
 }
 
-.deleteBtn{
-	width: 24px;
-	height: 24px;
-}
-
 .prizeList .honourItem.show{
 	display: -webkit-flex;
 }

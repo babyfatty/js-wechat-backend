@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/babyfatty/js-wechat-backend#readme",
   "dependencies": {
+    "alidayu-node": "^1.0.3",
     "co-fs": "~1.2.0",
     "co-wechat-api": "~2.4.0",
     "formidable": "^1.0.17",

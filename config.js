@@ -5,7 +5,7 @@ module.exports = {
         appsecret: '2e6e21ead4da99a6f565b9fc07f138f5'
     },
     host: {
-        port: 80,
+        port: 3080,
         env: 'development'
     },
     app: {
@@ -13,7 +13,7 @@ module.exports = {
     	appsecret:"2e6e21ead4da99a6f565b9fc07f138f5"
     },
     school: {
-        grades:['初一升初二','初二升初三','初三升高一','高一升高二','高二升高三','高三毕业季'],
+        grades:[{value:7,text:'初一升初二'},{value:8,text:'初二升初三'},{value:9,text:'初三升高一'},{value:10,text:'高一升高二'},{value:11,text:'高二升高三'},{value:12,text:'高三毕业季'}],
         names:['树人','南外','金陵汇文','二十九中','其他'],
         classroom:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
     },

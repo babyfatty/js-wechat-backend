@@ -207,7 +207,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
             var  tmpl = "奖项："+ prize.content +"\n"  + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "类别：" + config.prizes.category[prize.type] + "\n" +"时间：" +  prize.time + "\n\n\n"
             content += tmpl
           }
-          content += "真厉害！"
+          content += "你就是传说中的大牛吗？"
           this.body = {
             content: content,
             type:'text'

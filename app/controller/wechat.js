@@ -74,6 +74,7 @@ function *showHonor(sid){
 
 module.exports = wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
+  console.log(this)
   var message = this.weixin;
   var competition = yield getCompeid()
   var openid = message.FromUserName

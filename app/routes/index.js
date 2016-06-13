@@ -20,8 +20,4 @@ router.get('/admin',controller.admin)
 
 router.get('/success',controller.success)
 
-router.get('/check',function*(){
-	this.body = this.query.echostr
-})
-
 module.exports = router

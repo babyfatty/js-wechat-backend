@@ -10,10 +10,6 @@ router.get('/admin',controller.admin)
 
 router.post('/wechat',controller.wechat)
 
-router.post('/userRegister',controller.register.saveInfo)
-
-router.post('/userUpdate',controller.update.updateInfo)
-
 router.post('/fileupload',controller.fileupload.upload)
 
 router.get('/downloadFile',controller.fileupload.download)

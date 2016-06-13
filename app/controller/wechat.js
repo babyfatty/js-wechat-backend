@@ -92,7 +92,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
           }
           return false;
         }
-        if(compeInfo.student){
+        if(!!compeInfo.student){
             this.body = {
             content: '您已经报过名啦！',
             type:'text'

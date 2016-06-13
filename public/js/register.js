@@ -18,7 +18,7 @@ $('#submitBtn').on('click',function(){
 	}, function(response,err){
   		console.log(response)
   		console.log(err)
-  		window.location.replace("/success")
+  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
 	})
 })
 

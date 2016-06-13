@@ -129,6 +129,6 @@ $('#submitBtn').on('click',function(){
 	 "s.parent_name": param[9].value,
 	 "s.parent_phone": param[10].value
 	}, function(response,err){
-  		window.location.replace("/success")
+  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
 	})
 })

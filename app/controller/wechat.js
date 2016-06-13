@@ -85,7 +85,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         if(!userInfo){
           this.body = {
             content: '您还没有绑定账号，请先\n\n'+
-            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
             '然后继续报名操作'
             ,
             type:'text'
@@ -121,7 +121,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         if(!userInfo){
           this.body = {
             content: '您还没有绑定账号，请先\n\n'+
-            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
             '然后继续报名操作'
             ,
             type:'text'
@@ -154,7 +154,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         if(!userInfo){
           this.body = {
             content: '您还没有绑定账号，请先\n\n'+
-            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
             '然后继续报名操作'
             ,
             type:'text'
@@ -219,7 +219,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
   else if (message.Event === 'subscribe'){
     this.body = {
       content:'感谢关注/:rose/:rose,您可以\n\n'+
-      '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+      '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
       '来获取更多奥赛咨询！',
       type:'text'
     }

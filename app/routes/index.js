@@ -22,4 +22,8 @@ router.get('/admin',controller.admin)
 
 router.get('/success',controller.success)
 
+router.get('/check',function*(){
+	console.log(this)
+})
+
 module.exports = router

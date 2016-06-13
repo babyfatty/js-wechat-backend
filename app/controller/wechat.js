@@ -71,176 +71,176 @@ function *showHonor(sid){
   }
   return rewards
 }
-module.exports = function*(){
-  console.log(config.wechat)
-  this.body = this.query.echostr
-}
-// module.exports = wechat(config.wechat).middleware(function *() {
-//   // 微信输入信息都在this.weixin上
-//   console.log(this)
-//   var message = this.weixin;
-//   var competition = yield getCompeid()
-//   var openid = message.FromUserName
-//   var userInfo = yield getUserInfo(openid)
-//   var compeInfo = yield getCompeInfo(competition.id,openid,userInfo.id)
-//   if(message.Event === 'CLICK'){
-//     switch(message.EventKey){
-//       case 'V101':
-//         if(!userInfo){
-//           this.body = {
-//             content: '您还没有绑定账号，请先\n\n'+
-//             '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
-//             '然后继续报名操作'
-//             ,
-//             type:'text'
-//           }
-//           return false;
-//         }
-//         if(!!compeInfo.student){
-//             this.body = {
-//             content: '您已经报过名啦！\n\n'+"姓名："+userInfo.name+'\n\n'
-//             +"赛事："+competition.name+'\n\n'
-//             +"报名时间："+compeInfo['create_time'],
-//             type:'text'
-//           }
-//           return false
-//         }
-//         var signUpResult = yield signUp(competition.id,openid)
-//         if(!signUpResult){
-//           this.body = {
-//             content: '报名失败！请稍后再试',
-//             type:'text'
-//           }
-//           return false
-//         }
-//         this.body = {
-//             content: '报名成功！\n\n'
-//             +"姓名："+userInfo.name+'\n\n'
-//             +"赛事："+competition.name+'\n\n'
-//             +"报名时间："+signUpResult['create_time'],
-//             type:'text'
-//         }
-//         break;
-//       case 'V102':
-//         if(!userInfo){
-//           this.body = {
-//             content: '您还没有绑定账号，请先\n\n'+
-//             '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
-//             '然后继续报名操作'
-//             ,
-//             type:'text'
-//           }
-//           return false;
-//         }
-//         if(!compeInfo){
-//           this.body = {
-//             content: '您还没有报名，请先报名！',
-//             type:'text'
-//           }
-//           return false
-//         }
+// module.exports = function*(){
+//   console.log(config.wechat)
+//   this.body = this.query.echostr
+// }
+module.exports = wechat(config.wechat).middleware(function *() {
+  // 微信输入信息都在this.weixin上
+  console.log(this)
+  var message = this.weixin;
+  var competition = yield getCompeid()
+  var openid = message.FromUserName
+  var userInfo = yield getUserInfo(openid)
+  var compeInfo = yield getCompeInfo(competition.id,openid,userInfo.id)
+  if(message.Event === 'CLICK'){
+    switch(message.EventKey){
+      case 'V101':
+        if(!userInfo){
+          this.body = {
+            content: '您还没有绑定账号，请先\n\n'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            '然后继续报名操作'
+            ,
+            type:'text'
+          }
+          return false;
+        }
+        if(!!compeInfo.student){
+            this.body = {
+            content: '您已经报过名啦！\n\n'+"姓名："+userInfo.name+'\n\n'
+            +"赛事："+competition.name+'\n\n'
+            +"报名时间："+compeInfo['create_time'],
+            type:'text'
+          }
+          return false
+        }
+        var signUpResult = yield signUp(competition.id,openid)
+        if(!signUpResult){
+          this.body = {
+            content: '报名失败！请稍后再试',
+            type:'text'
+          }
+          return false
+        }
+        this.body = {
+            content: '报名成功！\n\n'
+            +"姓名："+userInfo.name+'\n\n'
+            +"赛事："+competition.name+'\n\n'
+            +"报名时间："+signUpResult['create_time'],
+            type:'text'
+        }
+        break;
+      case 'V102':
+        if(!userInfo){
+          this.body = {
+            content: '您还没有绑定账号，请先\n\n'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            '然后继续报名操作'
+            ,
+            type:'text'
+          }
+          return false;
+        }
+        if(!compeInfo){
+          this.body = {
+            content: '您还没有报名，请先报名！',
+            type:'text'
+          }
+          return false
+        }
         
-//         if(!compeInfo['exam_info']){
-//           this.body = {
-//             content: '考场信息尚未分配，请稍后再查',
-//             type:'text'
-//           }
-//           return false
-//         }
-//         this.body = {
-//             content: '您的考场为\n\n'+
-//             compeInfo['exam_info']+'\n\n'
-//             +"祝您取得好成绩！",
-//             type:'text'
-//           }
-//         break;
-//       case 'V103':
-//         if(!userInfo){
-//           this.body = {
-//             content: '您还没有绑定账号，请先\n\n'+
-//             '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
-//             '然后继续报名操作'
-//             ,
-//             type:'text'
-//           }
-//           return false;
-//         }
-//         if(!compeInfo){
-//           this.body = {
-//             content: '您还没有报名，请先报名！',
-//             type:'text'
-//           }
-//           return false
-//         }
-//         if(!compeInfo['score']){
-//           this.body = {
-//             content: '暂无成绩信息，请稍后再查',
-//             type:'text'
-//           }
-//           return false
-//         }
-//         this.body = {
-//             content: '您的成绩为\n\n'+
-//             compeInfo['score']+'\n\n'
-//             +"恭喜！",
-//             type:'text'
-//         }
-//         break;
-//       case 'V201':
-//         this.body = {
-//           content: '考试须知【TODO】',
-//           type:'text'
-//         }
-//         break;
-//       case 'V202':
-//         this.body = {
-//           content: '培训信息【TODO】',
-//           type:'text'
-//         }
-//         break;
-//       case 'V301':
-//         var prizeList = yield showHonor(userInfo.id)
-//         if(prizeList.length === 0){
-//           this.body = {
-//             content: '暂无获奖信息',
-//             type:'text'
-//           }
-//         }else{
-//           var content = "个人荣誉殿堂\n\n"
-//           for(var prize of prizeList){
-//             var  tmpl = "奖项："+ prize.content +"\n"  + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "类别：" + config.prizes.category[prize.type] + "\n" +"时间：" +  prize.time + "\n\n\n"
-//             content += tmpl
-//           }
-//           content += "你就是传说中的大牛吗？"
-//           this.body = {
-//             content: content,
-//             type:'text'
-//           }
-//         }
-//         break;          
-//     }
-//   }
-//   else if (message.Event === 'subscribe'){
-//     this.body = {
-//       content:'感谢关注/:rose/:rose,您可以\n\n'+
-//       '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
-//       '来获取更多奥赛咨询！',
-//       type:'text'
-//     }
-//   }
-//   else if (message.Content === 'diaosi') {
-//     // 回复屌丝(普通回复)
-//     this.body = 'hehe'+api.getIp();
-//   } else if (message.Content === '1') {
-//     //你也可以这样回复text类型的信息
-//     this.body = {
-//       content: 'text object',
-//       type: 'text'
-//     };
-//   } else {
-//     this.body = {
-//       content: 'text object',
-//       type: 'text'
-//     };
-//   }
-// })
+        if(!compeInfo['exam_info']){
+          this.body = {
+            content: '考场信息尚未分配，请稍后再查',
+            type:'text'
+          }
+          return false
+        }
+        this.body = {
+            content: '您的考场为\n\n'+
+            compeInfo['exam_info']+'\n\n'
+            +"祝您取得好成绩！",
+            type:'text'
+          }
+        break;
+      case 'V103':
+        if(!userInfo){
+          this.body = {
+            content: '您还没有绑定账号，请先\n\n'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            '然后继续报名操作'
+            ,
+            type:'text'
+          }
+          return false;
+        }
+        if(!compeInfo){
+          this.body = {
+            content: '您还没有报名，请先报名！',
+            type:'text'
+          }
+          return false
+        }
+        if(!compeInfo['score']){
+          this.body = {
+            content: '暂无成绩信息，请稍后再查',
+            type:'text'
+          }
+          return false
+        }
+        this.body = {
+            content: '您的成绩为\n\n'+
+            compeInfo['score']+'\n\n'
+            +"恭喜！",
+            type:'text'
+        }
+        break;
+      case 'V201':
+        this.body = {
+          content: '考试须知【TODO】',
+          type:'text'
+        }
+        break;
+      case 'V202':
+        this.body = {
+          content: '培训信息【TODO】',
+          type:'text'
+        }
+        break;
+      case 'V301':
+        var prizeList = yield showHonor(userInfo.id)
+        if(prizeList.length === 0){
+          this.body = {
+            content: '暂无获奖信息',
+            type:'text'
+          }
+        }else{
+          var content = "个人荣誉殿堂\n\n"
+          for(var prize of prizeList){
+            var  tmpl = "奖项："+ prize.content +"\n"  + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "类别：" + config.prizes.category[prize.type] + "\n" +"时间：" +  prize.time + "\n\n\n"
+            content += tmpl
+          }
+          content += "你就是传说中的大牛吗？"
+          this.body = {
+            content: content,
+            type:'text'
+          }
+        }
+        break;          
+    }
+  }
+  else if (message.Event === 'subscribe'){
+    this.body = {
+      content:'感谢关注/:rose/:rose,您可以\n\n'+
+      '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+      '来获取更多奥赛咨询！',
+      type:'text'
+    }
+  }
+  else if (message.Content === 'diaosi') {
+    // 回复屌丝(普通回复)
+    this.body = 'hehe'+api.getIp();
+  } else if (message.Content === '1') {
+    //你也可以这样回复text类型的信息
+    this.body = {
+      content: 'text object',
+      type: 'text'
+    };
+  } else {
+    this.body = {
+      content: 'text object',
+      type: 'text'
+    };
+  }
+})

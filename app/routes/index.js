@@ -10,6 +10,8 @@ router.get('/admin',controller.admin)
 
 router.post('/wechat',controller.wechat)
 
+router.get('/wechat',controller.wechat)
+
 router.post('/fileupload',controller.fileupload.upload)
 
 router.get('/downloadFile',controller.fileupload.download)

@@ -9,7 +9,7 @@ function* getCompeid(){
   var useroption =" http://aosaikang.xiaonian.me/api/competition/getCurrentCompetition"
   var info = yield request(useroption)
   var comp = JSON.parse(info.body)
-  if(typeof comp.errorMsg =="string"){
+  if(typeof comp.errorMsg =="string" || typeof info.devErrorMsg =="string" ){
     return false
   }else{
     comp = comp.data.competition
@@ -22,7 +22,7 @@ function* getUserInfo(openid){
   var useroption = "http://aosaikang.xiaonian.me/api/student/getStudentByOpenid?openid="+openid
   var tempuserInfo = yield request(useroption)
   var info = JSON.parse(tempuserInfo.body)
-  if(typeof info.errorMsg =="string"){
+  if(typeof info.errorMsg =="string" || typeof info.devErrorMsg =="string" ){
     return false
   }else{
     info = info.data.student
@@ -34,7 +34,7 @@ function* getCompeInfo(competitionid,openid,sid){
   var useroption = "http://aosaikang.xiaonian.me/api/competition/getEnrollment?competition="+competitionid+"&openid="+openid+"&student="+sid
   var tempuserInfo = yield request(useroption)
   var info = JSON.parse(tempuserInfo.body)
-  if(typeof info.errorMsg =="string"){
+  if(typeof info.errorMsg =="string" || typeof info.devErrorMsg =="string" ){
     return false
   }else{
     info = info.data.enrollment
@@ -193,12 +193,12 @@ module.exports = wechat(config.wechat).middleware(function *() {
             type:'text'
           }
         }else{
-          var content = ""
+          var content = "个人荣誉殿堂\n\n"
           for(var prize of prizeList){
-            var  tmpl = "奖项："+ prize.content +"\n"  + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "类别" + config.prizes.category[prize.type] + "\n" +"时间：" +  prize.time + "\n\n\n"
+            var  tmpl = "奖项："+ prize.content +"\n"  + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "类别：" + config.prizes.category[prize.type] + "\n" +"时间：" +  prize.time + "\n\n\n"
             content += tmpl
           }
-
+          content += "真厉害！"
           this.body = {
             content: content,
             type:'text'

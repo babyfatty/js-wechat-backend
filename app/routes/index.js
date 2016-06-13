@@ -20,4 +20,6 @@ router.get('/downloadFile',controller.fileupload.download)
 
 router.get('/admin',controller.admin)
 
+router.get('/success',controller.success)
+
 module.exports = router

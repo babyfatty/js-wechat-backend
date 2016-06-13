@@ -8,7 +8,8 @@ $('#submitBtn').on('click',function(){
 	 "s.gender":param[1].value,
 	 "s.grade":param[4].value,
 	 "s.class":param[8].value,
-	 "s.cz_school":param[6].value==="其他"?param[7].value:param[6].value,
+	 "s.cz_school":param[7].value,
+	 "s.cz_type":param[6].value,
 	 "s.gz_school":param[5].value,
 	 "s.city": param[3].value,
 	 "s.birthday": param[2].value,
@@ -17,6 +18,7 @@ $('#submitBtn').on('click',function(){
 	}, function(response,err){
   		console.log(response)
   		console.log(err)
+  		window.location.replace("/success")
 	})
 })
 

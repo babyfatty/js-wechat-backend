@@ -104,11 +104,10 @@
         <div class="weui_cell_bd weui_cell_primary">
             <select class="weui_select" name="midschool">
                 {% for school in schools %}
-                {% if loop.first %}
-                <option value="{{ school }}" selected>{{ school }}</option>
-                {% endif %}
-                {% if !loop.first %}
-                <option value="{{ school }}">{{ school }}</option>
+                {% if school.value == cz_type %}
+                <option value="{{ school.value }}" selected>{{ school.text }}</option>
+                {% else %}
+                <option value="{{ school.value }}">{{ school.text }}</option>
                 {% endif %}
                {%- endfor %}
             </select>
@@ -116,7 +115,9 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" name="midschoolname" type="tel" placeholder="如选择其他，请填写初中学校" >
+            <input class="weui_input" name="midschoolname" type="tel" 
+            {% if cz_type == "4" %} value="{{cz_school}}" {% else %} value="" {% endif %}
+            placeholder="如选择其他，请填写初中学校" >
         </div>
     </div>
 </div>
@@ -175,14 +176,14 @@
 {% raw %}
 <div class="weui_cells_title selfHonour">
     <span>个人荣誉</span> 
-    <a href="javascript:;" v-on:click="addPrize" class="addHonourBtn">
+    <div v-on:click="addPrize" class="addHonourBtn">
         <svg style="height: 100%; width: 100%;"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon"><g class="large-icon" style="fill: currentColor">
                 <g>
                   <path d="M21,13h-8v8h-2v-8H3v-2h8V3h2v8h8V13z"></path>
                 </g>
               </g></svg>
         </svg>
-    </a>
+    </div>
 </div>
 <ul class="prizeList">
     <li v-for="prize in prizeList">

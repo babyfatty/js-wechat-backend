@@ -98,10 +98,10 @@
             <select class="weui_select" name="midschool">
                 {% for school in schools %}
                 {% if loop.first %}
-                <option value="{{ school }}" selected>{{ school }}</option>
+                <option value="{{ school.value }}" selected>{{ school.text }}</option>
                 {% endif %}
                 {% if !loop.first %}
-                <option value="{{ school }}">{{ school }}</option>
+                <option value="{{ school.value }}">{{ school.text }}</option>
                 {% endif %}
                {%- endfor %}
             </select>

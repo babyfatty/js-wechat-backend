@@ -43,7 +43,7 @@ update.getInfo = function* (){
   }
   var obj = Object.assign(info,user)
   for (var reword of rewards) {
-    if(!!reward){
+    if(!!reword){
       reword.show = false      
     }
   }

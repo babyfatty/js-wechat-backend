@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}操作成功{% endblock %}
+
+{% block head %}
+  {% parent %}
+{% endblock %}
+
+{% block content %}
+    <div class="container" id="container"><div class="msg">
+<div class="weui_msg">
+    <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+    <div class="weui_text_area">
+        <h2 class="weui_msg_title">操作成功</h2>
+    </div>
+    <div class="weui_opr_area">
+        <p class="weui_btn_area">
+            <a href="javascript:;" class="weui_btn weui_btn_primary sure">确定</a>
+        </p>
+    </div>
+    <div class="weui_extra_area">
+        <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fupdate&response_type=code&scope=snsapi_base&state=123#wechat_redirect">查看详情</a>
+    </div>
+</div>
+</div></div>
+{% endblock %}
+
+{% block script %}
+{% parent %}
+<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+$('.sure').on('click',function(){
+wx.closeWindow();    
+})
+
+</script>
+{% endblock %}

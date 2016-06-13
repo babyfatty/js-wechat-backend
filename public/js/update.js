@@ -5,6 +5,12 @@ Vue.filter('fullArea', function (value) {
 Vue.filter('fullCats', function (value) {
   	return this.prizeCats[value].text
 })
+
+var schools=['树人','南外','金陵汇文','二十九中','其他']
+
+Vue.filter('schoolfilter', function (value) {
+  	return schools[value]
+})
 new Vue({
 	el:'#prizeContainer',
 	template:temp,
@@ -115,14 +121,14 @@ $('#submitBtn').on('click',function(){
 	 "s.gender":param[1].value,
 	 "s.grade":param[4].value,
 	 "s.class":param[8].value,
-	 "s.cz_school":param[6].value==="其他"?param[7].value:param[6].value,
+	 "s.cz_school":param[7].value,
+	 "s.cz_type":param[6].value,
 	 "s.gz_school":param[5].value,
 	 "s.city": param[3].value,
 	 "s.birthday": param[2].value,
 	 "s.parent_name": param[9].value,
 	 "s.parent_phone": param[10].value
 	}, function(response,err){
-  		console.log(response)
-  		console.log(err)
+  		window.location.replace("/success")
 	})
 })

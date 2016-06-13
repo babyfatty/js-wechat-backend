@@ -63,7 +63,7 @@
         <div class="weui_cell_bd weui_cell_primary">
             <select class="weui_select" name="area">
                 {% for area in areas %}
-                {% if area == city %}
+                {% if loop.index == city %}
                 <option value="{{ loop.index }}" selected>{{ area }}</option>
                 {% else %}
                 <option value="{{ loop.index }}">{{ area }}</option>

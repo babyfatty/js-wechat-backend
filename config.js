@@ -1,16 +1,16 @@
 module.exports = {
     wechat: {
-        token: 'mytoken',
-        appid: 'wx0b4f6ee3da84307c',
-        appsecret: '2e6e21ead4da99a6f565b9fc07f138f5'
+        token: 'aosai123',
+        appid: 'wxab5e05ece55fcade',
+        appsecret: '6996568ae57f4834c3b940626515cbaf'
     },
     host: {
-        port: 80,
+        port: 6027,
         env: 'development'
     },
     app: {
-    	appid:"wx0b4f6ee3da84307c",
-    	appsecret:"2e6e21ead4da99a6f565b9fc07f138f5"
+    	appid:"wxab5e05ece55fcade",
+    	appsecret:"6996568ae57f4834c3b940626515cbaf"
     },
     school: {
         grades:[{value:7,text:'初一升初二'},{value:8,text:'初二升初三'},{value:9,text:'初三升高一'},{value:10,text:'高一升高二'},{value:11,text:'高二升高三'},{value:12,text:'高三毕业季'}],
@@ -61,12 +61,12 @@ module.exports = {
            {
              "type":"view",
              "name":"基本信息绑定",
-             "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+             "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
            },
            {
              "type":"view",
              "name":"个人信息完善",
-             "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2F139.129.27.196%2Fupdate&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+             "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b4f6ee3da84307c&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fupdate&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
            },
            {
              "type":"click",

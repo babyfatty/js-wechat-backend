@@ -23,7 +23,7 @@ router.get('/admin',controller.admin)
 router.get('/success',controller.success)
 
 router.get('/check',function*(){
-	console.log(this)
+	this.body = this.query.echostr
 })
 
 module.exports = router

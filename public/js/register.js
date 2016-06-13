@@ -18,7 +18,7 @@ $('#submitBtn').on('click',function(){
 	}, function(response,err){
   		console.log(response)
   		console.log(err)
-  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2F139.129.27.196%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
 	})
 })
 

@@ -61,7 +61,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="area">
+            <select class="weui_select" name="area" required>
                 {% for area in areas %}
                 {% if loop.index == city %}
                 <option value="{{ loop.index }}" selected>{{ area }}</option>
@@ -79,7 +79,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="grade">
+            <select class="weui_select" name="grade" required>
                 {% for tgrade in grades %}
                 {% if tgrade.value == grade %}
                 <option value="{{ tgrade.value }}" selected>{{ tgrade.text }}</option>
@@ -102,7 +102,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="midschool">
+            <select class="weui_select" name="midschool" required>
                 {% for school in schools %}
                 {% if school.value == cz_type %}
                 <option value="{{ school.value }}" selected>{{ school.text }}</option>
@@ -127,7 +127,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select weui_select_after">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="classroom">
+            <select class="weui_select" name="classroom" required>
                {% for room in classroom %}
                  {% if room == klass %}
                 <option value="{{ room }}" selected>{{ room }}班</option>
@@ -145,7 +145,7 @@
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" name="parentname" placeholder="请输入家长真实姓名" value="{{parent_name}}">
+            <input class="weui_input" type="text" name="parentname" placeholder="请输入家长真实姓名" value="{{parent_name}}" required>
         </div>
     </div>
 </div>
@@ -154,21 +154,39 @@
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="tel" name="parenttel" placeholder="请输入家长手机号" value="{{parent_phone}}">
+            <input class="weui_input" type="mobile" name="parenttel" placeholder="请输入家长手机号" value="{{parent_phone}}" required>
         </div>
     </div>
 </div>
 <input type="hidden" value={{ openid }} id="openid">
 <input type="hidden" value={{ id }} id="sid">
-</form>
-
 <div id="prizeContainer">
 
 </div>
 <div class="weui_btn_area">
         <button class="weui_btn weui_btn_primary" id="submitBtn">确定</button>
 </div>
-
+</form>
+<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">保存中</p>
+    </div>
+</div>
 {% endblock %}
 {% block script %}
 {% parent %}
@@ -189,11 +207,11 @@
     <li v-for="prize in prizeList">
         <div class="weui_cells">
             <div class="editHonourForm" v-bind:class="{ 'show': prize.show, 'hide': !prize.show }">
-                <form method="post">
+                <form method="post" action="/" id="editHonourForm">
                     <div class="weui_cell">
                         <div class="weui_cell_hd"><label for="" class="weui_label">奖项名称：</label></div>
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <input class="weui_input" type="text" name="prizename" placeholder="奖项名称" value="{{prize.content}}" v-model="prize.content">
+                        <div class="weui_cell_bd weui_cell_primary" v-bind:class="{ 'error': prize.check}">
+                            <input class="weui_input" type="text" name="prizename" placeholder="奖项名称" value="{{prize.content}}" v-model="prize.content" required>
                         </div>
                     </div>
                     <div class="weui_cell weui_cell_select weui_select_after">
@@ -201,15 +219,15 @@
                             <label for="" class="weui_label">类别：</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <select class="weui_select" name="prizecat" v-model="prize.type">
+                            <select class="weui_select" name="prizecat" v-model="prize.type" required>
                                    <option v-for="prizeCat in prizeCats" value="{{prizeCat.value}}">{{prizeCat.text}}</option>
                             </select>
                         </div>
                     </div>   
                     <div class="weui_cell">
                         <div class="weui_cell_hd"><label for="" class="weui_label">日期：</label></div>
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <input class="weui_input" type="date" name="prizedate" v-model= "prize.time" value="{{prize.time}}">
+                        <div class="weui_cell_bd weui_cell_primary" v-bind:class="{ 'error': prize.check}">
+                            <input class="weui_input" type="date" name="prizedate" v-model= "prize.time" required value="{{prize.time}}">
                         </div>
                     </div>
                     <div class="weui_cell weui_cell_select weui_select_after">
@@ -217,13 +235,13 @@
                             <label for="" class="weui_label">区域：</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <select class="weui_select" name="prizearea" v-model="prize.area">
+                            <select class="weui_select" name="prizearea" v-model="prize.area" required>
                                     <option  v-for="prizeArea in prizeAreas" value="{{prizeArea.value}}">{{prizeArea.text}}级</option>
                             </select>
                         </div>
                     </div>
                     <div class="operBtns">
-                        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary saveBtn" v-on:click="savePrize($index,prize)">保存</a>
+                        <a  class="weui_btn weui_btn_mini weui_btn_primary saveBtn" v-on:click="savePrize($index,prize)">保存</a>
                         <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default" v-on:click="cancelEdit($index,prize)">取消</a>
                         <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_warn deleteBtn" style="float:right" v-on:click="removePrize($index,prize)">删除</a>
                     </div>

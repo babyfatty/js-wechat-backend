@@ -8,6 +8,16 @@ Vue.filter('fullCats', function (value) {
 
 var schools=['树人','南外','金陵汇文','二十九中','其他']
 
+$('#editHonourForm').validator({
+	errorCallback: function(unvalidFields){
+		console.log(unvalidFields)
+	    $(unvalidFields).each(function(i,item){
+	        console.log(item.$el[0])
+	    })
+	}
+	, isErrorOnParent: true
+})
+
 Vue.filter('schoolfilter', function (value) {
   	return schools[value]
 })
@@ -39,7 +49,9 @@ new Vue({
 				time:'',
 				content:'',
 				show:true,
-				newAdd:true
+				newAdd:true,
+				showAlarm:false,
+				check : false
 			}
 			this.prizeList.unshift(text)
 		},
@@ -81,51 +93,95 @@ new Vue({
 		savePrize: function(index,prize,event){
 			var newprize = JSON.parse(JSON.stringify(prize))
 			if(!!prize.newAdd){
-				delete prize.newAdd
-				$.post('http://aosaikang.xiaonian.me/api/reward/add',{
-					"r.student":parseInt($('#sid').val()),
-					"r.type":newprize.type,
-					"r.time":newprize.time,
-					"r.area":newprize.area,
-					"r.content":newprize.content
-				},function(res,status){
-					console.log(res)
-					console.log(status)
-				})
-			}else{
-				$.post('http://aosaikang.xiaonian.me/api/reward/update',{
-					"r.id":newprize.id,
-					"r.student":parseInt($('#sid').val()),
-					"r.type":newprize.type,
-					"r.time":newprize.time,
-					"r.area":newprize.area,
-					"r.content":newprize.content
-				},function(res,status){
-					console.log(res)
-					console.log(status)
-				})
-			}
-			prize.show = false
+                if(!!newprize.content.trim()&&!!newprize.time.trim()){
+                	$('#loadingToast').show()
+                	delete prize.newAdd
+                	$.post('http://aosaikang.xiaonian.me/api/reward/add',{
+	                  "r.student":parseInt($('#sid').val()),
+	                  "r.type":newprize.type,
+	                  "r.time":newprize.time,
+	                  "r.area":newprize.area,
+	                  "r.content":newprize.content
+	                },function(res,status){
+	                	$('#loadingToast').hide()
+	                  console.log(res)
+	                  console.log(status)
+	                })
+              		prize.show = false
+                }else{
+                	prize.check = true
+                }
+              }else{
+                if(!!newprize.content.trim()){
+                	$('#loadingToast').show()
+	                $.post('http://aosaikang.xiaonian.me/api/reward/update',{
+	                  "r.id":newprize.id,
+	                  "r.student":parseInt($('#sid').val()),
+	                  "r.type":newprize.type,
+	                  "r.time":newprize.time,
+	                  "r.area":newprize.area,
+	                  "r.content":newprize.content
+	                },function(res,status){
+	                	$('#loadingToast').hide()
+	                  console.log(res)
+	                  console.log(status)
+	                })
+	              	prize.show = false
+	            }else{
+	            	prize.check = true
+                }  	
+             }
 		}
 	}
 })
 
-$('#submitBtn').on('click',function(){
-	var openid = $('#openid').val()
-	var id = $('#sid').val()
-	var param = $('#updateForm').serializeArray()
-	var s = {}
-	$.post('http://aosaikang.xiaonian.me/api/student/update', { 
-	 "s.id":parseInt(id),
-	 "s.grade":param[1].value,
-	 "s.class":param[5].value,
-	 "s.cz_school":param[4].value,
-	 "s.cz_type":param[3].value,
-	 "s.gz_school":param[2].value,
-	 "s.city": param[0].value,
-	 "s.parent_name": param[6].value,
-	 "s.parent_phone": param[7].value
-	}, function(response,err){
-  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+$('#updateForm').validator({
+        errorCallback: function(unvalidFields){
+        	console.log(unvalidFields)
+            $(unvalidFields).each(function(i,item){
+                console.log(item.$el[0])
+            })
+        }
+        , isErrorOnParent: true
+        , after : function(){
+	    	var openid = $('#openid').val()
+			var id = $('#sid').val()
+			var param = $('#updateForm').serializeArray()
+			var s = {}
+			$('#loadingToast').show()
+		$.post('http://aosaikang.xiaonian.me/api/student/update', { 
+		 "s.id":parseInt(id),
+		 "s.grade":param[1].value,
+		 "s.class":param[5].value,
+		 "s.cz_school":param[4].value,
+		 "s.cz_type":param[3].value,
+		 "s.gz_school":param[2].value,
+		 "s.city": param[0].value,
+		 "s.parent_name": param[6].value,
+		 "s.parent_phone": param[7].value
+		}, function(response,err){
+			$('#loadingToast').hide()
+	  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+		})
+	    }
 	})
-})
+
+// $('#submitBtn').on('click',function(){
+// 	var openid = $('#openid').val()
+// 	var id = $('#sid').val()
+// 	var param = $('#updateForm').serializeArray()
+// 	var s = {}
+// 	$.post('http://aosaikang.xiaonian.me/api/student/update', { 
+// 	 "s.id":parseInt(id),
+// 	 "s.grade":param[1].value,
+// 	 "s.class":param[5].value,
+// 	 "s.cz_school":param[4].value,
+// 	 "s.cz_type":param[3].value,
+// 	 "s.gz_school":param[2].value,
+// 	 "s.city": param[0].value,
+// 	 "s.parent_name": param[6].value,
+// 	 "s.parent_phone": param[7].value
+// 	}, function(response,err){
+//   		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+// 	})
+// })

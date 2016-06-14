@@ -17,11 +17,16 @@ body{
 	overflow: hidden;
 	padding: 0 15px;
 	overflow: hidden;
-    padding: 0 15px;
     padding-bottom: 8px;
     border-top: 1px solid #d9d9d9;
 }
+
+.operBtns .saveBtn {
+    margin-top: 15px;
+    float: left;
+    margin-right: 10px;
 }
+
 .operBtns .deleteBtn{
 	float: right;
 }

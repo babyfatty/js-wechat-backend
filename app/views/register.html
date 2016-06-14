@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="/userRegister" method="post" id="registerForm">
+<form  method="post" id="registerForm" action="/">
 <div class="weui_cells_title">姓名</div>
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
@@ -24,7 +24,7 @@
             <p>男</p>
         </div>
         <div class="weui_cell_ft">
-            <input type="radio" class="weui_check" name="gender" value="1" id="x11">
+            <input type="radio" class="weui_check" name="gender" required value="1" id="x11">
             <span class="weui_icon_checked"></span>
         </div>
     </label>
@@ -33,7 +33,7 @@
             <p>女</p>
         </div>
         <div class="weui_cell_ft">
-            <input type="radio" name="gender" value="0" class="weui_check" id="x12" checked="checked">
+            <input type="radio" name="gender" value="0" class="weui_check" required id="x12" checked="checked">
             <span class="weui_icon_checked"></span>
         </div>
     </label>
@@ -95,7 +95,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="midschool">
+            <select class="weui_select" name="midschool" required>
                 {% for school in schools %}
                 {% if loop.first %}
                 <option value="{{ school.value }}" selected>{{ school.text }}</option>
@@ -119,7 +119,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select weui_select_after">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="classroom">
+            <select class="weui_select" name="classroom" required>
                {% for room in classroom %}
                 <option value="{{ room }}">{{ room }}班</option>
 			   {%- endfor %}
@@ -133,7 +133,7 @@
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" name="parentname" require placeholder="请输入家长真实姓名">
+            <input class="weui_input" type="text" name="parentname" required placeholder="请输入家长真实姓名">
         </div>
     </div>
 </div>
@@ -142,14 +142,34 @@
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="tel" name="parenttel" require max-length='11' min-length='11' max='19999999999' min="10000000001" placeholder="请输入家长手机号">
+            <input class="weui_input" type="mobile" name="parenttel" required placeholder="请输入家长手机号">
         </div>
     </div>
 </div>
 <input type="hidden" value={{ openid }} id="openid">
-</form>
 <div class="weui_btn_area">
         <button class="weui_btn weui_btn_primary" id="submitBtn">确定</button>
+</div>
+</form>
+<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">保存中</p>
+    </div>
 </div>
 {% endblock %}
 {% block script %}

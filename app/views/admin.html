@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 <head>
 	<title>admin</title>
 </head>
@@ -10,8 +10,8 @@
 </form>
 <a href="/downloadFile">下载文件</a>	
 </body>
-</html>
-<!-- <!DOCTYPE html>
+</html> -->
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -41,7 +41,7 @@
             <option value="3">item 3</option>
         </select>
     </p>
-    <p><label>Text: <input name="text" required minlength="2" maxlength="5" list="list"></label>
+    <p><label>Text: <input name="text"  minlength="2" maxlength="5" list="list"></label>
         <datalist id="list">
             <select name="text">
                 <option>Aa
@@ -114,7 +114,7 @@
     $('#form').validator({
         errorCallback: function(unvalidFields){
             $(unvalidFields).each(function(i,item){
-                //console.log(item.$el[0])
+                console.log(item.$el[0])
             })
         }
         , isErrorOnParent: true
@@ -128,4 +128,4 @@
 </script>
 
 </body>
-</html> -->
+</html>

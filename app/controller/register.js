@@ -30,10 +30,10 @@ register.getInfo = function* (next){
   this.session.openid = param.openid
 
   var check = yield getUserInfo(param.openid)
-  // if(check){
-  //   this.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fupdate&response_type=code&scope=snsapi_base&state=123#wechat_redirect');    
-  //   return
-  // }
+  if(check){
+    this.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fupdate&response_type=code&scope=snsapi_base&state=123#wechat_redirect');    
+    return
+  }
 
   var user = {
     schools:config.school.names,

@@ -1,13 +1,49 @@
 <html>
 <head>
 	<title>admin</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
 </head>
 <body>
-<form action="/fileupload" method="post" enctype='multipart/form-data'>
-    <label for="resource">上传文档</label>
+<header>
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for navbar-static-top better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">奥赛新城</a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+</header>
+<section>
+<div class="panel panel-default">
+  <div class="panel-heading">上传文档（仅支持'.xslx'文件，不支持'.number'）</div>
+  <div class="panel-body">
+    <form  enctype='multipart/form-data' class="uploadField">
     <input type="file" id="resource" name="resource">
-    <button type="submit">提交</button>
-</form>
-<a href="/downloadFile">下载文件</a>	
+    </form>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">下载报名信息</div>
+  <div class="panel-body">
+    <a href="/downloadFile" class="glyphicon glyphicon-download-alt">下载文件</a>  
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">短信群发配置</div>
+  <div class="panel-body">
+    
+  </div>
+</div>
+</section>
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/admin.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

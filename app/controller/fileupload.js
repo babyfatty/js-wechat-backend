@@ -41,13 +41,10 @@ fileupload.upload = function* (){
 	var scoreObj = {}
 	var seatObj = {}
 	uploadData.shift()
-	console.log(uploadData)
 	for(var temarr of uploadData){
-		scoreObj[temarr[7]] = temarr[0]||"100"
-		seatObj[temarr[7]] = temarr[4]||"南大考场"
+		scoreObj[temarr[7]] = temarr[0]
+		seatObj[temarr[7]] = temarr[4]
 	}
-	console.log(scoreObj)
-	console.log(seatObj)
 	var seatOption = {
 	  url:"http://aosaikang.xiaonian.me/api/admin/importExamInfo",
 	  method:'post',
@@ -66,11 +63,9 @@ fileupload.upload = function* (){
 	        map: JSON.stringify(scoreObj)
 	      }
 	}
-	console.log(seatOption.qs)
-  var seatInfo = yield request(seatOption)
-  var scoreInfo = yield request(scoreOption)
-  console.log(seatInfo.body)
-  console.log(scoreInfo.body)
+    var seatInfo = yield request(seatOption)
+    var scoreInfo = yield request(scoreOption)
+    this.body={"code":0,"data":{"success":true}}
 
 }
 
@@ -102,7 +97,6 @@ fileupload.download = function* (){
 		tempData = []
 	}
 	
-	const data = [["aaa","bbb","ccc","ddd"],[111,222,333,444],[555,444,333,222],[null,null,222,333]]
 	var buffer = xlsx.build([{name: "register", data: downData}]);
 	this.body = buffer;
 	var filename = 'studentInfo.xlsx'

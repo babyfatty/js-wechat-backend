@@ -2,7 +2,6 @@ var wechat = require('co-wechat')
 var api = require('co-wechat-api')
 var path = require('path')
 var config = require(path.join('../../', 'config'))
-var User = require('../model/user.js')
 var request = require('koa-request')
 
 function* getCompeid(){

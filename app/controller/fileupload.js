@@ -1,30 +1,109 @@
 var xlsx = require('node-xlsx')
 var fs = require('fs')
+var request = require('koa-request')
+
+function* getCompeid(){
+  var useroption =" http://aosaikang.xiaonian.me/api/competition/getCurrentCompetition"
+  var info = yield request(useroption)
+  var comp = JSON.parse(info.body)
+  if(typeof comp.errorMsg =="string" || typeof info.devErrorMsg =="string" ){
+    return false
+  }else{
+    comp = comp.data.competition
+    return comp
+  }
+}
+
+function* getCompetitions(compid){
+	console.log(compid.id)
+  var useroption ="http://aosaikang.xiaonian.me/api/admin/exportEnrollments?competition="+compid.id
+  var info = yield request(useroption)
+  var comp = JSON.parse(info.body)
+  if(typeof comp.errorMsg =="string" || typeof info.devErrorMsg =="string" ){
+    return false
+  }else{
+    return comp.data.enrollments
+  }
+}
+
 
 var fileupload ={}
 
 fileupload.upload = function* (){
 	console.log(" ########## POST /upload ####### ");  
+	var competition = yield getCompeid()
 
 	var uploadFile = this.request.body.files.resource.path
 
 	const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(uploadFile));
 
-	console.log(JSON.stringify(workSheetsFromBuffer))
+	var uploadData = JSON.parse(JSON.stringify(workSheetsFromBuffer))[0].data
+	var scoreObj = {}
+	var seatObj = {}
+	uploadData.shift()
+	console.log(uploadData)
+	for(var temarr of uploadData){
+		scoreObj[temarr[7]] = temarr[0]||"100"
+		seatObj[temarr[7]] = temarr[4]||"南大考场"
+	}
+	console.log(scoreObj)
+	console.log(seatObj)
+	var seatOption = {
+	  url:"http://aosaikang.xiaonian.me/api/admin/importExamInfo",
+	  method:'post',
+	  qs: {
+	        competition: competition.id
+	        ,
+	        map: JSON.stringify(seatObj)
+	      }
+	}
+	var scoreOption = {
+	  url:"http://aosaikang.xiaonian.me/api/admin/importScore",
+	  method:'post',
+	  qs: {
+	        competition: competition.id
+	    	,
+	        map: JSON.stringify(scoreObj)
+	      }
+	}
+	console.log(seatOption.qs)
+  var seatInfo = yield request(seatOption)
+  var scoreInfo = yield request(scoreOption)
+  console.log(seatInfo.body)
+  console.log(scoreInfo.body)
 
-	const data = workSheetsFromBuffer[0].data
-	var buffer = xlsx.build([{name: "mySheetName", data: data}]);
-
-	this.body = buffer;
-	var filename = '考试报名信息.xlsx'
-	this.set('Content-disposition', 'attachment; filename=',filename);
-	this.set('Content-type', 'multipart/form-data');
 }
 
 fileupload.download = function* (){
-	const data = [["aaa","bbb","ccc","ddd"],[111,222,333,444]]
-	var buffer = xlsx.build([{name: "mySheetName", data: data}]);
+	var competition = yield getCompeid()
 
+	var comps = yield getCompetitions(competition)
+	for(var comp of comps){
+		comp.studentSchool = comp['student']['cz_school']
+		comp.grade = comp['student'].grade
+		comp.id = comp['student'].id
+	}
+	var tempData = []
+	var downData = []
+	for(var key of Object.keys(comps[0])){
+		tempData.push(key)
+	}
+	downData.push(tempData)
+	tempData = []
+	for(var comp of comps){
+		for(var item in comp){
+			if(item === "student" ){
+				tempData.push(comp[item].name)
+			}else{
+				tempData.push(comp[item])			
+			}
+		}
+		downData.push(tempData)
+		tempData = []
+	}
+	
+	const data = [["aaa","bbb","ccc","ddd"],[111,222,333,444],[555,444,333,222],[null,null,222,333]]
+	var buffer = xlsx.build([{name: "register", data: downData}]);
 	this.body = buffer;
 	var filename = 'studentInfo.xlsx'
 	this.set('Content-disposition', 'attachment; filename='+filename);

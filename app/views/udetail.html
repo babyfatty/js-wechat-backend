@@ -25,6 +25,12 @@
 </div>
 <input type="hidden" value={{ openid }} id="openid">
 <input type="hidden" value={{ id }} id="sid">
+<div id="toast" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <p class="weui_toast_content" style="line-height: 7.6em;text-align: center;margin: 0;width: 100%;">请先保存或取消</p>
+    </div>
+</div>
 <div id="loadingToast" class="weui_loading_toast" style="display: none;">
     <div class="weui_mask_transparent"></div>
     <div class="weui_toast">
@@ -109,7 +115,7 @@
                         </div>
                     </div>
                     <div class="operBtns">
-                        <a  class="weui_btn weui_btn_mini weui_btn_primary saveBtn" v-on:click="savePrize($index,prize)">保存</a>
+                        <button  class="weui_btn weui_btn_mini weui_btn_primary saveBtn" v-on:click="savePrize($index,prize)">保存</button>
                         <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default" v-on:click="cancelEdit($index,prize)">取消</a>
                         <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_warn deleteBtn" style="float:right" v-on:click="removePrize($index,prize)">删除</a>
                     </div>

@@ -8,4 +8,5 @@ exports.update= update
 exports.wechat=wechat
 exports.fileupload = require('./fileupload')
 exports.success = require('./success')
+exports.fail = require('./fail')
 exports.revise = require('./revise')

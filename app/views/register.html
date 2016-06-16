@@ -72,7 +72,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="grade" required>
+            <select class="weui_select" name="grade" required  id="grade">
                 {% for grade in grades %}
                 {% if loop.first %}
                 <option value="{{ grade.value }}" selected>{{ grade.text }}</option>
@@ -86,7 +86,7 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" name="highschool" placeholder="如已上高中，请填写高中学校">
+            <input class="weui_input" type="text" id="highscname" name="highschool" placeholder="如已上高中，请填写高中学校">
         </div>
     </div>
 </div>
@@ -96,7 +96,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="midschool" required>
+            <select class="weui_select" name="midschool" required id="midsch">
                 {% for school in schools %}
                 {% if loop.first %}
                 <option value="{{ school.value }}" selected>{{ school.text }}</option>
@@ -110,7 +110,7 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" name="midschoolname" type="text" placeholder="如选择其他，请填写初中学校">
+            <input class="weui_input" name="midschoolname" id="midschname" type="text" placeholder="如选择其他，请填写初中学校">
         </div>
     </div>
 </div>

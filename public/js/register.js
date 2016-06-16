@@ -54,6 +54,24 @@ $('.gocheck').on('click',function(e){
 	})
 })
 
+$('#grade').change(function(e){
+	console.log($(e.target).val())
+	$('#highscname').val("")
+	if($(e.target).val()>=10){
+		$('#highscname').attr('required',true)
+		$('#registerForm').validator()
+	}
+})
+
+$('#midsch').change(function(e){
+	console.log($(e.target).val())
+	$('#midschname').val('')
+	if($(e.target).val()=="4"){
+		$('#midschname').attr('required',true)
+		$('#registerForm').validator()
+	}
+})
+
 $('#registerForm').submit(function(e){
 	e.preventDefault()
 })
@@ -85,10 +103,15 @@ $('#registerForm').validator({
 				 "s.parent_name": param[9].value,
 				 "s.parent_phone": param[10].value
 				}, function(response,err){
-					$('#loadingToast').hide()
-			  		console.log(response)
-			  		console.log(err)
+					if(response.code===0){
+						$('#loadingToast').hide()
 			  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+			  	}else{
+			  		$('#loadingToast').hide()
+			  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Ffail&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+
+			  	}
+					
 				})
     		}else{
     				$('.successres').hide()

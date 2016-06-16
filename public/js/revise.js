@@ -94,8 +94,14 @@ $('#updateForm').validator({
 			 "s.parent_name": param[6].value,
 			 "s.parent_phone": param[7].value
 			}, function(response,err){
-				$('#loadingToast').hide()
-		  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+				if(response.code===0){
+						$('#loadingToast').hide()
+			  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+			  	}else{
+			  		$('#loadingToast').hide()
+			  		window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Ffail&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+
+			  	}
 			})
 		}else{
 				$('.successres').hide()

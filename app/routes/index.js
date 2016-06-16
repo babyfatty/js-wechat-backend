@@ -20,6 +20,8 @@ router.get('/admin',controller.admin)
 
 router.get('/success',controller.success)
 
+router.get('/fail',controller.fail)
+
 router.get('/revise',controller.revise.getInfo)
 
 module.exports = router

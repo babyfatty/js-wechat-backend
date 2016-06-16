@@ -26,6 +26,7 @@ new Vue({
 	data:{
 		prizeList: JSON.parse(JSON.stringify(window.prizeList)),
 		zkscore: window.zkscore,
+		alreadyshow: false,
 		prizeAreas:[{
 			value:0,
 			text:'全国',
@@ -61,21 +62,29 @@ new Vue({
 	},
 	methods:{
 		addPrize: function(){
-			var text = {
-				type:"0",
-				area:"0",
-				time:'',
-				reward_type:'0',
-				content:'',
-				show:true,
-				newAdd:true,
-				showAlarm:false,
-				fcheck : false,
-				tcheck:false
+			if(!this.alreadyshow){
+				this.alreadyshow = true
+				var text = {
+					type:"0",
+					area:"0",
+					time:'',
+					reward_type:'0',
+					content:'',
+					show:true,
+					newAdd:true,
+					showAlarm:false
+				}
+				this.prizeList.unshift(text)
+			}else{
+				$('#toast').show()
+				setTimeout(function(){
+					$('#toast').hide()
+				},800)
 			}
-			this.prizeList.unshift(text)
+			
 		},
 		removePrize: function(index,prize){
+			this.alreadyshow = false
 			if(!!prize.newAdd){
 				this.prizeList.$remove(prize)
 			}else{
@@ -89,16 +98,25 @@ new Vue({
 			}
 		},
 		editPrize: function(index,prize){
-			prize.show = true
-			var prize = JSON.parse(JSON.stringify(prize))
-			this.cacheData = {
-				type: prize.type,
-				area:prize.area,
-				time:prize.time,
-				content:prize.content,
+			if(!this.alreadyshow){
+				this.alreadyshow = true
+				prize.show = true
+				var prize = JSON.parse(JSON.stringify(prize))
+				this.cacheData = {
+					type: prize.type,
+					area:prize.area,
+					time:prize.time,
+					content:prize.content,
+				}
+			}else{
+				$('#toast').show()
+				setTimeout(function(){
+					$('#toast').hide()
+				},800)
 			}
 		},
 		cancelEdit: function(index,prize){
+			this.alreadyshow = false
 			prize.show = false
 			if(!!prize.newAdd){
 				this.prizeList.$remove(prize)
@@ -118,6 +136,7 @@ new Vue({
 		},
 		savePrize: function(index,prize,event){
 			var newprize = JSON.parse(JSON.stringify(prize))
+			var self = this
 			if(!!prize.newAdd){
                 if(!!newprize.content.trim()&&!!newprize.time.trim()){
                 	$('#loadingToast').show()
@@ -130,20 +149,12 @@ new Vue({
 	                  "r.reward_type":newprize.reward_type,
 	                  "r.content":newprize.content
 	                },function(res,status){
-	                	$('#loadingToast').hide()
-	                  console.log(res)
-	                  console.log(status)
+	                	if(res.code===0){
+	                		$('#loadingToast').hide()
+		                	self.alreadyshow = false
+	          				prize.show = false
+	                	}
 	                })
-              		prize.show = false
-              		prize.tcheck = false
-              		prize.fcheck = false
-                }else{
-                	if(!newprize.content.trim()){
-                	 prize.fcheck = true
-                	}
-                    if(!newprize.time.trim()){
-                	 prize.tcheck = true                    	
-                    }
                 }
               }else{
                 if(!!newprize.content.trim()){
@@ -157,30 +168,18 @@ new Vue({
 	                  "r.reward_type":newprize.reward_type,
 	                  "r.content":newprize.content
 	                },function(res,status){
-	                	$('#loadingToast').hide()
-	                  console.log(res)
-	                  console.log(status)
+	                	if(res.code===0){
+	                		$('#loadingToast').hide()
+		                	self.alreadyshow = false
+	          				prize.show = false
+	                	}
 	                })
-	              	prize.show = false
-	              	prize.tcheck = false
-              		prize.fcheck = false
-	            }else{
-	            	if(!newprize.content.trim()){
-                	prize.fcheck = true
-                	}
-                    if(!newprize.time.trim()){
-                	prize.tcheck = true                    	
-                    }
-                }  	
+	            }	
              }
 		}
 	}
 })
-$('body').on('click','.weui_input',function(e){
-	if($(e.target).parent().hasClass('error')){
-		$(e.target).parent().removeClass('error')
-	}
-})
+
 $('#submitBtn').on('click',function(){
 	window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
 })
@@ -188,11 +187,5 @@ $('#editHonourForm').submit(function(e){
 	e.preventDefault()
 })
 $('#editHonourForm').validator({
-	errorCallback: function(unvalidFields){
-		console.log(unvalidFields)
-	    $(unvalidFields).each(function(i,item){
-	        console.log(item.$el[0])
-	    })
-	}
-	, isErrorOnParent: true
+	 isErrorOnParent: true
 })

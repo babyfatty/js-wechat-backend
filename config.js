@@ -48,7 +48,7 @@ module.exports = {
          "sub_button":[
            {
              "type":"view",
-             "name":"考试须知",
+             "name":"竞赛报名须知",
              "url":"https://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=100000002&idx=1&sn=569180267c366abcd4c3899a6b0d99dc&scene=0&previewkey=6qagqqJBTiuny%2F71xwak%2BcwqSljwj2bfCUaCyDofEow%3D&key=&ascene=7&uin=&devicetype=android-22&version=26031233&nettype=WIFI"
            },
            {

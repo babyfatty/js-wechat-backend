@@ -19,11 +19,13 @@ Vue.filter('schoolfilter', function (value) {
   		return schools[value]
 	}
 })
+var array = JSON.parse(JSON.stringify(window.prizeList))
 new Vue({
 	el:'#prizeContainer',
 	template:temp,
 	data:{
-		prizeList: JSON.parse(JSON.stringify(window.prizeList)),
+		showZkscore:true,
+		prizeList: array,
 		zkscore: this.prizeList.filter(function(item){
 			return !!item.zk_score
 		})[0] || {zk_score:""},
@@ -31,7 +33,7 @@ new Vue({
 			console.log(item)
 			return !item.zk_score && item.content!="中考分数"
 		}),
-		alreadyshow: false,
+		alreadyshow: true,
 		prizeAreas:[{
 			value:0,
 			text:'全国',
@@ -64,10 +66,10 @@ new Vue({
 				text:'其他奖项'
 			}
 		]	
-	},
+	}
+	,
 	methods:{
 		saveZkscore: function(a){
-			console.log(this.zkscore)
 			$('#loadingToast').show()
 			if(!this.zkscore.id&&!!this.zkscore.zk_score){
 				$.post('http://aosaikang.xiaonian.me/api/reward/add',{
@@ -108,6 +110,8 @@ new Vue({
 
 		},
 		addPrize: function(){
+			console.log(this.showZkscore)
+
 			if(!this.alreadyshow){
 				this.alreadyshow = true
 				var text = {
@@ -224,12 +228,8 @@ new Vue({
 		}
 	}
 })
-
-$('#submitBtn').on('click',function(){
-})
-// $('#editHonourForm').submit(function(e){
-// 	e.preventDefault()
-// })
-// $('#editHonourForm').validator({
-// 	 isErrorOnParent: true
-// })
+var month = new Date().getMonth()+1
+var day = new Date().getDate()
+if(!$('#zkscore').val()&&(month>=7)&&(day>=10)){
+	$('#zkScoreField').show()
+}

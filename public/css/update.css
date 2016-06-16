@@ -136,3 +136,11 @@ body{
 .selfHonour .addHonourBtn{
 	flex:1;
 }
+
+#zkScoreField{
+	margin-top: 40px;
+}
+#zkScoreField .policyText {
+	font-size: 12px;
+
+}

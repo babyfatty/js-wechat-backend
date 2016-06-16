@@ -69,7 +69,7 @@ function *showHonor(sid){
   if(typeof rewards.errorMsg == 'string' || typeof rewards.devErrorMsg == "string"){
     rewards = []
   }else if( !rewards.errorMsg ){
-    return false
+    return 'false'
   }
   else{
     rewards = rewards.data.rewards
@@ -212,7 +212,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         break;
       case 'V301':
         var prizeList = yield showHonor(userInfo.id)
-        if(!prizeList){
+        if(typeof prizeList === 'string'){
           this.body = {
             content: '您还没有绑定账号，请先\n\n'+
             '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
@@ -220,7 +220,6 @@ module.exports = wechat(config.wechat).middleware(function *() {
             ,
             type:'text'
           }
-          
           return false
         }
         else if(prizeList.length === 0){

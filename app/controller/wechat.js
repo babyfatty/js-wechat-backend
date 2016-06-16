@@ -213,7 +213,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
           this.body = {
             content: '您还没有绑定账号，请先\n\n'+
             '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
-            '然后继续报名操作'
+            '以便体验更多功能'
             ,
             type:'text'
           }
@@ -240,20 +240,5 @@ module.exports = wechat(config.wechat).middleware(function *() {
       '来获取更多奥赛咨询！',
       type:'text'
     }
-  }
-  else if (message.Content === 'diaosi') {
-    // 回复屌丝(普通回复)
-    this.body = 'hehe'+api.getIp();
-  } else if (message.Content === '1') {
-    //你也可以这样回复text类型的信息
-    this.body = {
-      content: 'text object',
-      type: 'text'
-    };
-  } else {
-    this.body = {
-      content: 'text object',
-      type: 'text'
-    };
   }
 })

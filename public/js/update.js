@@ -47,7 +47,7 @@ new Vue({
 			text:'体育运动'},{value:6,
 			text:'英语'}],
 		prizeRanks:[
-			{
+			{															
 				value:0,
 				text:'特等奖'
 			},{
@@ -81,7 +81,9 @@ new Vue({
 	                },function(res,status){
 	                	if(res.code===0){
 	                		$('#loadingToast').hide()
-				this.prizeList = [this.zkscore].concat(this.rewardList)
+							this.prizeList = [this.zkscore].concat(this.rewardList)
+	window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+	          
 	                	}
 	                })
 			}else if(!!this.zkscore.id){
@@ -92,15 +94,18 @@ new Vue({
 	                },function(res,status){
 	                	if(res.code===0){
 	                		$('#loadingToast').hide()
-				this.prizeList = [this.zkscore].concat(this.rewardList)
-
+							this.prizeList = [this.zkscore].concat(this.rewardList)
+	window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+	          
 	                	}
+	          
 	                })
 			}else{
 				$('#loadingToast').hide()
-			}
 	window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
-			
+
+			}
+
 		},
 		addPrize: function(){
 			if(!this.alreadyshow){

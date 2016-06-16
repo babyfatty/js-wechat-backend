@@ -69,6 +69,10 @@ body{
 .operBtns .deleteBtn{
 	float: right;
 }
+.prizeList {
+	overflow: hidden;
+	width: 100%;
+}
 .prizeList li{
 	display: block;
 }

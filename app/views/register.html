@@ -10,7 +10,7 @@
 
 {% block content %}
 <form  method="post" id="registerForm" onkeydown="if(event.keyCode==13){return false;}">
-<div class="weui_cells_title">姓名</div>
+<div class="weui_cells_title">姓名<i style="color:red">*</i> <span style="font-size:12px">（请按真实情况填写，注册后不可更改）</span></div>
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
@@ -18,7 +18,7 @@
         </div>
     </div>
 </div>
-<div class="weui_cells_title">性别</div>
+<div class="weui_cells_title">性别<i style="color:red">*</i><span style="font-size:12px">（请按真实情况填写，注册后不可更改）</span></div>
 <div class="weui_cells weui_cells_radio">
     <label class="weui_cell weui_check_label" for="x11">
         <div class="weui_cell_bd weui_cell_primary">
@@ -39,7 +39,7 @@
         </div>
     </label>
 </div>
-<div class="weui_cells_title">出生年月</div>
+<div class="weui_cells_title">出生年月<i style="color:red">*</i><span style="font-size:12px">（请按真实情况填写，注册后不可更改）</span></div>
 <div class="weui_cells weui_cells_form">
 <div class="weui_cell">
     <div class="weui_cell_hd"><label for="" class="weui_label">日期</label></div>

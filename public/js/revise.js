@@ -9,7 +9,7 @@ var hasTel
 var isChecked = false
 
 function getCheck(){
-	return (telNum == $('#tel').attr('data-tel'))
+	return ($('#tel').val() == $('#tel').attr('data-tel'))
 }
 
 $('.codeArea').hide()

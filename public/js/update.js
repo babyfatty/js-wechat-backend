@@ -116,21 +116,6 @@ new Vue({
 		Timeclick:function(prize){
 			prize.tcheck = false
 		},
-		saveAll: function(){
-			$.post('http://aosaikang.xiaonian.me/api/reward/add',{
-              "r.student":parseInt($('#sid').val()),
-              "r.type":0,
-              "r.time":0,
-              "r.area":0,
-              "r.reward_type":newprize.reward_type,
-              "r.content":newprize.content,
-              "r.zk_score":zkscore
-            },function(res,status){
-            	$('#loadingToast').hide()
-              console.log(res)
-              console.log(status)
-            })
-		},
 		savePrize: function(index,prize,event){
 			var newprize = JSON.parse(JSON.stringify(prize))
 			if(!!prize.newAdd){

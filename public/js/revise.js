@@ -158,7 +158,7 @@ $('#updateForm').validator({
 			  	}
 			})
 		}else{
-			if((!isChecked || !getCheck())){
+			if((!isChecked && !getCheck())){
 				$('.successres').hide()
 				$('.sendFailres').hide()
 				$('.telFailres').hide()

@@ -67,8 +67,6 @@ function *showHonor(sid){
   var temphonour = yield request(honouroption)
   var rewards = JSON.parse(temphonour.body)
   if(typeof rewards.errorMsg == 'string' || typeof rewards.devErrorMsg == "string"){
-    rewards = []
-  }else if( !rewards.errorMsg ){
     return 'false'
   }
   else{
@@ -211,12 +209,20 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         break;
       case 'V301':
-        var prizeList = yield showHonor(userInfo.id)
-        if(typeof prizeList === 'string'){
+        if(!userInfo&&!userInfo.id){
           this.body = {
             content: '您还没有绑定账号，请先\n\n'+
             '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
             '以便体验更多功能'
+            ,
+            type:'text'
+          }
+          return
+        }
+        var prizeList = yield showHonor(userInfo.id)
+        if(typeof prizeList === 'string'){
+          this.body = {
+            content: '系统故障，程序员哥哥正在奋力修复！'
             ,
             type:'text'
           }

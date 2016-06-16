@@ -47,14 +47,14 @@ module.exports = {
          "name":"指导信息",
          "sub_button":[
            {
-             "type":"click",
+             "type":"view",
              "name":"考试须知",
-             "key":"V201"
+             "url":"https://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=100000002&idx=1&sn=569180267c366abcd4c3899a6b0d99dc&scene=0&previewkey=6qagqqJBTiuny%2F71xwak%2BcwqSljwj2bfCUaCyDofEow%3D&key=&ascene=7&uin=&devicetype=android-22&version=26031233&nettype=WIFI"
            },
            {
-             "type":"click",
+             "type":"view",
              "name":"认证课程信息",
-             "key":"V202"
+             "url":"https://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=100000002&idx=2&sn=d19a8aab6871ae59102e3c3127fe4a21&scene=0&previewkey=6qagqqJBTiuny%2F71xwak%2BcwqSljwj2bfCUaCyDofEow%3D&key=&ascene=7&uin=&devicetype=android-22&version=26031233&nettype=WIFI"
            }]
         },{
          "name":"个人信息",

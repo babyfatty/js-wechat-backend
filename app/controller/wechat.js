@@ -73,10 +73,7 @@ function *showHonor(sid){
   }
   return rewards
 }
-// module.exports = function*(){
-//   console.log(config.wechat)
-//   this.body = this.query.echostr
-// }
+
 module.exports = wechat(config.wechat).middleware(function *() {
   // 微信输入信息都在this.weixin上
   console.log(this)
@@ -214,7 +211,10 @@ module.exports = wechat(config.wechat).middleware(function *() {
         var prizeList = yield showHonor(userInfo.id)
         if(prizeList.length === 0){
           this.body = {
-            content: '暂无获奖信息',
+            content: '您还没有绑定账号，请先\n\n'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            '然后继续报名操作'
+            ,
             type:'text'
           }
         }else{

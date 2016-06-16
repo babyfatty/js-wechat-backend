@@ -26,8 +26,8 @@ $('#grade').change(function(e){
 		if($("#highscname").hasClass('error')){
 			$("#highscname").removeClass('error')
 		}
-		if($("#highscname").hasClass('empty')){
-			$("#highscname").removeClass('empty')
+		if($("#midschname").hasClass('empty')){
+			$("#midschname").removeClass('empty')
 		}
 	}
 })
@@ -44,8 +44,8 @@ $('#midsch').change(function(e){
 		if($("#highscname").hasClass('error')){
 			$("#highscname").removeClass('error')
 		}
-		if($("#highscname").hasClass('empty')){
-			$("#highscname").removeClass('empty')
+		if($("#midschname").hasClass('empty')){
+			$("#midschname").removeClass('empty')
 		}
 	}
 })

@@ -222,7 +222,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         var prizeList = yield showHonor(userInfo.id)
         if(typeof prizeList === 'string'){
           this.body = {
-            content: '系统故障，程序员哥哥正在奋力修复！'
+            content: '系统故障，程序员哥哥正在奋力修复！cons'
             ,
             type:'text'
           }

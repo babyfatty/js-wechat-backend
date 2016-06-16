@@ -5,7 +5,7 @@ function vailTel(num){
 var telNum,isChecked=false
 $('.codeArea').hide()
 $('.checkCode').on('click',function(e){
-	telNum = $(e.target).siblings('.weui_cell_bd.weui_cell_primary').find('#tel').val()
+	telNum = $('#tel').val()
 	$('.successres').hide()
 	$('.sendFailres').hide()
 	$('.telFailres').hide()
@@ -37,9 +37,9 @@ $('.gocheck').on('click',function(e){
 	$('.successcode').hide()
 	$('.codeFailres').hide()
 	$('.deplFailres').hide()
-	var code = $(e.target).siblings('.weui_cell_bd.weui_cell_primary').find('#code').val()
+	var code = $('#code').val()
 	if(!telNum){
-		telNum = $(e.target).siblings('.weui_cell_bd.weui_cell_primary').find('#tel').val()
+		telNum = $('#tel').val()
 	}
 	$.get('http://aosaikang.xiaonian.me/api/student/checkBindCaptcha?delete=true',{
 		phone:telNum,

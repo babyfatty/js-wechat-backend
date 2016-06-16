@@ -53,7 +53,7 @@ $('.gocheck').on('click',function(e){
 	$('.successcode').hide()
 	$('.codeFailres').hide()
 	$('.deplFailres').hide()
-	var code = $(e.target).siblings('.weui_cell_bd.weui_cell_primary').find('#code').val()
+	var code = $('#code').val()
 	if(!telNum){
 		telNum = $('#tel').val()
 	}

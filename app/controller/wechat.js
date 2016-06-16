@@ -54,13 +54,11 @@ function* signUp(competitionid,openid){
           }
     }
   var tempuserInfo = yield request(useroption)
-  if(typeof tempuserInfo.body.errorMsg == "string"){
+  if(typeof tempuserInfo.body.errorMsg == "string" || typeof tempuserInfo.body.devErrorMsg == "string" ){
       return false
   }else{
       return  JSON.parse(tempuserInfo.body).data.enrollment
   }
-
-
 
 }
 
@@ -68,7 +66,7 @@ function *showHonor(sid){
   var honouroption = "http://aosaikang.xiaonian.me/api/reward/getStudnetRewards?student="+sid
   var temphonour = yield request(honouroption)
   var rewards = JSON.parse(temphonour.body)
-  if(typeof rewards.errorMsg == 'string'){
+  if(typeof rewards.errorMsg == 'string' || typeof tempuserInfo.body.devErrorMsg == "string"){
     rewards = []
   }else{
     rewards = rewards.data.rewards

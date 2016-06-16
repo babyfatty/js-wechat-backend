@@ -79,7 +79,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="grade" required>
+            <select class="weui_select" name="grade" required id="grade">
                 {% for tgrade in grades %}
                 {% if tgrade.value == grade %}
                 <option value="{{ tgrade.value }}" selected>{{ tgrade.text }}</option>
@@ -92,7 +92,7 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="tel" name="highschool" value='{{gz_school}}' placeholder="如已上高中，请填写高中学校">
+            <input class="weui_input" type="tel" name="highschool" value='{{gz_school}}' placeholder="如已上高中，请填写高中学校" id="highscname">
         </div>
     </div>
 </div>
@@ -102,7 +102,7 @@
 <div class="weui_cells">
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
-            <select class="weui_select" name="midschool" required>
+            <select class="weui_select" name="midschool" required id="midsch">
                 {% for school in schools %}
                 {% if school.value == cz_type %}
                 <option value="{{ school.value }}" selected>{{ school.text }}</option>
@@ -117,7 +117,7 @@
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" name="midschoolname" type="tel" 
             {% if cz_type == "4" %} value="{{cz_school}}" {% else %} value="" {% endif %}
-            placeholder="如选择其他，请填写初中学校" >
+            placeholder="如选择其他，请填写初中学校" id="midschname">
         </div>
     </div>
 </div>

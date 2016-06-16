@@ -14,6 +14,24 @@ function getCheck(){
 
 $('.codeArea').hide()
 
+$('#grade').change(function(e){
+	console.log($(e.target).val())
+	$('#highscname').val("")
+	if($(e.target).val()>=10){
+		$('#highscname').attr('required',true)
+		$('#registerForm').validator()
+	}
+})
+
+$('#midsch').change(function(e){
+	console.log($(e.target).val())
+	$('#midschname').val('')
+	if($(e.target).val()=="4"){
+		$('#midschname').attr('required',true)
+		$('#registerForm').validator()
+	}
+})
+
 $('.checkCode').on('click',function(e){
 	telNum = $('#tel').val()
 	$('.successres').hide()

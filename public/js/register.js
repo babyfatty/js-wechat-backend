@@ -61,13 +61,13 @@ $('#grade').change(function(e){
 		$('#highscname').attr('required',true)
 		$('#registerForm').validator()
 	}else{
-		$('#highscname').attr('required',null)
+		$('#highscname').removeAttr('required')
 		$('#registerForm').validator()
 		if($("#highscname").hasClass('error')){
 			$("#highscname").removeClass('error')
 		}
-		if($("#midschname").hasClass('empty')){
-			$("#midschname").removeClass('empty')
+		if($("#highscname").hasClass('empty')){
+			$("#highscname").removeClass('empty')
 		}
 	}
 })
@@ -79,7 +79,7 @@ $('#midsch').change(function(e){
 		$('#midschname').attr('required',true)
 		$('#registerForm').validator()
 	}else{
-		$('#highscname').attr('required',null)
+		$('#midschname').removeAttr('required')
 		$('#registerForm').validator()
 		if($("#midschname").hasClass('error')){
 			$("#midschname").removeClass('error')

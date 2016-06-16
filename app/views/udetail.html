@@ -71,7 +71,7 @@
     <li v-for="prize in prizeList">
         <div class="weui_cells">
             <div class="editHonourForm" v-bind:class="{ 'show': prize.show, 'hide': !prize.show }">
-                <form method="post" action="/" id="editHonourForm" onkeydown="if(event.keyCode==13){return false;}">
+                <form method="post" id="editHonourForm" onkeydown="if(event.keyCode==13){return false;}" onsubmit="return false">
                     <div class="weui_cell weui_cell_select weui_select_after">
                         <div class="weui_cell_hd">
                             <label for="" class="weui_label">类别：</label>

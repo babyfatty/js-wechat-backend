@@ -22,13 +22,13 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   yield fs.writeFile('access_token.txt', JSON.stringify(token));
 });
 
-app.use(function*(next){
-  var menu = config.menu
-  yield next
-  var result = yield* api.createMenu(menu);
-  console.log(result)
-  console.log('222')
-})
+// app.use(function*(next){
+//   var menu = config.menu
+//   yield next
+//   var result = yield* api.createMenu(menu);
+//   console.log(result)
+//   console.log('222')
+// })
 
 // app.use(route.post('/profile', upload.single('avatar')))
 var koaBody = require('koa-body')

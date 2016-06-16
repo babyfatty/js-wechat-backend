@@ -66,6 +66,7 @@ function *showHonor(sid){
   var honouroption = "http://aosaikang.xiaonian.me/api/reward/getStudnetRewards?student="+sid
   var temphonour = yield request(honouroption)
   var rewards = JSON.parse(temphonour.body)
+  console.log(rewards)
   if(typeof rewards.errorMsg == 'string' || typeof rewards.devErrorMsg == "string"){
     return 'false'
   }
@@ -209,6 +210,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         break;
       case 'V301':
+      console.log(userInfo)
         if(!userInfo&&!userInfo.id){
           this.body = {
             content: '您还没有绑定账号，请先\n\n'+
@@ -220,6 +222,8 @@ module.exports = wechat(config.wechat).middleware(function *() {
           return
         }
         var prizeList = yield showHonor(userInfo.id)
+      console.log(prizeList)
+
         if(typeof prizeList === 'string'){
           this.body = {
             content: '系统故障，程序员哥哥正在奋力修复！cons'

@@ -163,13 +163,13 @@
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" id="tel" type="mobile" name="parenttel" required placeholder="请输入家长手机号" value="{{parent_phone}}" data-tel="{{parent_phone}}">
+            <input class="weui_input" id="tel" type="tel" name="parenttel" required placeholder="请输入家长手机号" value="{{parent_phone}}" data-tel="{{parent_phone}}">
         </div>
         <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary checkCode">获取验证码</a>
     </div>
     <div class="weui_cell codeArea">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="mobile" id="code" placeholder="请输入收到的验证码" name="code">
+            <input class="weui_input" type="number" id="code" placeholder="请输入收到的验证码" name="code">
         </div>
         <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary gocheck">验证</a>
     </div>

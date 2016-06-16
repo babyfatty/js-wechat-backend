@@ -103,7 +103,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
 
         if(userInfo.grade!="9"){
           this.body = {
-            content: '本次赛事仅针对初三升高一同学开放哦\n'+'更多赛事提醒请关注本账号'
+            content: '本次赛事仅针对初三升高一同学开放哦~更多赛事提醒请关注本账号日后推送'
             ,
             type:'text'
           }

@@ -63,6 +63,12 @@ $('#grade').change(function(e){
 	}else{
 		$('#highscname').attr('required',null)
 		$('#registerForm').validator()
+		if($("#highscname").hasClass('error')){
+			$("#highscname").removeClass('error')
+		}
+		if($("#highscname").hasClass('empty')){
+			$("#highscname").removeClass('empty')
+		}
 	}
 })
 
@@ -75,6 +81,12 @@ $('#midsch').change(function(e){
 	}else{
 		$('#highscname').attr('required',null)
 		$('#registerForm').validator()
+		if($("#highscname").hasClass('error')){
+			$("#highscname").removeClass('error')
+		}
+		if($("#highscname").hasClass('empty')){
+			$("#highscname").removeClass('empty')
+		}
 	}
 })
 

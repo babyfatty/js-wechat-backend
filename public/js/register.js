@@ -148,13 +148,16 @@ $('#registerForm').validator({
 					
 				})
     		}else{
+				if((!isChecked)){
 				$('.successres').hide()
 				$('.sendFailres').hide()
 				$('.telFailres').hide()
 				$('.successcode').hide()
 				$('.codeFailres').hide()
 				$('.deplFailres').hide()
-    			$('.codeFailres').show()
+				$('.samePhoneFailres').hide()
+				$('.codeFailres').show()
+			}
     		}
         	
 	    }

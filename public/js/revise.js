@@ -7,7 +7,8 @@ function vailTel(num){
 var telNum 
 var hasTel 
 var isChecked = false
-
+var showToggleM = false
+var showToggleH = false
 function getCheck(){
 	return ($('#tel').val() == $('#tel').attr('data-tel'))
 }
@@ -157,6 +158,7 @@ $('#updateForm').validator({
 			  	}
 			})
 		}else{
+			if((!isChecked || !getCheck())){
 				$('.successres').hide()
 				$('.sendFailres').hide()
 				$('.telFailres').hide()
@@ -164,7 +166,9 @@ $('#updateForm').validator({
 				$('.codeFailres').hide()
 				$('.deplFailres').hide()
 				$('.samePhoneFailres').hide()
-			$('.codeFailres').show()
+				$('.codeFailres').show()
+			}
+				
 		}
     }
 

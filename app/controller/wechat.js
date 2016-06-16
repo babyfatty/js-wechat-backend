@@ -236,11 +236,17 @@ module.exports = wechat(config.wechat).middleware(function *() {
           return false
         }else{
           var content = "个人荣誉殿堂\n\n"
+          var zkTmpl = ""
           for(var prize of prizeList){
-            var time = prize.time
-            var  tmpl = "类别：" + config.prizes.category[prize.type] + "\n" +"赛事："+ prize.content +"\n" + "时间：" +  time.split('-').slice(0,2).join('-') + "\n" + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "奖项：" + config.prizes.rank[prize.reward_type]+ "\n\n\n"
-            content += tmpl
+            if(!!prize.zk_score){
+              zkTmpl = "中考分数："+prize.zk_score+'\n\n\n'
+            }else{
+              var time = prize.time
+              var  tmpl = "类别：" + config.prizes.category[prize.type] + "\n" +"赛事："+ prize.content +"\n" + "时间：" +  time.split('-').slice(0,2).join('-') + "\n" + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "奖项：" + config.prizes.rank[prize.reward_type]+ "\n\n\n"
+              content += tmpl
+            }
           }
+          content += zkTmpl
           content += "你就是传说中的大牛吗？"
           this.body = {
             content: content,

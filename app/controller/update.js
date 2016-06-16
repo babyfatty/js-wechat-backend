@@ -19,7 +19,6 @@ function* getUserInfo(openid){
 }
 
 module.exports = function* (){
-
   
   var option = {
     url:"https://api.weixin.qq.com/sns/oauth2/access_token?appid="+config.app.appid+"&secret="+config.app.appsecret+"&code="+this.query.code+"&grant_type=authorization_code"

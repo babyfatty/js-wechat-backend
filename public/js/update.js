@@ -11,7 +11,6 @@ Vue.filter('fullCats', function (value) {
 })
 Vue.filter('fullRank', function (value) {
 	if(!!this.prizeRanks[value]){
-		console.log(value)
   		return this.prizeRanks[value].text
 	}
 })
@@ -25,7 +24,13 @@ new Vue({
 	template:temp,
 	data:{
 		prizeList: JSON.parse(JSON.stringify(window.prizeList)),
-		zkscore: window.zkscore,
+		zkscore: this.prizeList.filter(function(item){
+			return !!item.zk_score
+		})[0] || {zk_score:""},
+		rewardList: this.prizeList.filter(function(item){
+			console.log(item)
+			return !item.zk_score && item.content!="中考分数"
+		}),
 		alreadyshow: false,
 		prizeAreas:[{
 			value:0,
@@ -61,6 +66,42 @@ new Vue({
 		]	
 	},
 	methods:{
+		saveZkscore: function(a){
+			console.log(this.zkscore)
+			$('#loadingToast').show()
+			if(!this.zkscore.id&&!!this.zkscore.zk_score){
+				$.post('http://aosaikang.xiaonian.me/api/reward/add',{
+	                  "r.zk_score":this.zkscore.zk_score,
+	                  "r.student":parseInt($('#sid').val()),
+	                  "r.type":0,
+	                  "r.time":'2016-01-01',
+	                  "r.area":0,
+	                  "r.reward_type":0,
+	                  "r.content":'中考分数'
+	                },function(res,status){
+	                	if(res.code===0){
+	                		$('#loadingToast').hide()
+				this.prizeList = [this.zkscore].concat(this.rewardList)
+	                	}
+	                })
+			}else if(!!this.zkscore.id){
+				$.post('http://aosaikang.xiaonian.me/api/reward/update',{
+	                  "r.id":this.zkscore.id,
+	                  "r.student":parseInt($('#sid').val()),
+	                  "r.zk_score":this.zkscore.zk_score
+	                },function(res,status){
+	                	if(res.code===0){
+	                		$('#loadingToast').hide()
+				this.prizeList = [this.zkscore].concat(this.rewardList)
+
+	                	}
+	                })
+			}else{
+				$('#loadingToast').hide()
+			}
+	window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
+			
+		},
 		addPrize: function(){
 			if(!this.alreadyshow){
 				this.alreadyshow = true
@@ -74,19 +115,18 @@ new Vue({
 					newAdd:true,
 					showAlarm:false
 				}
-				this.prizeList.unshift(text)
+				this.rewardList.unshift(text)
 			}else{
 				$('#toast').show()
 				setTimeout(function(){
 					$('#toast').hide()
 				},800)
 			}
-			
 		},
 		removePrize: function(index,prize){
 			this.alreadyshow = false
 			if(!!prize.newAdd){
-				this.prizeList.$remove(prize)
+				this.rewardList.$remove(prize)
 			}else{
 				$.post('http://aosaikang.xiaonian.me/api/reward/delete',{
 					"r.id":prize.id
@@ -94,7 +134,7 @@ new Vue({
 					console.log(res)
 					console.log(status)
 				})
-				this.prizeList.$remove(prize)
+				this.rewardList.$remove(prize)
 			}
 		},
 		editPrize: function(index,prize){
@@ -119,7 +159,7 @@ new Vue({
 			this.alreadyshow = false
 			prize.show = false
 			if(!!prize.newAdd){
-				this.prizeList.$remove(prize)
+				this.rewardList.$remove(prize)
 			}else{
 				prize.type = this.cacheData.type
 				prize.area = this.cacheData.area
@@ -181,11 +221,10 @@ new Vue({
 })
 
 $('#submitBtn').on('click',function(){
-	window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
 })
-$('#editHonourForm').submit(function(e){
-	e.preventDefault()
-})
-$('#editHonourForm').validator({
-	 isErrorOnParent: true
-})
+// $('#editHonourForm').submit(function(e){
+// 	e.preventDefault()
+// })
+// $('#editHonourForm').validator({
+// 	 isErrorOnParent: true
+// })

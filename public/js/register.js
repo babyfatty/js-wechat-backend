@@ -2,6 +2,8 @@ function vailTel(num){
 
 	return true;
 }
+var showToggleM = false
+var showToggleH = false
 var telNum,isChecked=false
 $('.codeArea').hide()
 $('.checkCode').on('click',function(e){
@@ -54,41 +56,42 @@ $('.gocheck').on('click',function(e){
 	})
 })
 
-$('#grade').change(function(e){
-	console.log($(e.target).val())
-	$('#highscname').val("")
-	if($(e.target).val()>=10){
-		$('#highscname').attr('required',true)
-		$('#registerForm').validator()
+
+var highscname = $('#highscname')
+var midschname = $('#midschname')
+
+midschname.on('click',function(){
+	if(midschname.hasClass('error')){
+		midschname.removeClass('error')
+	}
+})
+highscname.on('click',function(){
+	if(highscname.hasClass('error')){
+		highscname.removeClass('error')
+	}
+})
+$('#midsch').change(function(e){
+	midschname.val('')
+
+	if(midschname.hasClass('error')){
+		midschname.removeClass('error')
+	}
+	if($(e.target).val()=="4"){
+		showToggleM = true
 	}else{
-		$('#highscname').removeAttr('required')
-		$('#registerForm').validator()
-		if($("#highscname").hasClass('error')){
-			$("#highscname").removeClass('error')
-		}
-		if($("#highscname").hasClass('empty')){
-			$("#highscname").removeClass('empty')
-		}
-		$('#registerForm').validator()
+		showToggleM = false
 	}
 })
 
-$('#midsch').change(function(e){
-	console.log($(e.target).val())
-	$('#midschname').val('')
-	if($(e.target).val()=="4"){
-		$('#midschname').attr('required',true)
-		$('#registerForm').validator()
+$('#grade').change(function(e){
+	highscname.val("")
+		if(highscname.hasClass('error')){
+		highscname.removeClass('error')
+	}
+	if($(e.target).val()>=10){
+		showToggleH = true
 	}else{
-		$('#midschname').removeAttr('required')
-		$('#registerForm').validator()
-		if($("#midschname").hasClass('error')){
-			$("#midschname").removeClass('error')
-		}
-		if($("#midschname").hasClass('empty')){
-			$("#midschname").removeClass('empty')
-		}
-		$('#registerForm').validator()
+		showToggleH = false
 	}
 })
 
@@ -105,7 +108,19 @@ $('#registerForm').validator({
         }
         , isErrorOnParent: true
         , after : function(){
-        	if(isChecked){
+        	if(showToggleH&&!highscname.val()){
+        		var hf = false
+        		highscname.addClass('error')
+        	}else{
+        	   hf = true
+        	}
+        	if(showToggleM&&!midschname.val()){
+        		var mf = false
+        		midschname.addClass('error')
+        	}else{
+				mf = true
+        	}
+        	if(isChecked && hf && mf){
         		$('#loadingToast').show()
 		    	var param = $('#registerForm').serializeArray()
 				var openid = $('#openid').val()
@@ -133,12 +148,12 @@ $('#registerForm').validator({
 					
 				})
     		}else{
-    				$('.successres').hide()
-	$('.sendFailres').hide()
-	$('.telFailres').hide()
-	$('.successcode').hide()
-	$('.codeFailres').hide()
-	$('.deplFailres').hide()
+				$('.successres').hide()
+				$('.sendFailres').hide()
+				$('.telFailres').hide()
+				$('.successcode').hide()
+				$('.codeFailres').hide()
+				$('.deplFailres').hide()
     			$('.codeFailres').show()
     		}
         	

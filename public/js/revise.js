@@ -14,41 +14,45 @@ function getCheck(){
 
 $('.codeArea').hide()
 
-$('#grade').change(function(e){
-	console.log($(e.target).val())
-	$('#highscname').val("")
-	if($(e.target).val()>=10){
-		$('#highscname').attr('required',true)
-		$('#registerForm').validator()
+var highscname = $('#highscname')
+var midschname = $('#midschname')
+
+
+midschname.on('click',function(){
+	if(midschname.hasClass('error')){
+		midschname.removeClass('error')
+	}
+})
+highscname.on('click',function(){
+	if(highscname.hasClass('error')){
+		highscname.removeClass('error')
+	}
+})
+$('#midsch').change(function(e){
+	midschname.val('')
+
+	if(midschname.hasClass('error')){
+		midschname.removeClass('error')
+	}
+	if($(e.target).val()=="4"){
+		showToggleM = true
 	}else{
-		$('#highscname').attr('required',null)
-		$('#registerForm').validator()
-		if($("#highscname").hasClass('error')){
-			$("#highscname").removeClass('error')
-		}
-		if($("#midschname").hasClass('empty')){
-			$("#midschname").removeClass('empty')
-		}
+		showToggleM = false
 	}
 })
 
-$('#midsch').change(function(e){
-	console.log($(e.target).val())
-	$('#midschname').val('')
-	if($(e.target).val()=="4"){
-		$('#midschname').attr('required',true)
-		$('#registerForm').validator()
+$('#grade').change(function(e){
+	highscname.val("")
+		if(highscname.hasClass('error')){
+		highscname.removeClass('error')
+	}
+	if($(e.target).val()>=10){
+		showToggleH = true
 	}else{
-		$('#highscname').attr('required',null)
-		$('#registerForm').validator()
-		if($("#highscname").hasClass('error')){
-			$("#highscname").removeClass('error')
-		}
-		if($("#midschname").hasClass('empty')){
-			$("#midschname").removeClass('empty')
-		}
+		showToggleH = false
 	}
 })
+
 
 $('.checkCode').on('click',function(e){
 	telNum = $('#tel').val()
@@ -113,7 +117,21 @@ $('#updateForm').submit(function(e){
 $('#updateForm').validator({
 		isErrorOnParent: true
         , after : function(){
-		if(isChecked || getCheck()){
+        	
+         	if(showToggleH&&!highscname.val()){
+        		var hf = false
+        		highscname.addClass('error')
+        	}else{
+        	   hf = true
+        	}
+        	if(showToggleM&&!midschname.val()){
+        		var mf = false
+        		midschname.addClass('error')
+        	}else{
+				mf = true
+        	}
+
+		if((isChecked || getCheck())&&mf && hf){
 	    	var openid = $('#openid').val()
 			var id = $('#sid').val()
 			var param = $('#updateForm').serializeArray()

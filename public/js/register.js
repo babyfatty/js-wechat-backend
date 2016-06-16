@@ -69,6 +69,7 @@ $('#grade').change(function(e){
 		if($("#highscname").hasClass('empty')){
 			$("#highscname").removeClass('empty')
 		}
+		$('#registerForm').validator()
 	}
 })
 
@@ -87,6 +88,7 @@ $('#midsch').change(function(e){
 		if($("#midschname").hasClass('empty')){
 			$("#midschname").removeClass('empty')
 		}
+		$('#registerForm').validator()
 	}
 })
 

@@ -81,8 +81,8 @@ $('#midsch').change(function(e){
 	}else{
 		$('#highscname').attr('required',null)
 		$('#registerForm').validator()
-		if($("#highscname").hasClass('error')){
-			$("#highscname").removeClass('error')
+		if($("#midschname").hasClass('error')){
+			$("#midschname").removeClass('error')
 		}
 		if($("#midschname").hasClass('empty')){
 			$("#midschname").removeClass('empty')

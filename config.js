@@ -44,16 +44,16 @@ module.exports = {
            }]
         },
        {
-         "name":"相关政策",
+         "name":"指导信息",
          "sub_button":[
            {
              "type":"click",
-             "name":"考场查询",
+             "name":"考试须知",
              "key":"V201"
            },
            {
              "type":"click",
-             "name":"培训信息",
+             "name":"认证课程",
              "key":"V202"
            }]
         },{

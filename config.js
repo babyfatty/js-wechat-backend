@@ -53,7 +53,7 @@ module.exports = {
            },
            {
              "type":"click",
-             "name":"认证课程",
+             "name":"认证课程信息",
              "key":"V202"
            }]
         },{

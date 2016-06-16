@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}操作成功{% endblock %}
+{% block title %}操作失败{% endblock %}
 
 {% block head %}
   {% parent %}
@@ -12,6 +12,7 @@
     <div class="weui_icon_area"><i class="weui_icon_msg weui_icon_warn"></i></div>
     <div class="weui_text_area">
         <h2 class="weui_msg_title">操作失败</h2>
+        <p class="weui_msg_desc">{{message}}</p>
     </div>
     <div class="weui_opr_area">
         <p class="weui_btn_area">

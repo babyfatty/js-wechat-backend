@@ -66,7 +66,7 @@ function *showHonor(sid){
   var honouroption = "http://aosaikang.xiaonian.me/api/reward/getStudnetRewards?student="+sid
   var temphonour = yield request(honouroption)
   var rewards = JSON.parse(temphonour.body)
-  if(typeof rewards.errorMsg == 'string' || typeof tempuserInfo.body.devErrorMsg == "string"){
+  if(typeof rewards.errorMsg == 'string' || typeof rewards.devErrorMsg == "string"){
     rewards = []
   }else{
     rewards = rewards.data.rewards

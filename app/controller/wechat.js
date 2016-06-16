@@ -207,7 +207,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }else{
           var content = "个人荣誉殿堂\n\n"
           for(var prize of prizeList){
-            var  tmpl = "奖项："+ prize.content +"\n"  + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "类别：" + config.prizes.category[prize.type] + "\n" +"时间：" +  prize.time + "\n\n\n"
+            var  tmpl = "类别：" + config.prizes.category[prize.type] + "\n" +"赛事："+ prize.content +"\n" + "时间：" +  prize.time + "\n\n\n" + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "奖项：" + config.prizes.areas[prize.reward_type]+ "\n"
             content += tmpl
           }
           content += "你就是传说中的大牛吗？"

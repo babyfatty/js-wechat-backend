@@ -18,7 +18,7 @@ function* getUserInfo(openid){
   }
 }
 
-update.getInfo = function* (){
+module.exports = function* (){
 
   
   var option = {
@@ -67,4 +67,3 @@ update.getInfo = function* (){
   this.body= yield render('udetail', obj);
 }
 
-module.exports = update

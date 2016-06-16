@@ -1,31 +1,35 @@
 {% extends 'layout.html' %}
 
-{% block title %}基本信息绑定{% endblock %}
+{% block title %}信息修改{% endblock %}
 
 {% block head %}
   {% parent %}
-  <link rel="stylesheet" href="/css/index.css">
-  <link rel="stylesheet" type="text/css" href="/css/register.css">
+  <link rel="stylesheet" href="/css/update.css">
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
 {% endblock %}
 
 {% block content %}
-<form  method="post" id="registerForm" action="/">
+<form action="/userUpdate" method="post" id="updateForm">
 <div class="weui_cells_title">姓名</div>
 <div class="weui_cells weui_cells_form">
-    <div class="weui_cell">
+    <div class="weui_cell disable">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" name="username" required max-length="8" placeholder="请输入真实姓名">
+            <input class="weui_input" type="text" name="username" placeholder="请输入真实姓名" value={{name}} disabled="disabled">
         </div>
     </div>
 </div>
 <div class="weui_cells_title">性别</div>
-<div class="weui_cells weui_cells_radio">
+<div class="weui_cells weui_cells_radio disable">
     <label class="weui_cell weui_check_label" for="x11">
         <div class="weui_cell_bd weui_cell_primary">
             <p>男</p>
         </div>
         <div class="weui_cell_ft">
-            <input type="radio" class="weui_check" name="gender" required value="1" id="x11">
+            {% if gender == '1' %}
+            <input type="radio" class="weui_check" name="gender" value="1" id="x11" checked="checked" disabled="disabled">
+            {% else %}
+            <input type="radio" class="weui_check" name="gender" value="1" id="x11" disabled="disabled">
+            {% endif %}
             <span class="weui_icon_checked"></span>
         </div>
     </label>
@@ -34,17 +38,21 @@
             <p>女</p>
         </div>
         <div class="weui_cell_ft">
-            <input type="radio" name="gender" value="0" class="weui_check" required id="x12" checked="checked">
+            {% if gender == '0' %}
+            <input type="radio" name="gender" value="0" class="weui_check" id="x12" checked="checked" disabled="disabled">
+            {% else %}
+            <input type="radio" name="gender" value="0" class="weui_check" id="x12" disabled="disabled">
+            {% endif %}
             <span class="weui_icon_checked"></span>
         </div>
     </label>
 </div>
 <div class="weui_cells_title">出生年月</div>
 <div class="weui_cells weui_cells_form">
-<div class="weui_cell">
+<div class="weui_cell disable">
     <div class="weui_cell_hd"><label for="" class="weui_label">日期</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" type="date" name="birthdate" value="" required>
+        <input class="weui_input" type="date" name="birthdate" value="{{birthday}}" disabled="disabled">
     </div>
 </div>
 </div>
@@ -55,10 +63,9 @@
         <div class="weui_cell_bd weui_cell_primary">
             <select class="weui_select" name="area" required>
                 {% for area in areas %}
-                {% if loop.first %}
+                {% if loop.index == city %}
                 <option value="{{ loop.index }}" selected>{{ area }}</option>
-                {% endif %}
-                {% if !loop.first %}
+                {% else %}
                 <option value="{{ loop.index }}">{{ area }}</option>
                 {% endif %}
                {%- endfor %}
@@ -73,12 +80,11 @@
     <div class="weui_cell weui_cell_select">
         <div class="weui_cell_bd weui_cell_primary">
             <select class="weui_select" name="grade" required>
-                {% for grade in grades %}
-                {% if loop.first %}
-                <option value="{{ grade.value }}" selected>{{ grade.text }}</option>
-                {% endif %}
-                {% if !loop.first %}
-                <option value="{{ grade.value }}">{{ grade.text }}</option>
+                {% for tgrade in grades %}
+                {% if tgrade.value == grade %}
+                <option value="{{ tgrade.value }}" selected>{{ tgrade.text }}</option>
+                {% else %}
+                <option value="{{ tgrade.value }}">{{ tgrade.text }}</option>
                 {% endif %}
                {%- endfor %}
             </select>
@@ -86,7 +92,7 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" name="highschool" placeholder="如已上高中，请填写高中学校">
+            <input class="weui_input" type="tel" name="highschool" value='{{gz_school}}' placeholder="如已上高中，请填写高中学校">
         </div>
     </div>
 </div>
@@ -98,10 +104,9 @@
         <div class="weui_cell_bd weui_cell_primary">
             <select class="weui_select" name="midschool" required>
                 {% for school in schools %}
-                {% if loop.first %}
+                {% if school.value == cz_type %}
                 <option value="{{ school.value }}" selected>{{ school.text }}</option>
-                {% endif %}
-                {% if !loop.first %}
+                {% else %}
                 <option value="{{ school.value }}">{{ school.text }}</option>
                 {% endif %}
                {%- endfor %}
@@ -110,7 +115,9 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" name="midschoolname" type="text" placeholder="如选择其他，请填写初中学校">
+            <input class="weui_input" name="midschoolname" type="tel" 
+            {% if cz_type == "4" %} value="{{cz_school}}" {% else %} value="" {% endif %}
+            placeholder="如选择其他，请填写初中学校" >
         </div>
     </div>
 </div>
@@ -122,8 +129,12 @@
         <div class="weui_cell_bd weui_cell_primary">
             <select class="weui_select" name="classroom" required>
                {% for room in classroom %}
+                 {% if room == klass %}
+                <option value="{{ room }}" selected>{{ room }}班</option>
+                 {% else %}
                 <option value="{{ room }}">{{ room }}班</option>
-			   {%- endfor %}
+                 {% endif %}
+               {%- endfor %}
             </select>
         </div>
     </div>
@@ -134,7 +145,7 @@
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" name="parentname" required placeholder="请输入家长真实姓名">
+            <input class="weui_input" type="text" name="parentname" placeholder="请输入家长真实姓名" value="{{parent_name}}" required>
         </div>
     </div>
 </div>
@@ -147,11 +158,12 @@
     <div class="base_error_wrap deplFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>两次间隔不能低于60秒</div></div>
     <div class="base_error_wrap telFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>请填写正确的手机号</div></div>
     <div class="base_error_wrap codeFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>校验失败</div></div>
+        <div class="base_error_wrap samePhoneFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>此号码已通过验证</div></div>
 </div>
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" id="mobile" type="mobile" name="parenttel" required placeholder="请输入家长手机号">
+            <input class="weui_input" id="tel" type="mobile" name="parenttel" required placeholder="请输入家长手机号" value="{{parent_phone}}" data-tel="{{parent_phone}}">
         </div>
         <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary checkCode">获取验证码</a>
     </div>
@@ -163,6 +175,7 @@
     </div>
 </div>
 <input type="hidden" value={{ openid }} id="openid">
+<input type="hidden" value={{ id }} id="sid">
 <div class="weui_btn_area">
         <button class="weui_btn weui_btn_primary" id="submitBtn">确定</button>
 </div>
@@ -190,5 +203,5 @@
 {% endblock %}
 {% block script %}
 {% parent %}
-<script src="/js/register.js"></script>
+<script src="/js/revise.js"></script>
 {% endblock %}

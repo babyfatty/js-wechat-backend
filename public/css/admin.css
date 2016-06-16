@@ -1,3 +1,35 @@
 .uploadField{
 
 }
+.error {
+	border: 1px solid red;
+}
+
+.empty {
+	border: 1px solid red;
+}
+
+
+#smsForm .input-group{
+	margin: 10px;
+}
+
+#smsForm .form-control{
+	margin: 10px;
+}
+
+#smsForm .sendSMS{
+	margin: 0 20px;
+}
+
+#smsForm .sendSuccess{
+	text-align: center;
+}
+
+#smsForm .sendFail{
+	text-align: center;
+}
+
+#smsForm .alert{
+	margin: 0 !important;
+}

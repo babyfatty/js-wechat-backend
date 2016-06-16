@@ -19,7 +19,7 @@
 </header>
 <section>
 <div class="panel panel-default">
-  <div class="panel-heading">上传文档（仅支持'.xslx'文件，不支持'.number'）</div>
+  <div class="panel-heading">上传文档（仅支持'.xslx'文件，不支持mac系统的'numbers'）</div>
   <div class="panel-body">
     <form  enctype='multipart/form-data' class="uploadField">
     <input type="file" id="resource" name="resource">
@@ -34,16 +34,27 @@
 </div>
 <div class="panel panel-default">
   <div class="panel-heading">短信群发配置</div>
+  <div id="warnMsg"></div>
   <div class="panel-body">
-    
+    <form id="smsForm" method="post" action="/">
+      <div class="input-group">
+        <input type="text" class="product form-control" required placeholder="product" name="product" aria-describedby="basic-addon2">
+        <input type="text" class="code form-control" required placeholder="code" name="code" aria-describedby="basic-addon2">
+        <input type="text" class="sign form-control" required placeholder="只可以是通过审核的短信签名" name="sign" aria-describedby="basic-addon2">
+        <input type="text" class="template form-control" required placeholder="只可以是通过审核的模板代码" name="template" aria-describedby="basic-addon2" value="SMS_10420492">
+      </div>
+      <button class="btn btn-default sendSMS">发送短信</button>
+    </form>
   </div>
 </div>
 </section>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script type="text/javascript">
+    window.telNumbers = {{telNumbers|safe}}
+</script>
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="/js/fileinput.min.js"></script>
-<script src="/js/admin.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/js/validator.js"></script>
+<script src="/js/admin.js"></script>
 </body>
 </html>

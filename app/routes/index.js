@@ -2,7 +2,7 @@ var router = require('koa-router')();
 
 var controller = require('../controller')
 
-router.get('/update',controller.update.getInfo)
+router.get('/update',controller.update)
 
 router.get('/register',controller.register.getInfo)
 
@@ -19,5 +19,7 @@ router.get('/downloadFile',controller.fileupload.download)
 router.get('/admin',controller.admin)
 
 router.get('/success',controller.success)
+
+router.get('/revise',controller.revise.getInfo)
 
 module.exports = router

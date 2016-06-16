@@ -92,7 +92,7 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="tel" name="highschool" value='{{gz_school}}' placeholder="如已上高中，请填写高中学校" id="highscname">
+            <input class="weui_input" type="text" name="highschool" value='{{gz_school}}' placeholder="如已上高中，请填写高中学校" id="highscname">
         </div>
     </div>
 </div>
@@ -115,7 +115,7 @@
     </div>
     <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" name="midschoolname" type="tel" 
+            <input class="weui_input" name="midschoolname" type="text" 
             {% if cz_type == "4" %} value="{{cz_school}}" {% else %} value="" {% endif %}
             placeholder="如选择其他，请填写初中学校" id="midschname">
         </div>

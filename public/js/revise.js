@@ -20,6 +20,9 @@ $('#grade').change(function(e){
 	if($(e.target).val()>=10){
 		$('#highscname').attr('required',true)
 		$('#registerForm').validator()
+	}else{
+		$('#highscname').attr('required',null)
+		$('#registerForm').validator()
 	}
 })
 
@@ -28,6 +31,9 @@ $('#midsch').change(function(e){
 	$('#midschname').val('')
 	if($(e.target).val()=="4"){
 		$('#midschname').attr('required',true)
+		$('#registerForm').validator()
+	}else{
+		$('#highscname').attr('required',null)
 		$('#registerForm').validator()
 	}
 })

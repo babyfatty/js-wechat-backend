@@ -25,7 +25,6 @@
 </div>
 <input type="hidden" value={{ openid }} id="openid">
 <input type="hidden" value={{ id }} id="sid">
-</form>
 <div id="loadingToast" class="weui_loading_toast" style="display: none;">
     <div class="weui_mask_transparent"></div>
     <div class="weui_toast">
@@ -66,7 +65,7 @@
     <li v-for="prize in prizeList">
         <div class="weui_cells">
             <div class="editHonourForm" v-bind:class="{ 'show': prize.show, 'hide': !prize.show }">
-                <form method="post" action="/" id="editHonourForm">
+                <form method="post" action="/" id="editHonourForm" onkeydown="if(event.keyCode==13){return false;}">
                     <div class="weui_cell weui_cell_select weui_select_after">
                         <div class="weui_cell_hd">
                             <label for="" class="weui_label">类别：</label>

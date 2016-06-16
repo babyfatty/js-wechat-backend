@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<form  method="post" id="registerForm" action="/">
+<form  method="post" id="registerForm" onkeydown="if(event.keyCode==13){return false;}">
 <div class="weui_cells_title">姓名</div>
 <div class="weui_cells weui_cells_form">
     <div class="weui_cell">

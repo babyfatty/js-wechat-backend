@@ -184,6 +184,9 @@ $('body').on('click','.weui_input',function(e){
 $('#submitBtn').on('click',function(){
 	window.location.replace("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fsuccess&response_type=code&scope=snsapi_base&state=123#wechat_redirect")
 })
+$('#editHonourForm').submit(function(e){
+	e.preventDefault()
+})
 $('#editHonourForm').validator({
 	errorCallback: function(unvalidFields){
 		console.log(unvalidFields)

@@ -108,13 +108,13 @@ $('#registerForm').validator({
         }
         , isErrorOnParent: true
         , after : function(){
-        	if(showToggleH&&!highscname.val()){
+        	if(showToggleH&&!$('#highscname').val()){
         		var hf = false
         		highscname.addClass('error')
         	}else{
         	   hf = true
         	}
-        	if(showToggleM&&!midschname.val()){
+        	if(showToggleM&&!$('#midschname').val()){
         		var mf = false
         		midschname.addClass('error')
         	}else{

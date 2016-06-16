@@ -42,6 +42,8 @@ function* getCompeInfo(competitionid,openid,sid){
 }
 
 function* signUp(competitionid,openid){
+
+  
   var useroption = {
       url:"http://aosaikang.xiaonian.me/api/competition/enroll",
       method:'post',
@@ -57,6 +59,9 @@ function* signUp(competitionid,openid){
   }else{
       return  JSON.parse(tempuserInfo.body).data.enrollment
   }
+
+
+
 }
 
 function *showHonor(sid){
@@ -95,6 +100,16 @@ module.exports = wechat(config.wechat).middleware(function *() {
           }
           return false;
         }
+
+        if(userInfo.grade!="9"){
+          this.body = {
+            content: '本次赛事仅针对初三升高一同学开放哦\n'+'更多赛事提醒请关注本账号'
+            ,
+            type:'text'
+          }
+          return false;
+        }
+
         if(!!compeInfo.student){
             this.body = {
             content: '您已经报过名啦！\n\n'+"姓名："+userInfo.name+'\n\n'

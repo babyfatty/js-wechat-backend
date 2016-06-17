@@ -89,8 +89,8 @@ module.exports = wechat(config.wechat).middleware(function *() {
       case 'V101':
         if(!userInfo){
           this.body = {
-            content: '您还没有绑定账号，请先\n\n'+
-            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            content: '您还没有绑定账号，请先\n\n👉'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>👈\n\n'+
             '然后继续报名操作'
             ,
             type:'text'
@@ -100,7 +100,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
 
         if(userInfo.grade!="9"){
           this.body = {
-            content: '本次赛事仅针对初三升高一同学开放哦~更多赛事提醒请关注本账号日后推送'
+            content: '本次赛事仅针对初三升高一同学开放哦~更多赛事提醒请关注本账号日后推送😜'
             ,
             type:'text'
           }
@@ -110,7 +110,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         if(!!compeInfo.student){
             var zkz ;
             if(!compeInfo['exam_card']){
-              zkz = '准考证号尚未生成'
+              zkz = '准考证号尚未生成💤'
             }else{
               zkz = '准考证号：' + compeInfo['exam_card']
             }
@@ -143,8 +143,8 @@ module.exports = wechat(config.wechat).middleware(function *() {
       case 'V102':
         if(!userInfo){
           this.body = {
-            content: '您还没有绑定账号，请先\n\n'+
-            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            content: '您还没有绑定账号，请先\n\n👉'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>👈\n\n'+
             '然后继续报名操作'
             ,
             type:'text'
@@ -153,7 +153,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         if(!compeInfo){
           this.body = {
-            content: '您还没有报名，请先报名！',
+            content: '您还没有报名，请先报名！😜',
             type:'text'
           }
           return false
@@ -161,19 +161,19 @@ module.exports = wechat(config.wechat).middleware(function *() {
         
         if(!compeInfo['exam_info']){
           this.body = {
-            content: '考场，准考证号等信息尚未生成，请稍后再查',
+            content: '考场，准考证号等信息尚未生成，请稍后再查💤',
             type:'text'
           }
           return false
         }
         var zkz ;
         if(!compeInfo['exam_card']){
-          zkz = '准考证号尚未生成\n\n'
+          zkz = '准考证号尚未生成💤\n\n'
         }else{
           zkz = '准考证号为：' + compeInfo['exam_card']+'\n\n'
         }
         this.body = {
-            content: '您的考场为\n\n'+
+            content: '您的考场为👇\n\n'+
             compeInfo['exam_info']+'\n\n'
             + zkz
             +"祝您取得好成绩！",
@@ -183,8 +183,8 @@ module.exports = wechat(config.wechat).middleware(function *() {
       case 'V103':
         if(!userInfo){
           this.body = {
-            content: '您还没有绑定账号，请先\n\n'+
-            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
+            content: '您还没有绑定账号，请先\n\n👉'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>👈\n\n'+
             '然后继续报名操作'
             ,
             type:'text'
@@ -193,23 +193,23 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         if(!compeInfo){
           this.body = {
-            content: '您还没有报名，请先报名！',
+            content: '您还没有报名，请先报名！😜',
             type:'text'
           }
           return false
         }
         if(!compeInfo['score_a']&&!compeInfo['score_a']&&!compeInfo['score_a']){
           this.body = {
-            content: '暂无成绩信息，请稍后再查',
+            content: '暂无成绩信息，请稍后再查💤',
             type:'text'
           }
           return false
         }
-        var scoreI = compeInfo['score_a']||'暂无'
-        var scoreII = compeInfo['score_b']||'暂无'
-        var scoreIII = compeInfo['score_c']||'暂无'
+        var scoreI = compeInfo['score_a']||'暂无💤 '
+        var scoreII = compeInfo['score_b']||'暂无💤  '
+        var scoreIII = compeInfo['score_c']||'暂无💤 '
         this.body = {
-            content: '您的成绩为\n\n'+
+            content: '您的成绩为👇\n\n'+
             "考核I成绩："+scoreI+'\n\n'+
             "考核II成绩："+scoreII+'\n\n'+
             "竞赛成绩："+scoreIII+'\n\n'
@@ -221,9 +221,9 @@ module.exports = wechat(config.wechat).middleware(function *() {
       console.log(userInfo)
         if(!userInfo&&!userInfo.id){
           this.body = {
-            content: '您还没有绑定账号，请先\n\n'+
-            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>\n\n'+
-            '以便体验更多功能'
+            content: '您还没有绑定账号，请先\n\n👉'+
+            '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxab5e05ece55fcade&redirect_uri=http%3A%2F%2Faosaikangjs.xiaonian.me%2Fregister&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">注册账号</a>👈\n\n'+
+            '然后继续报名操作'
             ,
             type:'text'
           }
@@ -234,7 +234,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
 
         if(typeof prizeList === 'string'){
           this.body = {
-            content: '系统故障，程序员哥哥正在奋力修复！cons'
+            content: '系统故障，程序员哥哥正在奋力修复！💔💔'
             ,
             type:'text'
           }
@@ -242,24 +242,24 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         else if(prizeList.length === 0){
           this.body = {
-            content: '暂无获奖信息',
+            content: '暂无获奖信息💤',
             type:'text'
           }
           return false
         }else{
-          var content = "个人荣誉殿堂\n\n"
+          var content = "✨个人荣誉殿堂✨\n\n"
           var zkTmpl = ""
           for(var prize of prizeList){
             if(!!prize.zk_score){
               zkTmpl = "中考分数："+prize.zk_score+'分\n\n\n'
             }else{
               var time = prize.time
-              var  tmpl = "类别：" + config.prizes.category[prize.type] + "\n" +"赛事："+ prize.content +"\n" + "时间：" +  time.split('-').slice(0,2).join('-') + "\n" + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "奖项：" + config.prizes.rank[prize.reward_type]+ "\n\n\n"
+              var  tmpl = "类别：" + config.prizes.category[prize.type] + "\n" +"赛事："+ prize.content +"\n" + "时间：" +  time.split('-').slice(0,2).join('-') + "\n" + "级别：" + config.prizes.areas[prize.area]+ "级\n" + "奖项：" + config.prizes.rank[prize.reward_type]+ "\n\n"
               content += tmpl
             }
           }
           content += zkTmpl
-          content += "你就是传说中的大牛吗？"
+          content += "你就是传说中的大牛吗？👀"
           this.body = {
             content: content,
             type:'text'

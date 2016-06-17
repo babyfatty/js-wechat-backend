@@ -112,14 +112,15 @@ module.exports = wechat(config.wechat).middleware(function *() {
             if(!compeInfo['code']){
               zkz = '准考证号尚未生成 💤'
             }else{
-              zkz = '准考证号：' + compeInfo['code']
+              zkz = '准考证号为👇\n\n' + compeInfo['code']
             }
 
             this.body = {
             content: '您已经报过名啦！🎉🎉\n\n'+"姓名："+userInfo.name+'\n\n'
+            + zkz+'\n\n'
             +"赛事："+competition.name+'\n\n'
-            +"报名时间："+compeInfo['create_time']+'\n\n'
-            + zkz,
+            +"报名时间："+compeInfo['create_time']
+            ,
             type:'text'
           }
           return false
@@ -170,7 +171,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         if(!compeInfo['code']){
           zkz = '准考证号尚未生成 💤\n\n'
         }else{
-          zkz = '准考证号为：' + compeInfo['code']+'\n\n'
+          zkz = '准考证号为👇\n\n' + compeInfo['code']+'\n\n'
         }
         var kc ;
                 if(!compeInfo['exam_info']){

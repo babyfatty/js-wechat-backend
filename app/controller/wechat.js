@@ -110,7 +110,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         if(!!compeInfo.student){
             var zkz ;
             if(!compeInfo['exam_card']){
-              zkz = '准考证号尚未生成+\n\n'
+              zkz = '准考证号尚未生成'
             }else{
               zkz = '准考证号：' + compeInfo['exam_card']
             }
@@ -168,7 +168,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         var zkz ;
         if(!compeInfo['exam_card']){
-          zkz = '准考证号尚未生成+\n\n'
+          zkz = '准考证号尚未生成\n\n'
         }else{
           zkz = '准考证号为：' + compeInfo['exam_card']+'\n\n'
         }
@@ -205,11 +205,14 @@ module.exports = wechat(config.wechat).middleware(function *() {
           }
           return false
         }
+        var scoreI = compeInfo['score_a']||'暂无'
+        var scoreII = compeInfo['score_b']||'暂无'
+        var scoreIII = compeInfo['score_c']||'暂无'
         this.body = {
             content: '您的成绩为\n\n'+
-            "考核I成绩:"+compeInfo['score_a']||'暂无'+'\n'+
-            "考核II成绩:"+compeInfo['score_b']||'暂无'+'\n'+
-            "竞赛成绩:"+compeInfo['score_c']||'暂无'+'\n\n'+
+            "考核I成绩:"+scoreI+'\n'+
+            "考核II成绩:"+scoreII+'\n'+
+            "竞赛成绩:"+scoreIII+'\n\n'+
             +"恭喜！",
             type:'text'
         }

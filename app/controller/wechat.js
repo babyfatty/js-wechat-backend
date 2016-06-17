@@ -275,5 +275,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
       '来获取更多奥赛咨询！',
       type:'text'
     }
+  }else{
+    this.body = ""
   }
 })

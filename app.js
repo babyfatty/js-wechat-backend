@@ -21,7 +21,15 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
   // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
   yield fs.writeFile('access_token.txt', JSON.stringify(token));
 });
+console.log(__dirname)
 
+app.use(function*(next){
+  var isExist =yield fs.exists('upload')
+  if(!isExist){
+    fs.mkdir('upload')    
+  }
+  yield next
+})
 // app.use(function*(next){
 //   var menu = config.menu
 //   yield next

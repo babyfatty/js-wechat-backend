@@ -108,10 +108,18 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
 
         if(!!compeInfo.student){
+            var zkz ;
+            if(!compeInfo['exam_card']){
+              zkz = '准考证号尚未生成+\n\n'
+            }else{
+              zkz = '准考证号：' + compeInfo['exam_card']
+            }
+
             this.body = {
             content: '您已经报过名啦！\n\n'+"姓名："+userInfo.name+'\n\n'
             +"赛事："+competition.name+'\n\n'
-            +"报名时间："+compeInfo['create_time'],
+            +"报名时间："+compeInfo['create_time']+'\n\n'
+            + zkz,
             type:'text'
           }
           return false
@@ -153,14 +161,21 @@ module.exports = wechat(config.wechat).middleware(function *() {
         
         if(!compeInfo['exam_info']){
           this.body = {
-            content: '考场信息尚未分配，请稍后再查',
+            content: '考场，准考证号等信息尚未生成，请稍后再查',
             type:'text'
           }
           return false
         }
+        var zkz ;
+        if(!compeInfo['exam_card']){
+          zkz = '准考证号尚未生成+\n\n'
+        }else{
+          zkz = '准考证号为：' + compeInfo['exam_card']+'\n\n'
+        }
         this.body = {
             content: '您的考场为\n\n'+
             compeInfo['exam_info']+'\n\n'
+            + zkz
             +"祝您取得好成绩！",
             type:'text'
           }
@@ -183,7 +198,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
           }
           return false
         }
-        if(!compeInfo['score']){
+        if(!compeInfo['score_a']&&!compeInfo['score_a']&&!compeInfo['score_a']){
           this.body = {
             content: '暂无成绩信息，请稍后再查',
             type:'text'
@@ -192,21 +207,11 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         this.body = {
             content: '您的成绩为\n\n'+
-            compeInfo['score']+'\n\n'
+            "考核I成绩:"+compeInfo['score_a']||'暂无'+'\n'+
+            "考核II成绩:"+compeInfo['score_b']||'暂无'+'\n'+
+            "竞赛成绩:"+compeInfo['score_c']||'暂无'+'\n\n'+
             +"恭喜！",
             type:'text'
-        }
-        break;
-      case 'V201':
-        this.body = {
-          content: '考试须知【TODO】',
-          type:'text'
-        }
-        break;
-      case 'V202':
-        this.body = {
-          content: '培训信息【TODO】',
-          type:'text'
         }
         break;
       case 'V301':

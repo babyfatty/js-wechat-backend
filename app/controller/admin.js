@@ -25,7 +25,6 @@ module.exports = function* (){
 
 	var telNumbers = yield getUserTel()
 
-	console.log(telNumbers)
 	var admin = {
 		"telNumbers":JSON.stringify(telNumbers)
 	}

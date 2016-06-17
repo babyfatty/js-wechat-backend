@@ -1,6 +1,7 @@
 var xlsx = require('node-xlsx')
 var fs = require('fs')
 var request = require('koa-request')
+var config = require('../../config')
 
 function* getCompeid(){
   var useroption =" http://aosaikang.xiaonian.me/api/competition/getCurrentCompetition"
@@ -15,7 +16,6 @@ function* getCompeid(){
 }
 
 function* getCompetitions(compid){
-	console.log(compid.id)
   var useroption ="http://aosaikang.xiaonian.me/api/admin/exportEnrollments?competition="+compid.id
   var info = yield request(useroption)
   var comp = JSON.parse(info.body)
@@ -25,7 +25,6 @@ function* getCompetitions(compid){
     return comp.data.enrollments
   }
 }
-
 
 var fileupload ={}
 
@@ -38,13 +37,25 @@ fileupload.upload = function* (){
 	const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(uploadFile));
 
 	var uploadData = JSON.parse(JSON.stringify(workSheetsFromBuffer))[0].data
-	var scoreObj = {}
+	var scoreI = {}
+	var scoreII = {}
+	var scoreIII = {}
 	var seatObj = {}
+	var ecardObj = {}
+
 	uploadData.shift()
+
 	for(var temarr of uploadData){
-		scoreObj[temarr[7]] = temarr[0]
-		seatObj[temarr[7]] = temarr[4]
+		console.log(temarr)
+		seatObj[temarr[1]] = temarr[7]
+		scoreI[temarr[1]] = temarr[8]
+		scoreII[temarr[1]] = temarr[9]
+		scoreIII[temarr[1]] = temarr[10]
 	}
+
+	console.log(uploadData)
+
+
 	var seatOption = {
 	  url:"http://aosaikang.xiaonian.me/api/admin/importExamInfo",
 	  method:'post',
@@ -54,29 +65,84 @@ fileupload.upload = function* (){
 	        map: JSON.stringify(seatObj)
 	      }
 	}
-	var scoreOption = {
+	var scoreIOption = {
 	  url:"http://aosaikang.xiaonian.me/api/admin/importScore",
 	  method:'post',
 	  qs: {
 	        competition: competition.id
 	    	,
-	        map: JSON.stringify(scoreObj)
+	        map: JSON.stringify(scoreI)
+	        ,
+	        key: 'score_a'
 	      }
 	}
-    var seatInfo = yield request(seatOption)
-    var scoreInfo = yield request(scoreOption)
-    this.body={"code":0,"data":{"success":true}}
+	var scoreIIOption = {
+	  url:"http://aosaikang.xiaonian.me/api/admin/importScore",
+	  method:'post',
+	  qs: {
+	        competition: competition.id
+	    	,
+	        map: JSON.stringify(scoreII)
+	        ,
+	        key: 'score_b'
+	      }
+	}
+	var scoreIIIOption = {
+	  url:"http://aosaikang.xiaonian.me/api/admin/importScore",
+	  method:'post',
+	  qs: {
+	        competition: competition.id
+	    	,
+	        map: JSON.stringify(scoreIII)
+	        ,
+	        key: 'score_c'
+	      }
+	}
 
+	var ecardOption = {
+		url:"",
+		method:'post',
+		qs:{}
+	}
+
+    var seatInfo = yield request(seatOption)
+    var scoreIInfo = yield request(scoreIOption)
+    var scoreIIInfo = yield request(scoreIIOption)
+    var scoreIIIInfo = yield request(scoreIIIOption)
+    // var ecardInfo = yield request(ecardOption)
+
+	this.body={"code":0,"data":{"success":true}}
+    
 }
 
 fileupload.download = function* (){
 	var competition = yield getCompeid()
-
-	var comps = yield getCompetitions(competition)
-	for(var comp of comps){
-		comp.studentSchool = comp['student']['cz_school']
-		comp.grade = comp['student'].grade
-		comp.id = comp['student'].id
+	var tempcomps = yield getCompetitions(competition)
+	if(tempcomps.length===0){
+		this.body = {
+			message:'暂无学生信息'
+		}
+		return false
+	}
+	var tempSingleData = {}
+	var comps = []
+	for(var comp of tempcomps){
+		comp['初中学校'] = comp['student']['cz_school'] || config.school.names[comp['student'].cz_type].text
+		tempSingleData ={
+			'姓名':comp.student,
+			'学生id':comp['student'].id,
+			'性别':comp['student'].gender?'男':'女',
+			'初中学校':comp['初中学校'],
+			'年级':comp['student'].grade,
+			'报名时间':comp.create_time,
+			'竞赛组别':comp.competition,
+			'准考证号':comp.exam_info,
+			'考核I成绩':comp.score_a,
+			'考核II成绩':comp.score_b,
+			'竞赛成绩':comp.score_c,
+			'准考证号':''
+		}
+		comps.push(tempSingleData)
 	}
 	var tempData = []
 	var downData = []
@@ -87,7 +153,7 @@ fileupload.download = function* (){
 	tempData = []
 	for(var comp of comps){
 		for(var item in comp){
-			if(item === "student" ){
+			if(item === "姓名" ){
 				tempData.push(comp[item].name)
 			}else{
 				tempData.push(comp[item])			
@@ -96,7 +162,6 @@ fileupload.download = function* (){
 		downData.push(tempData)
 		tempData = []
 	}
-	
 	var buffer = xlsx.build([{name: "register", data: downData}]);
 	this.body = buffer;
 	var filename = 'studentInfo.xlsx'

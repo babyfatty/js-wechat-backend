@@ -116,7 +116,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
             }
 
             this.body = {
-            content: '您已经报过名啦！\n\n'+"姓名："+userInfo.name+'\n\n'
+            content: '您已经报过名啦！🎉🎉\n\n'+"姓名："+userInfo.name+'\n\n'
             +"赛事："+competition.name+'\n\n'
             +"报名时间："+compeInfo['create_time']+'\n\n'
             + zkz,
@@ -133,7 +133,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
           return false
         }
         this.body = {
-            content: '报名成功！\n\n'
+            content: '报名成功！🎉🎉\n\n'
             +"姓名："+userInfo.name+'\n\n'
             +"赛事："+competition.name+'\n\n'
             +"报名时间："+signUpResult['create_time'],

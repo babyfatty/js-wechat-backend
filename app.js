@@ -23,20 +23,20 @@ var api = new API(config.wechat.appid, config.wechat.appsecret, function* () {
 });
 console.log(__dirname)
 
-// app.use(function*(next){
-//   var isExist =yield fs.exists('upload')
-//   if(!isExist){
-//     fs.mkdir('upload')    
-//   }
-//   yield next
-// })
 app.use(function*(next){
-  var menu = config.menu
+  var isExist =yield fs.exists('upload')
+  if(!isExist){
+    fs.mkdir('upload')    
+  }
   yield next
-  var result = yield* api.createMenu(menu);
-  console.log(result)
-  console.log('222')
 })
+// app.use(function*(next){
+//   var menu = config.menu
+//   yield next
+//   var result = yield* api.createMenu(menu);
+//   console.log(result)
+//   console.log('222')
+// })
 
 // app.use(route.post('/profile', upload.single('avatar')))
 var koaBody = require('koa-body')

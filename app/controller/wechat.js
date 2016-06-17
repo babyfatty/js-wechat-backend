@@ -109,10 +109,10 @@ module.exports = wechat(config.wechat).middleware(function *() {
 
         if(!!compeInfo.student){
             var zkz ;
-            if(!compeInfo['exam_card']){
+            if(!compeInfo['code']){
               zkz = '准考证号尚未生成 💤'
             }else{
-              zkz = '准考证号：' + compeInfo['exam_card']
+              zkz = '准考证号：' + compeInfo['code']
             }
 
             this.body = {
@@ -159,7 +159,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
           return false
         }
         
-        if(!compeInfo['exam_info']){
+        if(!compeInfo['exam_info']&&!compeInfo['code']){
           this.body = {
             content: '考场，准考证号等信息尚未生成，请稍后再查 💤',
             type:'text'
@@ -167,14 +167,20 @@ module.exports = wechat(config.wechat).middleware(function *() {
           return false
         }
         var zkz ;
-        if(!compeInfo['exam_card']){
+        if(!compeInfo['code']){
           zkz = '准考证号尚未生成 💤\n\n'
         }else{
-          zkz = '准考证号为：' + compeInfo['exam_card']+'\n\n'
+          zkz = '准考证号为：' + compeInfo['code']+'\n\n'
+        }
+        var kc ;
+                if(!compeInfo['exam_info']){
+          kc = '考场尚未安排 💤\n\n'
+        }else{
+          kc = '您的考场为👇\n\n' + compeInfo['exam_info']+'\n\n'
         }
         this.body = {
-            content: '您的考场为👇\n\n'+
-            compeInfo['exam_info']+'\n\n'
+            content: 
+            kc
             + zkz
             +"祝您取得好成绩！",
             type:'text'

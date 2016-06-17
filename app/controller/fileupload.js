@@ -41,7 +41,7 @@ fileupload.upload = function* (){
 	var scoreII = {}
 	var scoreIII = {}
 	var seatObj = {}
-	var ecardObj = {}
+	var codeObj = {}
 
 	uploadData.shift()
 
@@ -51,6 +51,7 @@ fileupload.upload = function* (){
 		scoreI[temarr[1]] = temarr[8]
 		scoreII[temarr[1]] = temarr[9]
 		scoreIII[temarr[1]] = temarr[10]
+		seatObj[temarr[1]] = temarr[11]
 	}
 
 	console.log(uploadData)
@@ -76,6 +77,7 @@ fileupload.upload = function* (){
 	        key: 'score_a'
 	      }
 	}
+		console.log(JSON.stringify(scoreI))
 	var scoreIIOption = {
 	  url:"http://aosaikang.xiaonian.me/api/admin/importScore",
 	  method:'post',
@@ -87,6 +89,7 @@ fileupload.upload = function* (){
 	        key: 'score_b'
 	      }
 	}
+	console.log(JSON.stringify(scoreII))
 	var scoreIIIOption = {
 	  url:"http://aosaikang.xiaonian.me/api/admin/importScore",
 	  method:'post',
@@ -98,20 +101,24 @@ fileupload.upload = function* (){
 	        key: 'score_c'
 	      }
 	}
-
-	var ecardOption = {
-		url:"",
+	console.log(JSON.stringify(scoreIII))
+	var codeOption = {
+		url:"http://aosaikang.xiaonian.me/api/admin/importExamCode",
 		method:'post',
-		qs:{}
+		qs: {
+	        competition: competition.id
+	        ,
+	        map: JSON.stringify(seatObj)
+	      }
 	}
 
     var seatInfo = yield request(seatOption)
     var scoreIInfo = yield request(scoreIOption)
     var scoreIIInfo = yield request(scoreIIOption)
     var scoreIIIInfo = yield request(scoreIIIOption)
-    // var ecardInfo = yield request(ecardOption)
-
-	this.body={"code":0,"data":{"success":true}}
+    var codeInfo = yield request(codeOption)
+    console.log(seatInfo.body,scoreIInfo.body,scoreIIInfo.body,scoreIIIInfo.body,codeInfo.body)
+	this.body={}
     
 }
 
@@ -140,7 +147,7 @@ fileupload.download = function* (){
 			'考核I成绩':comp.score_a,
 			'考核II成绩':comp.score_b,
 			'竞赛成绩':comp.score_c,
-			'准考证号':''
+			'准考证号':comp.code
 		}
 		comps.push(tempSingleData)
 	}

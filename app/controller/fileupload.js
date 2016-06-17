@@ -136,7 +136,7 @@ fileupload.download = function* (){
 			'年级':comp['student'].grade,
 			'报名时间':comp.create_time,
 			'竞赛组别':comp.competition,
-			'准考证号':comp.exam_info,
+			'考场':comp.exam_info,
 			'考核I成绩':comp.score_a,
 			'考核II成绩':comp.score_b,
 			'竞赛成绩':comp.score_c,

@@ -110,7 +110,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         if(!!compeInfo.student){
             var zkz ;
             if(!compeInfo['exam_card']){
-              zkz = '准考证号尚未生成💤'
+              zkz = '准考证号尚未生成 💤'
             }else{
               zkz = '准考证号：' + compeInfo['exam_card']
             }
@@ -161,14 +161,14 @@ module.exports = wechat(config.wechat).middleware(function *() {
         
         if(!compeInfo['exam_info']){
           this.body = {
-            content: '考场，准考证号等信息尚未生成，请稍后再查💤',
+            content: '考场，准考证号等信息尚未生成，请稍后再查 💤',
             type:'text'
           }
           return false
         }
         var zkz ;
         if(!compeInfo['exam_card']){
-          zkz = '准考证号尚未生成💤\n\n'
+          zkz = '准考证号尚未生成 💤\n\n'
         }else{
           zkz = '准考证号为：' + compeInfo['exam_card']+'\n\n'
         }
@@ -200,14 +200,14 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         if(!compeInfo['score_a']&&!compeInfo['score_a']&&!compeInfo['score_a']){
           this.body = {
-            content: '暂无成绩信息，请稍后再查💤',
+            content: '暂无成绩信息，请稍后再查 💤',
             type:'text'
           }
           return false
         }
-        var scoreI = compeInfo['score_a']||'暂无💤 '
-        var scoreII = compeInfo['score_b']||'暂无💤  '
-        var scoreIII = compeInfo['score_c']||'暂无💤 '
+        var scoreI = compeInfo['score_a']||'暂无 💤 '
+        var scoreII = compeInfo['score_b']||'暂无 💤  '
+        var scoreIII = compeInfo['score_c']||'暂无 💤 '
         this.body = {
             content: '您的成绩为👇\n\n'+
             "考核I成绩："+scoreI+'\n\n'+
@@ -242,7 +242,7 @@ module.exports = wechat(config.wechat).middleware(function *() {
         }
         else if(prizeList.length === 0){
           this.body = {
-            content: '暂无获奖信息💤',
+            content: '暂无获奖信息 💤',
             type:'text'
           }
           return false

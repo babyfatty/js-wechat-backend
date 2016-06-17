@@ -210,9 +210,9 @@ module.exports = wechat(config.wechat).middleware(function *() {
         var scoreIII = compeInfo['score_c']||'暂无'
         this.body = {
             content: '您的成绩为\n\n'+
-            "考核I成绩:"+scoreI+'\n'+
-            "考核II成绩:"+scoreII+'\n'+
-            "竞赛成绩:"+scoreIII+'\n\n'+
+            "考核I成绩:"+scoreI+'\n\n'+
+            "考核II成绩:"+scoreII+'\n\n'+
+            "竞赛成绩:"+scoreIII+'\n\n'
             +"恭喜！",
             type:'text'
         }

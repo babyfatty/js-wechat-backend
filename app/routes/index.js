@@ -6,7 +6,7 @@ router.get('/update',controller.update)
 
 router.get('/register',controller.register.getInfo)
 
-router.get('/admin',controller.admin)
+// router.get('/admin',controller.admin)
 
 router.post('/wechat',controller.wechat)
 
@@ -18,9 +18,9 @@ router.get('/downloadFile',controller.fileupload.download)
 
 router.get('/selwoodnanjinguniversity520',controller.admin)
 
-router.get('/admin2',controller.admin2.show)
+router.get('/admin',controller.admin2.show)
 
-router.get('/checkcode',controller.admin2.checkcode)
+router.post('/checkcode',controller.admin2.checkcode)
 
 router.get('/success',controller.success)
 

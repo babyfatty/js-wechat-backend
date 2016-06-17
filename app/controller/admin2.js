@@ -20,30 +20,26 @@ function* getUserTel(){
   }
 }
 
-var self = this
+
 module.exports = {
+
   checkcode :function* (){
-
-      var checkoption ='http://aosaikang.xiaonian.me/api/student/checkBindCaptcha?phone=13045703214&code='+this.query.code+'&delete=true'
+      var checkoption ='http://aosaikang.xiaonian.me/api/student/checkBindCaptcha?delete=true&phone=13951802031&code='+this.request.body.code
       var result = yield request(checkoption)
-      console.log(result.body)
-
-      result.body = {"code":0,"data":{}}
-      if(result.body.data){
-        console.log('chengle')
+      var statuscode =  JSON.parse(result.body)
+      if(statuscode.code === 0){
         this.redirect('/selwoodnanjinguniversity520')
-        this.body = result.body
-        return false
       }else{
-        this.body = result.body
-        return false
+        this.body = "验证码错误"
       }
   },
+
   show : function* (){
     var telNumbers = yield getUserTel()
 
-    var admin2 = {}
+    var admin2 = {
 
+    }
     this.body= yield render('admin2', admin2);
   }
 }

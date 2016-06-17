@@ -30,15 +30,15 @@
   <div class="base_error_wrap sendFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>发送失败</div></div>
   <div class="base_error_wrap codeFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>验证码错误</div></div>
   <div class="panel-body" style="text-align: center;">
-    <form id="smsForm" method="post" action="/">
+    <form id="smsForm" method="post" action="/checkcode">
       <div class="input-group" style="margin:0 auto">
-        <input type="text" class="form-control" required placeholder="联系管理员获取验证码" name="product" aria-describedby="basic-addon2" id="scode">
+        <input type="text" class="form-control" required placeholder="联系管理员获取验证码" name="code" aria-describedby="basic-addon2" id="scode">
       </div>
-    </form>
-    <div style="display:inline-block;margin:0 auto">
+      <div style="display:inline-block;margin:0 auto">
       <div class="btn btn-primary sendCode">发送登录验证码</div>
-      <div class="btn btn-primary loginBtn">验证登录</div>
+      <button class="btn btn-primary loginBtn">验证登录</button>
     </div>
+    </form>
   </div>
 </div>
 </section>
@@ -46,7 +46,7 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $('.sendCode').on('click',function(){
-      $.get('http://aosaikang.xiaonian.me/api/student/sendBindCaptcha?phone=13045703214',function(res,status){
+      $.get('http://aosaikang.xiaonian.me/api/student/sendBindCaptcha?phone=13951802031',function(res,status){
         console.log(res)
         if(res.code===0){
           $('.successres').show()
@@ -56,16 +56,6 @@
         }
         else{
           $('.sendFailres').show()
-        }
-      })
-  })
-  $('.loginBtn').on('click',function(){
-      $.get('/checkcode',{
-        code:$('#scode').val()
-      },function(res){
-        console.log(res)
-        if(res.code!="0"){
-            $('.codeFailres').show()
         }
       })
   })

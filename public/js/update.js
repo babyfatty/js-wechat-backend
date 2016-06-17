@@ -202,6 +202,14 @@ new Vue({
 	                		$('#loadingToast').hide()
 		                	self.alreadyshow = false
 	          				prize.show = false
+	          				// window.location.reload()
+	          				prize.id = res.data.reward.id
+	                	}else{
+	                		$('#loadingToast').hide()
+	                		$('#toastfail').show()
+    						setTimeout(function(){
+								$('#toastfail').hide()
+							},800)
 	                	}
 	                })
                 }
@@ -221,6 +229,12 @@ new Vue({
 	                		$('#loadingToast').hide()
 		                	self.alreadyshow = false
 	          				prize.show = false
+	                	}else{
+	                		$('#loadingToast').hide()
+	                		$('#toastfail').show()
+    						setTimeout(function(){
+								$('#toastfail').hide()
+							},800)
 	                	}
 	                })
 	            }	

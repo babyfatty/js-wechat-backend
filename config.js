@@ -48,13 +48,18 @@ module.exports = {
          "sub_button":[
            {
              "type":"view",
+             "name":"中学生拔尖计划",
+             "url":"http://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=2247483652&idx=3&sn=bf2f6005123a2a52ee3078d9b49f7078#rd"
+           },
+           {
+             "type":"view",
              "name":"竞赛报名须知",
-             "url":"https://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=100000002&idx=1&sn=569180267c366abcd4c3899a6b0d99dc&scene=0&previewkey=6qagqqJBTiuny%2F71xwak%2BcwqSljwj2bfCUaCyDofEow%3D&key=&ascene=7&uin=&devicetype=android-22&version=26031233&nettype=WIFI"
+             "url":"http://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=2247483652&idx=1&sn=d8526f73bd2b98178e57897f7e679328#rd"
            },
            {
              "type":"view",
              "name":"认证课程信息",
-             "url":"https://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=100000002&idx=2&sn=d19a8aab6871ae59102e3c3127fe4a21&scene=0&previewkey=6qagqqJBTiuny%2F71xwak%2BcwqSljwj2bfCUaCyDofEow%3D&key=&ascene=7&uin=&devicetype=android-22&version=26031233&nettype=WIFI"
+             "url":"http://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=2247483652&idx=2&sn=15aff682334bed51eb12c077cc086837#rd"
            }]
         },{
          "name":"个人信息",

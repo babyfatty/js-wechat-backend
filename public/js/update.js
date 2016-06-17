@@ -33,7 +33,7 @@ new Vue({
 			console.log(item)
 			return !item.zk_score && item.content!="中考分数"
 		}),
-		alreadyshow: true,
+		alreadyshow: this.alreadyshow=="true"?true:false,
 		prizeAreas:[{
 			value:0,
 			text:'全国',

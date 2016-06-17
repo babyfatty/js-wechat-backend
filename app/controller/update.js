@@ -62,16 +62,20 @@ module.exports = function* (){
       reword.show = false      
     }
   }
-  rewards.unshift({
-  type:"0",
-  area:"0",
-  time:'',
-  reward_type:'0',
-  content:'',
-  show:true,
-  newAdd:true,
-  showAlarm:false
-  })
+  if(rewards.length===0){
+      rewards.unshift({
+        type:"0",
+        area:"0",
+        time:'',
+        reward_type:'0',
+        content:'',
+        show:true,
+        newAdd:true,
+        showAlarm:false
+      })
+      obj.alreadyshow = true
+  }
+  obj.alreadyshow = false
   obj.prizeList = JSON.stringify(rewards)
   this.body= yield render('udetail', obj);
 }

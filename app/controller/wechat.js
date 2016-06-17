@@ -276,6 +276,11 @@ module.exports = wechat(config.wechat).middleware(function *() {
       type:'text'
     }
   }else{
-    this.body = ""
+    this.body = {
+      this.body = {
+      content:'可以在对话框内给我留言哦~~/:rose/:rose',
+      type:'text'
+    }
+    }
   }
 })

@@ -16,7 +16,11 @@ router.post('/fileupload',controller.fileupload.upload)
 
 router.get('/downloadFile',controller.fileupload.download)
 
-router.get('/admin',controller.admin)
+router.get('/selwoodnanjinguniversity520',controller.admin)
+
+router.get('/admin2',controller.admin2.show)
+
+router.get('/checkcode',controller.admin2.checkcode)
 
 router.get('/success',controller.success)
 

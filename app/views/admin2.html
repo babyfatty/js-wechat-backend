@@ -1,0 +1,74 @@
+<html>
+<head>
+  <title>admin</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/register.css">
+    <style type="text/css">
+      .base_success,.base_error{
+        text-align: center;
+        color: #999;
+      }
+
+    </style>
+</head>
+<body>
+<header>
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for navbar-static-top better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">奥赛新城</a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+</header>
+<section>
+<div class="panel panel-default">
+  <div class="base_error_wrap deplFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>短信发送过频繁，请稍后再试</div></div>
+  <div class="base_error_wrap successres" style="display:none;"><div class="base_success"><i class="weui_icon_success_circle"></i>验证码已发送至管理员手机</div></div>
+  <div class="base_error_wrap sendFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>发送失败</div></div>
+  <div class="base_error_wrap codeFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>验证码错误</div></div>
+  <div class="panel-body" style="text-align: center;">
+    <form id="smsForm" method="post" action="/">
+      <div class="input-group" style="margin:0 auto">
+        <input type="text" class="form-control" required placeholder="联系管理员获取验证码" name="product" aria-describedby="basic-addon2" id="scode">
+      </div>
+    </form>
+    <div style="display:inline-block;margin:0 auto">
+      <div class="btn btn-primary sendCode">发送登录验证码</div>
+      <div class="btn btn-primary loginBtn">验证登录</div>
+    </div>
+  </div>
+</div>
+</section>
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $('.sendCode').on('click',function(){
+      $.get('http://aosaikang.xiaonian.me/api/student/sendBindCaptcha?phone=13045703214',function(res,status){
+        console.log(res)
+        if(res.code===0){
+          $('.successres').show()
+        }
+        else if(res.code===1){
+          $('.deplFailres').show()
+        }
+        else{
+          $('.sendFailres').show()
+        }
+      })
+  })
+  $('.loginBtn').on('click',function(){
+      $.get('/checkcode',{
+        code:$('#scode').val()
+      },function(res){
+        console.log(res)
+        if(res.code!="0"){
+            $('.codeFailres').show()
+        }
+      })
+  })
+</script>
+</body>
+</html>

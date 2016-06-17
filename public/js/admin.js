@@ -16,7 +16,6 @@ var successTmpl = '<div class="alert alert-success alert-dismissible" role="aler
 var failTmpl ='<div class="alert alert-danger alert-dismissible" role="alert">'+
     '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
     '<strong>Warning!</strong> 短信发送失败'
-
 $('#smsForm').validator({
     after : function(){
     	var formparams = $('#smsForm').serializeArray()
@@ -27,7 +26,9 @@ $('#smsForm').validator({
 		var sign = formparams[2].value.trim()
 		var template = formparams[3].value.trim()
 		console.log(params,sign,template)
-		$.get('http://aosaikang.xiaonian.me/api/sms/sendSms?phones=["13222001020"]&params='+JSON.stringify(params)+'&sign='+sign+'&template='+template,function(res){
+
+		var tels = window.telNumbers || ['13222001020']
+		$.get('http://aosaikang.xiaonian.me/api/sms/sendSms?phones='+tels+'&params='+JSON.stringify(params)+'&sign='+sign+'&template='+template,function(res){
 			console.log(res)
 			if(res.code==0){
 				$('#warnMsg').html(successTmpl)

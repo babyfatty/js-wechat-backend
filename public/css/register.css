@@ -1,0 +1,37 @@
+.checkTelField{
+	display: -webkit-flex;
+}
+.checkTelField .titlePT{
+	flex:1;
+}
+
+.checkTelField .base_error_wrap{
+	flex:2.5;
+}
+
+.weui_icon_warn:before {
+    font-size: 14px;
+    color: rgb(255,48,48);
+}
+
+.weui_icon_warn{
+	margin-right: 5px;
+}
+
+.weui_icon_success_circle:before{
+	    font-size: 14px;
+    color: rgb(0,205,0);
+}
+
+.weui_icon_success_circle{
+	margin-right: 5px;
+}
+
+.base_error{
+    border: 1px solid rgb(255,48,48);
+    background: rgba(255,48,48,0.2);
+}
+.base_success{
+	border: 1px solid rgb(0,205,0);
+    background: rgba(0,205,0,0.2);
+}

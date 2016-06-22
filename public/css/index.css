@@ -1,0 +1,17 @@
+body{
+	overflow-x: hidden;
+    background-color: #fbf9fe;
+}
+
+.error {
+	border: 1px solid red;
+}
+
+.empty {
+	border: 1px solid red;
+}
+
+.weui_btn_area{
+	margin: 15px .3em;
+}
+

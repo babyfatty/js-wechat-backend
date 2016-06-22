@@ -1,0 +1,46 @@
+{
+  "name": "js-wechat-backend",
+  "description": "",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babyfatty/js-wechat-backend.git"
+  },
+  "author": "sxc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/babyfatty/js-wechat-backend/issues"
+  },
+  "homepage": "https://github.com/babyfatty/js-wechat-backend#readme",
+  "dependencies": {
+    "alidayu-node": "^1.0.3",
+    "co-fs": "~1.2.0",
+    "co-views": "^2.1.0",
+    "co-wechat": "0.0.4",
+    "co-wechat-api": "~2.4.0",
+    "formidable": "^1.0.17",
+    "jade": "^1.11.0",
+    "koa": "^1.2.0",
+    "koa-body": "^1.4.0",
+    "koa-body-parser": "^1.1.2",
+    "koa-generic-session": "^1.10.2",
+    "koa-onerror": "^1.3.1",
+    "koa-redis": "^2.1.1",
+    "koa-request": "^1.0.0",
+    "koa-router": "~5.4.0",
+    "koa-static": "^2.0.0",
+    "koa-views": "^4.1.0",
+    "mini-logger": "^1.1.0",
+    "mysql": "^2.11.1",
+    "node-xlsx": "^0.7.1",
+    "path": "^0.12.7",
+    "sequelize": "^3.23.3",
+    "swig": "^1.4.2",
+    "thunkify": "^2.1.2",
+    "wechat-api": "~1.27.1"
+  }
+}

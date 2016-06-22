@@ -1,0 +1,173 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{name}}的信息完善{% endblock %}
+
+{% block head %}
+  {% parent %}
+  <link rel="stylesheet" href="/css/update.css">
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div id="prizeContainer">
+
+</div>
+
+<input type="hidden" value={{ openid }} id="openid">
+<input type="hidden" value={{ id }} id="sid">
+<div id="toast" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <p class="weui_toast_content" style="line-height: 7.6em;text-align: center;margin: 0;width: 100%;">请先保存或取消</p>
+    </div>
+</div>
+<div id="toastfail" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <p class="weui_toast_content" style="line-height: 7.6em;text-align: center;margin: 0;width: 100%;">保存失败</p>
+    </div>
+</div>
+<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">保存中</p>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% parent %}
+<script type="text/template" id="prizeTmpl">
+{% raw %}
+<div class="weui_cells_title selfHonour">
+    <span>个人荣誉</span> 
+    <div v-on:click="addPrize" class="addHonourBtn">
+        <svg style="height: 100%; width: 100%;"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon"><g class="large-icon" style="fill: currentColor">
+                <g>
+                  <path d="M21,13h-8v8h-2v-8H3v-2h8V3h2v8h8V13z"></path>
+                </g>
+              </g></svg>
+        </svg>
+    </div>
+</div>
+<ul class="prizeList">
+    <li v-for="prize in rewardList">
+        <div class="weui_cells">
+            <div class="editHonourForm" v-bind:class="{ 'show': prize.show, 'hide': !prize.show }">
+                <form method="post" id="editHonourForm" onkeydown="if(event.keyCode==13){return false;}" onsubmit="return false">
+                    <div class="weui_cell weui_cell_select weui_select_after">
+                        <div class="weui_cell_hd">
+                            <label for="" class="weui_label">类别：</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <select class="weui_select" name="prizecat" v-model="prize.type" required>
+                                   <option v-for="prizeCat in prizeCats" value="{{prizeCat.value}}">{{prizeCat.text}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd"><label for="" @focus="fs" class="weui_label">奖项名称：</label></div>
+                        <div class="weui_cell_bd weui_cell_primary" v-bind:class="{ 'error': prize.fcheck}">
+                            <input class="weui_input" type="text" name="prizename" placeholder="奖项名称" value="{{prize.content}}" v-model="prize.content" required v-on:click="click">
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd"><label for="" class="weui_label">日期：</label></div>
+                        <div class="weui_cell_bd weui_cell_primary" v-bind:class="{ 'error': prize.tcheck}">
+                            <input class="weui_input" type="date" name="prizedate" v-model= "prize.time" required value="{{prize.time}}" v-on:click="click">
+                        </div>
+                    </div>
+                    <div class="weui_cell weui_cell_select weui_select_after">
+                        <div class="weui_cell_hd">
+                            <label for="" class="weui_label">级别：</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <select class="weui_select" name="prizearea" v-model="prize.area" required>
+                                    <option  v-for="prizeArea in prizeAreas" value="{{prizeArea.value}}">{{prizeArea.text}}级</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="weui_cell weui_cell_select weui_select_after">
+                        <div class="weui_cell_hd">
+                            <label for="" class="weui_label">名次：</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <select class="weui_select" name="prizerank" v-model="prize.reward_type" required>
+                                    <option  v-for="prizeRank in prizeRanks" value="{{prizeRank.value}}">{{prizeRank.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="border-top: 1px solid #d9d9d9;height: 24px;line-height: 24px;color: #999;text-align: center;">
+                    <i style="color:red">*</i> <span style="font-size:12px">编辑完成请点击保存，以防丢失编辑数据。</span>
+                    </div>
+                    <div class="operBtns">
+                        <button  class="weui_btn weui_btn_mini weui_btn_primary saveBtn" v-on:click="savePrize($index,prize)">保存</button>
+                        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default" v-on:click="cancelEdit($index,prize)">取消</a>
+                        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_warn deleteBtn" style="float:right" v-on:click="removePrize($index,prize)">删除</a>
+                    </div>
+                </form>
+            </div>
+            <div class="honourItem" v-bind:class="{ 'show': !prize.show , 'hide': prize.show}">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">{{ prize.content }}</h4>
+                    <div class="weui_media_desc">
+                        类别: {{prize.type | fullCats}}
+                    </div>
+                    <div class="weui_media_desc">
+                        年份: {{prize.time}}
+                    </div>
+                    <div class="weui_media_desc">
+                        级别: {{prize.area | fullArea}} 级
+                    </div>
+                    <div class="weui_media_desc">
+                        奖项: {{prize.reward_type | fullRank}}
+                    </div>
+                </div>
+                <div class="editBtns">
+                    <div class="editBtn" v-on:click="editPrize($index,prize)">
+                        <li-icon aria-hidden="true" type="pencil-icon"><svg style="height: 100%; width: 100%;"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon"><g class="large-icon" style="fill: currentColor">
+                            <g>
+                              <path d="M21.7,5l-2.7-2.7C18.8,2.1,18.5,2,18.3,2s-0.5,0.1-0.7,0.3L5,14.8L3,21l6.2-2L21.7,6.4c0.2-0.2,0.3-0.5,0.3-0.7C22,5.5,21.9,5.2,21.7,5zM7.8,17.8l-1.6-1.6L18.3,4.1l1.6,1.6L7.8,17.8z"></path>
+                            </g>
+                          </g></svg></svg></li-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <div id="zkScoreField" style="display:none">
+        <div class="weui_cells_title">
+        <span>中考成绩</span> <span class="policyText"><i style="color:red">*</i>请如实填写，若由错误信息引发不诚信问题，相关法律后果将由学生本人和信息填写人共同承担。</span>
+        </div>
+        <div class="weui_cell" style="background:#fff;border-bottom: 1px solid #D9D9D9;">
+            <div class="weui_cell_hd"><label class="weui_label">中考总分</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入中考总分" value={{zkscore.zk_score}} v-model="zkscore.zk_score" id="zkscore">
+            </div>
+        </div>
+    </div>
+</ul>
+<div class="weui_btn_area">
+        <button class="weui_btn weui_btn_primary" id="submitBtn" v-on:click="saveZkscore(zkscore.zk_score)">确定</button>
+</div>
+{% endraw %}
+</script>
+<script type="text/javascript">
+    window.prizeList = {{prizeList|safe}}
+    window.alreadyshow = {{alreadyshow|safe}}
+</script>
+<script src="/js/update.js"></script>
+{% endblock %}

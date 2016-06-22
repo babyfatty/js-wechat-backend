@@ -1,0 +1,146 @@
+body{
+	background: #fbf9fe
+}
+.disable{
+	background: #eee;
+}
+
+.checkTelField{
+	display: -webkit-flex;
+}
+.checkTelField .titlePT{
+	flex:1;
+}
+
+.checkTelField .base_error_wrap{
+	flex:2.5;
+}
+
+.weui_icon_warn:before {
+    font-size: 14px;
+    color: rgb(255,48,48);
+}
+
+.weui_icon_warn{
+	margin-right: 5px;
+}
+
+.weui_icon_success_circle:before{
+	    font-size: 14px;
+    color: rgb(0,205,0);
+}
+
+.weui_icon_success_circle{
+	margin-right: 5px;
+}
+
+.base_error{
+    border: 1px solid rgb(255,48,48);
+    background: rgba(255,48,48,0.2);
+}
+.base_success{
+	border: 1px solid rgb(0,205,0);
+    background: rgba(0,205,0,0.2);
+}
+
+.weui_cells_title {
+    padding-top: .77em;
+    padding-bottom: .3em;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #888;
+    font-size: 14px;
+    margin:0;
+}
+.operBtns{
+	overflow: hidden;
+	padding: 0 15px;
+	overflow: hidden;
+    padding-bottom: 8px;
+    border-top: 1px solid #d9d9d9;
+}
+
+.operBtns .saveBtn {
+    margin-top: 15px;
+    float: left;
+    margin-right: 10px;
+}
+
+.operBtns .deleteBtn{
+	float: right;
+}
+.prizeList {
+	overflow: hidden;
+	width: 100%;
+}
+.prizeList li{
+	display: block;
+}
+.prizeList .weui_cells{
+	margin-top: 0
+}
+
+.weui_btn_plain_primary{
+	width: 40%;
+    margin-top: 20px;
+}
+
+.honourItem{
+	display: -webkit-flex;
+}
+
+.honourItem .weui_media_box {
+	flex:3;
+}
+
+.honourItem .editBtns{
+	padding: 15px;
+	flex:1;
+}
+
+.editBtn{
+	width: 24px;
+	height: 24px;
+}
+
+.prizeList .honourItem.show{
+	display: -webkit-flex;
+}
+
+.prizeList .editHonourForm .show{
+	display: block;
+}
+
+.prizeList .hide{
+	display: none;
+}
+
+.addHonourBtn{
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	color: #04be02;
+	padding-left: 15px;
+}
+
+.selfHonour{
+	display: -webkit-flex;
+}
+
+.selfHonour span{
+	flex:3;
+	padding-right: 15px;
+	line-height: 24px;
+}
+
+.selfHonour .addHonourBtn{
+	flex:1;
+}
+
+#zkScoreField{
+	margin-top: 40px;
+}
+#zkScoreField .policyText {
+	font-size: 12px;
+
+}

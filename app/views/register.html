@@ -1,0 +1,194 @@
+{% extends 'layout.html' %}
+
+{% block title %}基本信息绑定{% endblock %}
+
+{% block head %}
+  {% parent %}
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" type="text/css" href="/css/register.css">
+{% endblock %}
+
+{% block content %}
+<form  method="post" id="registerForm" onkeydown="if(event.keyCode==13){return false;}">
+<div class="weui_cells_title">姓名<i style="color:red">*</i> <span style="font-size=12px">（请按真实情况填写，注册后不可更改）</span></div>
+<div class="weui_cells weui_cells_form">
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" name="username" required max-length="8" placeholder="请输入真实姓名">
+        </div>
+    </div>
+</div>
+<div class="weui_cells_title">性别<i style="color:red">*</i><span style="font-size=12px">（请按真实情况填写，注册后不可更改）</span></div>
+<div class="weui_cells weui_cells_radio">
+    <label class="weui_cell weui_check_label" for="x11">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>男</p>
+        </div>
+        <div class="weui_cell_ft">
+            <input type="radio" class="weui_check" name="gender" required value="1" id="x11" checked="checked">
+            <span class="weui_icon_checked"></span>
+        </div>
+    </label>
+    <label class="weui_cell weui_check_label" for="x12">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>女</p>
+        </div>
+        <div class="weui_cell_ft">
+            <input type="radio" name="gender" value="0" class="weui_check" required id="x12" >
+            <span class="weui_icon_checked"></span>
+        </div>
+    </label>
+</div>
+<div class="weui_cells_title">出生年月<i style="color:red">*</i><span style="font-size=12px">（请按真实情况填写，注册后不可更改）</span></div>
+<div class="weui_cells weui_cells_form">
+<div class="weui_cell">
+    <div class="weui_cell_hd"><label for="" class="weui_label">日期</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+        <input class="weui_input" type="date" name="birthdate" value="" required>
+    </div>
+</div>
+</div>
+
+<div class="weui_cells_title">地区</div>
+<div class="weui_cells">
+    <div class="weui_cell weui_cell_select">
+        <div class="weui_cell_bd weui_cell_primary">
+            <select class="weui_select" name="area" required>
+                {% for area in areas %}
+                {% if loop.first %}
+                <option value="{{ loop.index }}" selected>{{ area }}</option>
+                {% endif %}
+                {% if !loop.first %}
+                <option value="{{ loop.index }}">{{ area }}</option>
+                {% endif %}
+               {%- endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="weui_cells_title">年级</div>
+<div class="weui_cells">
+    <div class="weui_cell weui_cell_select">
+        <div class="weui_cell_bd weui_cell_primary">
+            <select class="weui_select" name="grade" required  id="grade">
+                {% for grade in grades %}
+                {% if loop.first %}
+                <option value="{{ grade.value }}" selected>{{ grade.text }}</option>
+                {% endif %}
+                {% if !loop.first %}
+                <option value="{{ grade.value }}">{{ grade.text }}</option>
+                {% endif %}
+               {%- endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" id="highscname" name="highschool" placeholder="如已上高中，请填写高中学校">
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="weui_cells_title">初中学校</div>
+<div class="weui_cells">
+    <div class="weui_cell weui_cell_select">
+        <div class="weui_cell_bd weui_cell_primary">
+            <select class="weui_select" name="midschool" required id="midsch">
+                {% for school in schools %}
+                {% if loop.first %}
+                <option value="{{ school.value }}" selected>{{ school.text }}</option>
+                {% endif %}
+                {% if !loop.first %}
+                <option value="{{ school.value }}">{{ school.text }}</option>
+                {% endif %}
+               {%- endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" name="midschoolname" id="midschname" type="text" placeholder="如选择其他，请填写初中学校">
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="weui_cells_title">班级</div>
+<div class="weui_cells">
+    <div class="weui_cell weui_cell_select weui_select_after">
+        <div class="weui_cell_bd weui_cell_primary">
+            <select class="weui_select" name="classroom" required>
+               {% for room in classroom %}
+                <option value="{{ room }}">{{ room }}班</option>
+			   {%- endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="weui_cells_title">家长联系人</div>
+<div class="weui_cells weui_cells_form">
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" name="parentname" required placeholder="请输入家长真实姓名">
+        </div>
+    </div>
+</div>
+
+<div class="weui_cells_title checkTelField">
+    <div class="titlePT">家长手机号</div>
+    <div class="base_error_wrap successres" style="display:none;"><div class="base_success"><i class="weui_icon_success_circle"></i>验证码已发送至您的手机</div></div>
+    <div class="base_error_wrap successcode" style="display:none;"><div class="base_success"><i class="weui_icon_success_circle"></i>验证通过</div></div>
+    <div class="base_error_wrap sendFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>请填写正确的手机号</div></div>
+    <div class="base_error_wrap deplFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>两次间隔不能低于60秒</div></div>
+    <div class="base_error_wrap telFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>请填写正确的手机号</div></div>
+    <div class="base_error_wrap codeFailres" style="display:none;"><div class="base_error" style="visibility:visible;"><i class="weui_icon_warn"></i>校验失败</div></div>
+</div>
+<div class="weui_cells weui_cells_form">
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="tel" type="tel" name="parenttel" required placeholder="请输入家长手机号">
+        </div>
+        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary checkCode">获取验证码</a>
+    </div>
+    <div class="weui_cell codeArea">
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="number" id="code" placeholder="请输入收到的验证码" name="code">
+        </div>
+        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary gocheck">验证</a>
+    </div>
+</div>
+<input type="hidden" value={{ openid }} id="openid">
+<div class="weui_btn_area">
+        <button class="weui_btn weui_btn_primary" id="submitBtn">确定</button>
+</div>
+</form>
+<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">保存中</p>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% parent %}
+<script src="/js/register.js"></script>
+{% endblock %}

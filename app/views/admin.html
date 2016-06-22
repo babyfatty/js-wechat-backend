@@ -1,0 +1,60 @@
+<html>
+<head>
+  <title>admin</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
+</head>
+<body>
+<header>
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for navbar-static-top better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">奥赛新城</a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+</header>
+<section>
+<div class="panel panel-default">
+  <div class="panel-heading">上传文档（仅支持'.xslx'文件，不支持mac系统的'numbers'）</div>
+  <div class="panel-body">
+    <form  enctype='multipart/form-data' class="uploadField">
+    <input type="file" id="resource" name="resource">
+    </form>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">下载报名信息</div>
+  <div class="panel-body">
+    <a href="/downloadFile" class="glyphicon glyphicon-download-alt" target="_blank">下载文件</a>  
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">短信群发配置</div>
+  <div id="warnMsg"></div>
+  <div class="panel-body">
+    <form id="smsForm" method="post" action="/">
+      <div class="input-group">
+        <input type="text" class="product form-control" required placeholder="product" name="product" aria-describedby="basic-addon2">
+        <input type="text" class="code form-control" required placeholder="code" name="code" aria-describedby="basic-addon2">
+        <input type="text" class="sign form-control" required placeholder="只可以是通过审核的短信签名" name="sign" aria-describedby="basic-addon2" value="奥赛新城">
+        <input type="text" class="template form-control" required placeholder="只可以是通过审核的模板代码" name="template" aria-describedby="basic-addon2" value="SMS_10420492">
+      </div>
+      <button class="btn btn-primary sendSMS">发送短信</button>
+    </form>
+  </div>
+</div>
+</section>
+<script type="text/javascript">
+    window.telNumbers = {{telNumbers|safe}}
+</script>
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="/js/fileinput.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/js/validator.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

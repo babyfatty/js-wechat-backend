@@ -30,13 +30,13 @@ app.use(function*(next){
   yield next
 })
 
-app.use(function*(next){
-  var menu = config.menu
-  yield next
-  var result = yield* api.createMenu(menu);
-  console.log(result)
-  console.log('222')
-})
+// app.use(function*(next){
+//   var menu = config.menu
+//   yield next
+//   var result = yield* api.createMenu(menu);
+//   console.log(result)
+//   console.log('222')
+// })
 
 // app.use(route.post('/profile', upload.single('avatar')))
 var koaBody = require('koa-body')

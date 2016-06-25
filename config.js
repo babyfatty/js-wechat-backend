@@ -54,7 +54,7 @@ module.exports = {
            {
              "type":"view",
              "name":"竞赛报名须知",
-             "url":"http://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=2247483652&idx=1&sn=d8526f73bd2b98178e57897f7e679328#rd"
+             "url":"http://mp.weixin.qq.com/s?__biz=MzI0OTQwODcxNQ==&mid=100000002&idx=1&sn=569180267c366abcd4c3899a6b0d99dc&scene=0&previewkey=6qagqqJBTiuny%2F71xwak%2BcwqSljwj2bfCUaCyDofEow%3D#wechat_redirect"
            },
            {
              "type":"view",

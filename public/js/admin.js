@@ -27,7 +27,7 @@ $('#smsForm').validator({
 		var template = formparams[3].value.trim()
 		console.log(params,sign,template)
 
-		var tels = JSON.parse(JSON.stringify(window.telNumbers)) || ['13222001020']
+		var tels = JSON.stringify(window.telNumbers) || ['13222001020']
 		$.get('http://aosaikang.xiaonian.me/api/sms/sendSms?phones='+tels+'&params='+JSON.stringify(params)+'&sign='+sign+'&template='+template,function(res){
 			console.log(res)
 			if(res.code==0){

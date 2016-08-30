@@ -51,9 +51,9 @@ fileupload.upload = function* (){
 		scoreI[temarr[1]] = temarr[8]
 		scoreII[temarr[1]] = temarr[9]
 		scoreIII[temarr[1]] = temarr[10]
-		seatObj[temarr[1]] = temarr[11]
+		codeObj[temarr[1]] = temarr[11]
 	}
-
+ 
 	console.log(uploadData)
 
 
@@ -108,7 +108,7 @@ fileupload.upload = function* (){
 		qs: {
 	        competition: competition.id
 	        ,
-	        map: JSON.stringify(seatObj)
+	        map: JSON.stringify(codeObj)
 	      }
 	}
 
@@ -147,7 +147,7 @@ fileupload.download = function* (){
 			'考核I成绩':comp.score_a,
 			'考核II成绩':comp.score_b,
 			'竞赛成绩':comp.score_c,
-			'准考证号':comp.code
+			'准考证号':comp.code 
 		}
 		comps.push(tempSingleData)
 	}
